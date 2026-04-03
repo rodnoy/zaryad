@@ -15,8 +15,6 @@ final class DIContainer: ObservableObject {
     let sessionsViewModel: SessionsViewModel
     let settingsViewModel: SettingsViewModel
 
-    // Local HTTP exporter
-    private var exporter: LocalHTTPExporter?
     private var cancellables = Set<AnyCancellable>()
 
     init(
@@ -41,14 +39,6 @@ final class DIContainer: ObservableObject {
         self.sessionsViewModel = SessionsViewModel(store: self.sessionStore)
         self.settingsViewModel = SettingsViewModel()
 
-        // Observe settings toggle for local HTTP exporter
-        self.settingsViewModel.$useLocalHTTPExporter
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] enabled in
-                Task { await self?.updateExporter(enabled: enabled) }
-            }
-            .store(in: &cancellables)
-
         // When sessions stop, refresh sessions list
         self.realtimeViewModel.$isSessionActive
             .receive(on: DispatchQueue.main)
@@ -58,36 +48,5 @@ final class DIContainer: ObservableObject {
                 }
             }
             .store(in: &cancellables)
-    }
-
-    private func updateExporter(enabled: Bool) async {
-        if enabled {
-            // Build simple JSON provider capturing realtimeViewModel recentSamples
-            let getJSON: () -> Data? = { [weak self] in
-                guard let samples = self?.realtimeViewModel.recentSamples else { return nil }
-                let encoder = JSONEncoder()
-                // Match dashboard HTML expectations (snake_case keys) and ISO8601 timestamps
-                encoder.keyEncodingStrategy = .convertToSnakeCase
-                encoder.dateEncodingStrategy = .iso8601
-                return try? encoder.encode(samples)
-            }
-
-            // Prefer repository file in project root for dashboard HTML if available
-            let cwd = FileManager.default.currentDirectoryPath
-            let htmlPath = (cwd as NSString).appendingPathComponent("charger_dashboard.html")
-
-            let exp = LocalHTTPExporter(port: 8080, htmlPath: htmlPath, getJSON: getJSON)
-            do {
-                try exp.start()
-                self.exporter = exp
-                print("Local HTTP exporter started on port 8080")
-            } catch {
-                print("Failed to start local HTTP exporter: \(error)")
-            }
-        } else {
-            exporter?.stop()
-            exporter = nil
-            print("Local HTTP exporter stopped")
-        }
     }
 }

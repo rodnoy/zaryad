@@ -12,7 +12,7 @@ extension Presentation {
                 Form {
                     Stepper("Poll interval: \(vm.pollIntervalSeconds)s", value: $vm.pollIntervalSeconds, in: 1...60)
                     Toggle("Use SwiftData (if available)", isOn: $vm.useSwiftData)
-                    Toggle("Enable local HTTP exporter (serves web dashboard)", isOn: $vm.useLocalHTTPExporter)
+                    // Removed web exporter toggle — this project provides a native SwiftUI dashboard only.
                 }
 
                 HStack {
