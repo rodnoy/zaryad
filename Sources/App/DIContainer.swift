@@ -66,6 +66,8 @@ final class DIContainer: ObservableObject {
             let getJSON: () -> Data? = { [weak self] in
                 guard let samples = self?.realtimeViewModel.recentSamples else { return nil }
                 let encoder = JSONEncoder()
+                // Match dashboard HTML expectations (snake_case keys) and ISO8601 timestamps
+                encoder.keyEncodingStrategy = .convertToSnakeCase
                 encoder.dateEncodingStrategy = .iso8601
                 return try? encoder.encode(samples)
             }
