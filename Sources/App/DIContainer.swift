@@ -30,7 +30,7 @@ final class DIContainer: ObservableObject {
         self.poller = DataLayer.Poller.CentralPoller(repository: self.powerRepository)
 
         // Session manager provides Start/Append/Stop use cases
-        let sessionManager = DataLayer.SessionUseCases.SessionManager(store: self.sessionStore)
+        let sessionManager = SessionManager(store: self.sessionStore)
 
         self.realtimeViewModel = RealtimeViewModel(
             poller: self.poller,
