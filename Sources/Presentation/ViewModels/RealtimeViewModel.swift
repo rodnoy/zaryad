@@ -11,14 +11,24 @@ public final class RealtimeViewModel: ObservableObject {
     @Published public private(set) var isSessionActive: Bool = false
 
     private let poller: DataLayer.Poller.CentralPoller
-    private let sessionStore: DataLayer.SessionStore.SessionStore
+    // Use session use-cases for proper session lifecycle handling
+    private let startUseCase: any Domain.StartSessionUseCase
+    private let appendUseCase: any Domain.AppendSampleToSessionUseCase
+    private let stopUseCase: any Domain.StopSessionUseCase
 
     private var pollingTask: Task<Void, Never>? = nil
     private let maxSamples = 150
 
-    public init(poller: DataLayer.Poller.CentralPoller, sessionStore: DataLayer.SessionStore.SessionStore) {
+    public init(
+        poller: DataLayer.Poller.CentralPoller,
+        startUseCase: any Domain.StartSessionUseCase,
+        appendUseCase: any Domain.AppendSampleToSessionUseCase,
+        stopUseCase: any Domain.StopSessionUseCase
+    ) {
         self.poller = poller
-        self.sessionStore = sessionStore
+        self.startUseCase = startUseCase
+        self.appendUseCase = appendUseCase
+        self.stopUseCase = stopUseCase
     }
 
     public func startPolling(pollIntervalSeconds: UInt64 = 2) async {
@@ -48,20 +58,35 @@ public final class RealtimeViewModel: ObservableObject {
         if self.recentSamples.count > maxSamples {
             self.recentSamples.removeFirst(self.recentSamples.count - maxSamples)
         }
-        // If session active, append to store (simplified)
+        // If session active, append to session via use case
         if isSessionActive {
-            // TODO: delegate to session use case
+            Task { [sample] in
+                do {
+                    try await self.appendUseCase.append(sample: sample)
+                } catch {
+                    // ignore append errors for now
+                }
+            }
         }
     }
 
     public func toggleSession() async {
         if isSessionActive {
             // stop
+            do {
+                _ = try await stopUseCase.stop()
+            } catch {
+                // ignore for now
+            }
             isSessionActive = false
-            // TODO: stop session usecase
         } else {
-            isSessionActive = true
-            // TODO: start session usecase
+            do {
+                _ = try await startUseCase.start()
+                isSessionActive = true
+            } catch {
+                // failed to start session — keep flag false
+                isSessionActive = false
+            }
         }
     }
 }
