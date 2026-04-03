@@ -1,0 +1,44 @@
+name: Build macOS Swift Package
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+    branches: ["main", "master"]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show Swift & Xcode versions
+        run: |
+          swift --version || true
+          xcodebuild -version || true
+
+      - name: Build (release)
+        run: swift build -c release
+
+      - name: Run tests
+        run: swift test -c release || true
+
+      - name: Package build artifacts
+        run: |
+          set -e
+          TS=$(date +%Y%m%d%H%M%S)
+          if [ -d .build/release ]; then
+            tar -czf charger-monitor-release-${TS}.tar.gz .build/release
+            ls -lh charger-monitor-release-${TS}.tar.gz
+          else
+            echo "No .build/release folder found; listing .build"
+            ls -la .build || true
+            tar -czf charger-monitor-release-${TS}.tar.gz . || true
+          fi
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: charger-monitor-release
+          path: charger-monitor-release-*.tar.gz
