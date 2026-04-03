@@ -29,7 +29,15 @@ final class DIContainer: ObservableObject {
 
         self.poller = DataLayer.Poller.CentralPoller(repository: self.powerRepository)
 
-        self.realtimeViewModel = RealtimeViewModel(poller: self.poller, sessionStore: self.sessionStore)
+        // Session manager provides Start/Append/Stop use cases
+        let sessionManager = DataLayer.SessionUseCases.SessionManager(store: self.sessionStore)
+
+        self.realtimeViewModel = RealtimeViewModel(
+            poller: self.poller,
+            startUseCase: sessionManager,
+            appendUseCase: sessionManager,
+            stopUseCase: sessionManager
+        )
         self.sessionsViewModel = SessionsViewModel(store: self.sessionStore)
         self.settingsViewModel = SettingsViewModel()
 
@@ -38,6 +46,16 @@ final class DIContainer: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] enabled in
                 Task { await self?.updateExporter(enabled: enabled) }
+            }
+            .store(in: &cancellables)
+
+        // When sessions stop, refresh sessions list
+        self.realtimeViewModel.$isSessionActive
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] active in
+                if !active {
+                    Task { await self?.sessionsViewModel.reload() }
+                }
             }
             .store(in: &cancellables)
     }
