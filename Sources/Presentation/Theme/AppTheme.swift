@@ -1,4 +1,5 @@
 import SwiftUI
+import Foundation
 
 // MARK: - Color extension for hex support
 
@@ -29,22 +30,27 @@ public extension Color {
 // MARK: - App Theme Colors (matching web CSS)
 
 public enum AppTheme {
+    private static var palette: Theme.Palette {
+        let key = UserDefaults.standard.string(forKey: "selectedTheme") ?? Theme.dark.key
+        return Theme.forKey(key).palette
+    }
+
     // Backgrounds
-    public static let bg       = Color(hex: "0a0a0f")
-    public static let surface  = Color(hex: "12121a")
-    public static let surface2 = Color(hex: "1a1a26")
-    public static let border   = Color(hex: "2a2a3d")
+    public static var bg: Color { palette.bg }
+    public static var surface: Color { palette.surface }
+    public static var surface2: Color { palette.surface2 }
+    public static var border: Color { palette.border }
 
     // Accents
-    public static let accent   = Color(hex: "00e5ff")
-    public static let accent2  = Color(hex: "7c3aed")
-    public static let green    = Color(hex: "00ff9d")
-    public static let yellow   = Color(hex: "ffd60a")
-    public static let red      = Color(hex: "ff3b5c")
+    public static var accent: Color { palette.accent }
+    public static var accent2: Color { palette.accent2 }
+    public static var green: Color { palette.green }
+    public static var yellow: Color { palette.yellow }
+    public static var red: Color { palette.red }
 
     // Text
-    public static let text     = Color(hex: "e8e8f0")
-    public static let muted    = Color(hex: "6b6b85")
+    public static var text: Color { palette.text }
+    public static var muted: Color { palette.muted }
 
     // Card
     public static let cardCornerRadius: CGFloat = 16

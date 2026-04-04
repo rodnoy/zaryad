@@ -8,6 +8,7 @@ public struct DashboardView: View {
     @EnvironmentObject var realtime: RealtimeViewModel
     @EnvironmentObject var sessionsVM: SessionsViewModel
     @EnvironmentObject var settingsVM: SettingsViewModel
+    @EnvironmentObject var themeStore: ThemeStore
 
     @State private var showingSettings = false
 

@@ -9,6 +9,7 @@ final class DIContainer: ObservableObject {
     let sessionStore: any SessionStoreProtocol
     let poller: BatteryPoller
     let sessionManager: SessionManager
+    let themeStore: ThemeStore
 
     let realtimeViewModel: RealtimeViewModel
     let sessionsViewModel: SessionsViewModel
@@ -28,6 +29,7 @@ final class DIContainer: ObservableObject {
         self.sessionStore = SwiftDataSessionStore(modelContainer: container)
         self.poller = BatteryPoller(repository: self.powerRepository)
         self.sessionManager = SessionManager(store: self.sessionStore)
+        self.themeStore = ThemeStore()
 
         // Presentation
         self.realtimeViewModel = RealtimeViewModel(
