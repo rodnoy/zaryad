@@ -1,0 +1,12 @@
+"app.title" = "Moniteur de charge";
+"settings.title" = "Réglages";
+"settings.theme" = "Thème";
+"theme.dark" = "Sombre";
+"theme.light" = "Clair";
+"theme.forest" = "Forêt";
+"theme.marine" = "Marin";
+"theme.martian" = "Martien";
+"btn.save" = "Enregistrer";
+"btn.cancel" = "Annuler";
+"status.no_connection" = "Pas de connexion";
+"status.connecting" = "Connexion...";

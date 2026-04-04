@@ -1,0 +1,12 @@
+"app.title" = "Монитор зарядки";
+"settings.title" = "Настройки";
+"settings.theme" = "Тема";
+"theme.dark" = "Тёмная";
+"theme.light" = "Светлая";
+"theme.forest" = "Лесная";
+"theme.marine" = "Морская";
+"theme.martian" = "Марсианская";
+"btn.save" = "Сохранить";
+"btn.cancel" = "Отмена";
+"status.no_connection" = "Нет соединения";
+"status.connecting" = "Подключение...";

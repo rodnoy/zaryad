@@ -1,0 +1,12 @@
+"app.title" = "Charger Monitor";
+"settings.title" = "Settings";
+"settings.theme" = "Theme";
+"theme.dark" = "Dark";
+"theme.light" = "Light";
+"theme.forest" = "Forest";
+"theme.marine" = "Marine";
+"theme.martian" = "Martian";
+"btn.save" = "Save";
+"btn.cancel" = "Cancel";
+"status.no_connection" = "No connection";
+"status.connecting" = "Connecting...";
