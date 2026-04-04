@@ -1,4 +1,1 @@
-// Namespace holder for module 'Data'
-public enum DataLayer {
-    // intentionally empty - used as namespace root (DataLayer.*)
-}
+// This file intentionally left empty — namespace enums removed.

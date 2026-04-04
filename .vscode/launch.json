@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:zaryad}",
+            "name": "Debug ChargerMonitor",
+            "target": "ChargerMonitor",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug ChargerMonitor"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:zaryad}",
+            "name": "Release ChargerMonitor",
+            "target": "ChargerMonitor",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release ChargerMonitor"
+        }
+    ]
+}

@@ -1,15 +1,8 @@
 import Foundation
-import Domain
 
-extension DataLayer {
-    public enum SessionStore { }
-}
-
-extension DataLayer.SessionStore {
-    public protocol SessionStore {
-    func save(session: Domain.Session) async throws
-    func fetchAll() async throws -> [Domain.Session]
+public protocol SessionStoreProtocol: Sendable {
+    func save(session: Session) async throws
+    func fetchAll() async throws -> [Session]
     func delete(sessionId: UUID) async throws
+    func deleteAll() async throws
 }
-}
-

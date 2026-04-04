@@ -1,50 +1,67 @@
 import Foundation
-import Domain
-
-#if canImport(SwiftData)
 import SwiftData
-#endif
 
-extension DataLayer.SessionStore {
+/// SwiftData-backed session store. Uses @Model SDSession for persistence.
+public final class SwiftDataSessionStore: SessionStoreProtocol, @unchecked Sendable {
+    private let modelContainer: ModelContainer
 
-/// A SessionStore implementation that prefers SwiftData when available,
-/// but currently falls back to FileSessionStore for persistence to ensure
-/// compatibility with macOS versions < 14.0 or when SwiftData isn't present.
-public final class SwiftDataSessionStore: SessionStore {
-    private let fallback: FileSessionStore
-
-    public init(fileURL: URL? = nil) {
-        self.fallback = FileSessionStore(fileURL: fileURL)
+    public init(modelContainer: ModelContainer) {
+        self.modelContainer = modelContainer
     }
 
-    public func save(session: Domain.Session) async throws {
-#if canImport(SwiftData)
-        // Future: implement native SwiftData persistence here for macOS 14+.
-        // For now, delegate to file-based fallback for broad compatibility.
-        if #available(macOS 14.0, *) {
-            // If desired, insert SwiftData-backed implementation here.
+    @MainActor
+    public func save(session: Session) async throws {
+        let context = modelContainer.mainContext
+        let sessionID = session.id
+
+        let descriptor = FetchDescriptor<SDSession>(
+            predicate: #Predicate<SDSession> { $0.sessionID == sessionID }
+        )
+        let existing = try context.fetch(descriptor)
+
+        if let sd = existing.first {
+            sd.name = session.name
+            sd.startTimestamp = session.startTimestamp
+            sd.endTimestamp = session.endTimestamp
+            sd.samplesData = (try? JSONEncoder().encode(session.samples)) ?? Data()
+        } else {
+            let sd = SDSession(from: session)
+            context.insert(sd)
         }
-#endif
-        try await fallback.save(session: session)
+        try context.save()
     }
 
-    public func fetchAll() async throws -> [Domain.Session] {
-#if canImport(SwiftData)
-        if #available(macOS 14.0, *) {
-            // Future: load from SwiftData-backed store.
-        }
-#endif
-        return try await fallback.fetchAll()
+    @MainActor
+    public func fetchAll() async throws -> [Session] {
+        let context = modelContainer.mainContext
+        let descriptor = FetchDescriptor<SDSession>(
+            sortBy: [SortDescriptor(\.startTimestamp, order: .reverse)]
+        )
+        let results = try context.fetch(descriptor)
+        return results.map { $0.toDomain() }
     }
 
+    @MainActor
     public func delete(sessionId: UUID) async throws {
-#if canImport(SwiftData)
-        if #available(macOS 14.0, *) {
-            // Future: delete from SwiftData-backed store.
+        let context = modelContainer.mainContext
+        let descriptor = FetchDescriptor<SDSession>(
+            predicate: #Predicate<SDSession> { $0.sessionID == sessionId }
+        )
+        let results = try context.fetch(descriptor)
+        for item in results {
+            context.delete(item)
         }
-#endif
-        try await fallback.delete(sessionId: sessionId)
+        try context.save()
     }
-}
 
+    @MainActor
+    public func deleteAll() async throws {
+        let context = modelContainer.mainContext
+        let descriptor = FetchDescriptor<SDSession>()
+        let results = try context.fetch(descriptor)
+        for item in results {
+            context.delete(item)
+        }
+        try context.save()
+    }
 }

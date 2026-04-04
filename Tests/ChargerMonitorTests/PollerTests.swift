@@ -1,23 +1,24 @@
 import XCTest
-import Domain
-import Data
+@testable import ChargerMonitor
 
 final class PollerTests: XCTestCase {
-    class MockRepo: DataLayer.SystemPower.SystemPowerRepository {
+    final class MockRepo: SystemPowerRepository, @unchecked Sendable {
         var counter = 0
-        func fetchCurrentSample() async throws -> Domain.BatterySample {
+        func fetchCurrentSample() async throws -> BatterySample {
             counter += 1
-            return BatterySample(timestamp: Date(), voltageV: nil, amperageA: nil, powerW: Double(counter), percent: nil, currentMah: nil, maxMah: nil, designMah: nil, cycleCount: nil, tempC: nil, isCharging: nil, pluggedIn: nil, fullyCharged: nil, timeRemainingMin: nil, adapterWatts: nil)
+            return BatterySample(
+                timestamp: Date(),
+                powerW: Double(counter)
+            )
         }
     }
 
-    func testCentralPollerEmitsSamples() async throws {
+    func testBatteryPollerEmitsSamples() async throws {
         let repo = MockRepo()
-        let poller = DataLayer.Poller.CentralPoller(repository: repo, intervalSeconds: 1)
+        let poller = BatteryPoller(repository: repo, intervalSeconds: 1)
 
         let stream = await poller.stream()
 
-        // Collect first 3 values from stream with a timeout
         let task = Task.detached { () -> [Double] in
             var out: [Double] = []
             for await sample in stream {
@@ -29,15 +30,12 @@ final class PollerTests: XCTestCase {
 
         await poller.start(pollIntervalSeconds: 1)
 
-        // Wait for task to finish (with timeout guard)
         let result = try await withThrowingTaskGroup(of: [Double].self) { group -> [Double] in
             group.addTask { await task.value }
-            // timeout task
             group.addTask {
                 try await Task.sleep(nanoseconds: 5 * 1_000_000_000)
                 return []
             }
-
             for try await val in group {
                 if !val.isEmpty { return val }
             }

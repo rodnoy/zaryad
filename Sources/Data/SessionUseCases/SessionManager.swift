@@ -1,61 +1,61 @@
 import Foundation
-import Domain
 
-extension DataLayer {
-    public enum SessionUseCases { }
-}
+public actor SessionManager: StartSessionUseCase, AppendSampleToSessionUseCase, StopSessionUseCase, GetSessionsUseCase {
+    private let store: any SessionStoreProtocol
+    private var current: Session?
 
-public final class SessionManager: StartSessionUseCase, AppendSampleToSessionUseCase, StopSessionUseCase, GetSessionsUseCase {
-    private let store: DataLayer.SessionStore.SessionStore
-    private var current: Domain.Session?
-    private let lock = NSLock()
-
-    public init(store: DataLayer.SessionStore.SessionStore) {
+    public init(store: any SessionStoreProtocol) {
         self.store = store
     }
 
-    public func start() async throws -> Session {
-        lock.lock()
-        defer { lock.unlock() }
+    public func start(name: String? = nil) async throws -> Session {
         // If a session is active, finalize it first
         if let active = current {
             var finished = active
             finished.endTimestamp = Date()
             try await store.save(session: finished)
         }
-        let s = Domain.Session(start: Date())
+        let s = Session(name: name, start: Date())
         current = s
         return s
     }
 
+    public func start() async throws -> Session {
+        return try await start(name: nil)
+    }
+
     public func append(sample: BatterySample) async throws {
-        lock.lock()
-        var session = current
-        if session == nil {
-            // start implicit session
-            session = Domain.Session(start: sample.timestamp)
+        if current == nil {
+            current = Session(start: sample.timestamp)
         }
-        session?.samples.append(sample)
-        current = session
-        lock.unlock()
+        current?.samples.append(sample)
     }
 
     public func stop() async throws -> Session {
-        lock.lock()
         guard var session = current else {
-            lock.unlock()
-            throw NSError(domain: "SessionManager", code: 1, userInfo: [NSLocalizedDescriptionKey: "No active session"]) 
+            throw SessionManagerError.noActiveSession
         }
         session.endTimestamp = Date()
         current = nil
-        lock.unlock()
-
-        // perform any final aggregations if needed (Session has computed props)
         try await store.save(session: session)
         return session
     }
 
     public func fetchAll() async throws -> [Session] {
         return try await store.fetchAll()
+    }
+
+    public func deleteAll() async throws {
+        try await store.deleteAll()
+    }
+}
+
+public enum SessionManagerError: LocalizedError {
+    case noActiveSession
+
+    public var errorDescription: String? {
+        switch self {
+        case .noActiveSession: return "No active session"
+        }
     }
 }

@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "ChargerMonitor",
     platforms: [
-        .macOS(.v13)
+        .macOS(.v14)
     ],
     products: [
         .executable(name: "ChargerMonitor", targets: ["App"]),
@@ -25,7 +25,10 @@ let package = Package(
         .target(
             name: "Data",
             dependencies: ["Domain"],
-            path: "Sources/Data"
+            path: "Sources/Data",
+            linkerSettings: [
+                .linkedFramework("IOKit")
+            ]
         ),
         .target(
             name: "Presentation",

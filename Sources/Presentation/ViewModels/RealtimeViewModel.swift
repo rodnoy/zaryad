@@ -1,92 +1,97 @@
-import Domain
-import Data
-
 import Combine
 import SwiftUI
+import os
+
+private let logger = Logger(subsystem: "com.chargermonitor", category: "RealtimeViewModel")
 
 @MainActor
 public final class RealtimeViewModel: ObservableObject {
-    @Published public private(set) var currentSample: Domain.BatterySample?
-    @Published public private(set) var recentSamples: [Domain.BatterySample] = []
+    @Published public private(set) var currentSample: BatterySample?
+    @Published public private(set) var recentSamples: [BatterySample] = []
     @Published public private(set) var isSessionActive: Bool = false
+    @Published public private(set) var connectionStatus: ConnectionStatus = .disconnected
 
-    private let poller: DataLayer.Poller.CentralPoller
-    // Use session use-cases for proper session lifecycle handling
-    private let startUseCase: any Domain.StartSessionUseCase
-    private let appendUseCase: any Domain.AppendSampleToSessionUseCase
-    private let stopUseCase: any Domain.StopSessionUseCase
+    public enum ConnectionStatus {
+        case connected, disconnected, error
+    }
+
+    private let poller: BatteryPoller
+    private let sessionManager: SessionManager
 
     private var pollingTask: Task<Void, Never>? = nil
     private let maxSamples = 150
 
-    public init(
-        poller: DataLayer.Poller.CentralPoller,
-        startUseCase: any Domain.StartSessionUseCase,
-        appendUseCase: any Domain.AppendSampleToSessionUseCase,
-        stopUseCase: any Domain.StopSessionUseCase
-    ) {
+    public init(poller: BatteryPoller, sessionManager: SessionManager) {
         self.poller = poller
-        self.startUseCase = startUseCase
-        self.appendUseCase = appendUseCase
-        self.stopUseCase = stopUseCase
+        self.sessionManager = sessionManager
     }
 
     public func startPolling(pollIntervalSeconds: UInt64 = 2) async {
-        stopPolling()
+        logger.info("Starting polling with interval \(pollIntervalSeconds)s")
 
-        // Start poller with desired interval
-        await poller.start(pollIntervalSeconds: pollIntervalSeconds)
+        // Ensure previous pipeline is fully stopped before starting a new one.
+        await stopPolling()
 
-        // Subscribe to poller's async stream
+        // Subscribe first to avoid missing the first published sample.
+        let stream = await poller.stream()
+
         pollingTask = Task { [weak self] in
-            guard let self = self else { return }
-            for await sample in await self.poller.stream() {
+            guard let self else { return }
+            for await sample in stream {
                 await self.handle(sample: sample)
             }
+            await MainActor.run {
+                self.connectionStatus = .disconnected
+            }
         }
+
+        await poller.start(pollIntervalSeconds: pollIntervalSeconds)
     }
 
-    public func stopPolling() {
+    public func stopPolling() async {
+        logger.info("Stopping polling")
         pollingTask?.cancel()
         pollingTask = nil
-        Task { await poller.stop() }
+        await poller.stop()
+        connectionStatus = .disconnected
     }
 
-    private func handle(sample: Domain.BatterySample) async {
+    private func handle(sample: BatterySample) async {
+        logger.debug("Received sample: power=\(sample.powerW ?? 0, privacy: .public)W percent=\(sample.percent ?? 0, privacy: .public)")
         self.currentSample = sample
+        self.connectionStatus = .connected
         self.recentSamples.append(sample)
         if self.recentSamples.count > maxSamples {
             self.recentSamples.removeFirst(self.recentSamples.count - maxSamples)
         }
-        // If session active, append to session via use case
         if isSessionActive {
-            Task { [sample] in
-                do {
-                    try await self.appendUseCase.append(sample: sample)
-                } catch {
-                    // ignore append errors for now
-                }
-            }
+            try? await sessionManager.append(sample: sample)
         }
     }
 
-    public func toggleSession() async {
-        if isSessionActive {
-            // stop
-            do {
-                _ = try await stopUseCase.stop()
-            } catch {
-                // ignore for now
-            }
+    public func startSession(name: String?) async {
+        do {
+            _ = try await sessionManager.start(name: name)
+            isSessionActive = true
+        } catch {
             isSessionActive = false
+        }
+    }
+
+    public func stopSession() async {
+        do {
+            _ = try await sessionManager.stop()
+        } catch {
+            // ignore
+        }
+        isSessionActive = false
+    }
+
+    public func toggleSession(name: String? = nil) async {
+        if isSessionActive {
+            await stopSession()
         } else {
-            do {
-                _ = try await startUseCase.start()
-                isSessionActive = true
-            } catch {
-                // failed to start session — keep flag false
-                isSessionActive = false
-            }
+            await startSession(name: name)
         }
     }
 }

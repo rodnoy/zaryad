@@ -1,0 +1,57 @@
+# macOS
+.DS_Store
+
+# Xcode
+build/
+*.xcworkspace
+xcuserdata/
+DerivedData/
+*.xcuserstate
+*.xcscmblueprint
+*.xcodeproj/*/xcuserdata/
+!*.xcodeproj/project.pbxproj
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+
+# SwiftPM Xcode project files
+*.xcodeproj/xcshareddata/
+*.xcodeproj/project.xcworkspace/
+
+# Swift Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Build artifacts
+*.o
+*.linkfilelist
+*.dSYM/
+
+# Logs and reports
+*.log
+*.trace
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*~
+
+# Backup and local files
+backups/
+*.local
+
+# Other
+.kilo/
+
+# Ignore build-output files
+build-output.txt
+build-log.md
+

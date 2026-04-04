@@ -1,13 +1,13 @@
 import Foundation
 
-public struct BatterySample: Identifiable, Codable {
+public struct BatterySample: Identifiable, Codable, Sendable {
     public let id: UUID
     public let timestamp: Date
 
     // Electrical
     public let voltageV: Double?
     public let amperageA: Double?
-    public let powerW: Double? // derived: voltage * amperage
+    public let powerW: Double?
 
     // Capacity
     public let percent: Double?
@@ -27,6 +27,12 @@ public struct BatterySample: Identifiable, Codable {
     // Misc
     public let timeRemainingMin: Double?
     public let adapterWatts: Double?
+
+    /// Computed health percentage: maxMah / designMah * 100
+    public var healthPercent: Double? {
+        guard let max = maxMah, let design = designMah, design > 0 else { return nil }
+        return (max / design) * 100.0
+    }
 
     public init(
         id: UUID = UUID(),

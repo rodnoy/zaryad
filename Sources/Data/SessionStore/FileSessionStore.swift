@@ -1,9 +1,6 @@
 import Foundation
-import Domain
 
-extension DataLayer.SessionStore {
-
-public final class FileSessionStore: SessionStore {
+public final class FileSessionStore: SessionStoreProtocol, @unchecked Sendable {
     private let fileURL: URL
 
     public init(fileURL: URL? = nil) {
@@ -16,7 +13,7 @@ public final class FileSessionStore: SessionStore {
         self.fileURL = fileURL ?? appFolder?.appendingPathComponent("sessions.json") ?? URL(fileURLWithPath: "./sessions.json")
     }
 
-    public func save(session: Domain.Session) async throws {
+    public func save(session: Session) async throws {
         var all = try await fetchAll()
         if let idx = all.firstIndex(where: { $0.id == session.id }) {
             all[idx] = session
@@ -27,11 +24,11 @@ public final class FileSessionStore: SessionStore {
         try data.write(to: fileURL, options: .atomic)
     }
 
-    public func fetchAll() async throws -> [Domain.Session] {
+    public func fetchAll() async throws -> [Session] {
         let fm = FileManager.default
         guard fm.fileExists(atPath: fileURL.path) else { return [] }
         let data = try Foundation.Data(contentsOf: fileURL)
-        return try JSONDecoder().decode([Domain.Session].self, from: data)
+        return try JSONDecoder().decode([Session].self, from: data)
     }
 
     public func delete(sessionId: UUID) async throws {
@@ -39,6 +36,10 @@ public final class FileSessionStore: SessionStore {
         all.removeAll { $0.id == sessionId }
         let data = try JSONEncoder().encode(all)
         try data.write(to: fileURL, options: .atomic)
-}
-}
+    }
+
+    public func deleteAll() async throws {
+        let data = try JSONEncoder().encode([Session]())
+        try data.write(to: fileURL, options: .atomic)
+    }
 }

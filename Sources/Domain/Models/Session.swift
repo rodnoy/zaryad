@@ -1,13 +1,15 @@
 import Foundation
 
-public struct Session: Identifiable, Codable {
+public struct Session: Identifiable, Codable, Sendable {
     public var id: UUID
+    public var name: String?
     public var startTimestamp: Date
     public var endTimestamp: Date?
     public var samples: [BatterySample]
 
-    public init(id: UUID = UUID(), start: Date = Date(), end: Date? = nil, samples: [BatterySample] = []) {
+    public init(id: UUID = UUID(), name: String? = nil, start: Date = Date(), end: Date? = nil, samples: [BatterySample] = []) {
         self.id = id
+        self.name = name
         self.startTimestamp = start
         self.endTimestamp = end
         self.samples = samples
@@ -19,13 +21,14 @@ public struct Session: Identifiable, Codable {
     }
 
     public var peakW: Double? {
-        samples.compactMap { $0.powerW }.max()
+        let charging = samples.compactMap { $0.powerW }.filter { $0 > 0 }
+        return charging.max()
     }
 
     public var avgW: Double? {
-        let vals = samples.compactMap { $0.powerW }
-        guard !vals.isEmpty else { return nil }
-        return vals.reduce(0, +) / Double(vals.count)
+        let charging = samples.compactMap { $0.powerW }.filter { $0 > 0 }
+        guard !charging.isEmpty else { return nil }
+        return charging.reduce(0, +) / Double(charging.count)
     }
 
     public var avgTemp: Double? {
@@ -39,32 +42,16 @@ public struct Session: Identifiable, Codable {
         return last - first
     }
 
-    /// A simple session rating heuristic (0...100).
-    /// Higher is better. This combines average temperature, peak power and percent change.
-    public var rating: Int {
-        var score = 50.0
+    /// Rating based on avgW: >=60 excellent, >=30 good, else weak.
+    public var rating: String {
+        guard let avg = avgW else { return "—" }
+        if avg >= 60 { return "Excellent" }
+        if avg >= 30 { return "Good" }
+        return "Weak"
+    }
 
-        if let avgT = avgTemp {
-            if avgT <= 40.0 { score += 10 }
-            else if avgT <= 50.0 { score += 5 }
-            else { score -= 10 }
-        }
-
-        if let peak = peakW {
-            let p = peak
-            if p < 30 { score += 10 }
-            else if p < 60 { score += 5 }
-            else { score -= 10 }
-        }
-
-        if let delta = deltaPercent {
-            if delta >= 0 { score += 10 } else { score -= 5 }
-        }
-
-        // penalize very short sessions
-        if duration < 30 { score -= 5 }
-        // clamp
-        let clamped = min(max(Int(round(score)), 0), 100)
-        return clamped
+    /// Numeric rating for sorting (higher is better).
+    public var ratingScore: Double {
+        return avgW ?? 0
     }
 }

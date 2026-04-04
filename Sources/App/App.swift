@@ -1,5 +1,5 @@
 import SwiftUI
-import Presentation
+import SwiftData
 
 @main
 struct ChargerMonitorApp: App {
@@ -7,10 +7,13 @@ struct ChargerMonitorApp: App {
 
     var body: some Scene {
         WindowGroup("Charger Monitor") {
-            Presentation.DashboardView()
+            DashboardView()
                 .environmentObject(di.realtimeViewModel)
                 .environmentObject(di.sessionsViewModel)
                 .environmentObject(di.settingsViewModel)
+                .modelContainer(di.modelContainer)
         }
+        .windowStyle(.titleBar)
+        .defaultSize(width: 1100, height: 800)
     }
 }

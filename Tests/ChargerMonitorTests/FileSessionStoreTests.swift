@@ -1,6 +1,5 @@
 import XCTest
-import Domain
-import Data
+@testable import ChargerMonitor
 
 final class FileSessionStoreTests: XCTestCase {
     func testSaveFetchDeleteLifecycle() async throws {
@@ -9,7 +8,7 @@ final class FileSessionStoreTests: XCTestCase {
         try fm.createDirectory(at: tmpDir, withIntermediateDirectories: true)
         let fileURL = tmpDir.appendingPathComponent("test-sessions.json")
 
-        let store = DataLayer.SessionStore.FileSessionStore(fileURL: fileURL)
+        let store = FileSessionStore(fileURL: fileURL)
 
         var session = Session(start: Date().addingTimeInterval(-10), end: Date(), samples: [])
         try await store.save(session: session)
