@@ -25,7 +25,7 @@ public final class ThemeStore: ObservableObject {
     public func select(key: String) {
         let next = Theme.forKey(key)
         guard current.key != next.key else { return }
-        current = next
         userDefaults.set(next.key, forKey: "selectedTheme")
+        current = next
     }
 }
