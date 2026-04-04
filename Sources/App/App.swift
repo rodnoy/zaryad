@@ -11,12 +11,13 @@ struct ChargerMonitorApp: App {
                 .environmentObject(di.realtimeViewModel)
                 .environmentObject(di.sessionsViewModel)
                 .environmentObject(di.settingsViewModel)
+                .environmentObject(di.themeStore)
                 .modelContainer(di.modelContainer)
         }
-        .environmentObject(di.themeStore)
         .commands {
             ThemeCommands()
         }
+        .environmentObject(di.themeStore)
         .windowStyle(.titleBar)
         .defaultSize(width: 1100, height: 800)
     }

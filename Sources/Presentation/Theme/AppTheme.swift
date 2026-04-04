@@ -51,6 +51,8 @@ public enum AppTheme {
     // Text
     public static var text: Color { palette.text }
     public static var muted: Color { palette.muted }
+    /// Slightly dimmer header/label color used for card section titles.
+    public static var header: Color { palette.muted.opacity(0.88) }
 
     // Card
     public static let cardCornerRadius: CGFloat = 16

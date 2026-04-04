@@ -24,11 +24,14 @@ public struct SettingsView: View {
                         set: { themeStore.select(key: $0) }
                     )) {
                         ForEach(ThemeStore.all, id: \.key) { theme in
-                            Text(theme.displayNameKey).tag(theme.key)
+                            Text(theme.displayNameKey)
+                                .foregroundColor(AppTheme.text)
+                                .tag(theme.key)
                         }
                     }
                     .labelsHidden()
                     .pickerStyle(.menu)
+                    .foregroundColor(AppTheme.text)
                     .font(AppTheme.mono(size: 13))
                 }
                 .padding(.horizontal, 14)
@@ -66,7 +69,7 @@ public struct SettingsView: View {
                         RoundedRectangle(cornerRadius: 8)
                             .fill(AppTheme.accent)
                     )
-                    .foregroundColor(.black)
+                    .foregroundColor(AppTheme.text)
                     .buttonStyle(.plain)
             }
         }

@@ -18,7 +18,7 @@ public struct SessionsComparisonView: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("CHARGER COMPARISON")
                         .font(AppTheme.mono(size: 11, weight: .semibold))
-                        .foregroundColor(AppTheme.muted)
+                        .foregroundColor(AppTheme.header)
                         .tracking(1)
                     Text("Plug charger → record session → switch → repeat")
                         .font(.system(size: 12))
@@ -57,7 +57,7 @@ public struct SessionsComparisonView: View {
                                     RoundedRectangle(cornerRadius: 8)
                                         .fill(AppTheme.accent)
                                 )
-                                .foregroundColor(.black)
+                                .foregroundColor(AppTheme.text)
                         }
                         .buttonStyle(.plain)
                     }
@@ -169,7 +169,7 @@ public struct SessionsComparisonView: View {
     private func tableHeader(_ title: String, flex: Int) -> some View {
         Text(title.uppercased())
             .font(AppTheme.mono(size: 11, weight: .semibold))
-            .foregroundColor(AppTheme.muted)
+            .foregroundColor(AppTheme.header)
             .tracking(0.8)
             .frame(maxWidth: .infinity, alignment: .leading)
             .layoutPriority(Double(flex))
@@ -238,7 +238,7 @@ public struct SessionsComparisonView: View {
         .padding(.vertical, 10)
         .padding(.horizontal, 12)
         .overlay(alignment: .bottom) {
-            Rectangle().fill(.white.opacity(0.04)).frame(height: 1)
+            Rectangle().fill(AppTheme.border).frame(height: 1)
         }
     }
 

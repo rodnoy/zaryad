@@ -12,7 +12,7 @@ public struct BatteryHealthView: View {
         VStack(alignment: .leading, spacing: 0) {
             Text("BATTERY HEALTH")
                 .font(AppTheme.mono(size: 11, weight: .semibold))
-                .foregroundColor(AppTheme.muted)
+                .foregroundColor(AppTheme.header)
                 .tracking(1)
                 .padding(.bottom, 12)
 

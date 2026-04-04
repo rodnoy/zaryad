@@ -38,7 +38,7 @@ public struct BatteryCardView: View {
         VStack(alignment: .leading, spacing: 0) {
             Text("BATTERY")
                 .font(AppTheme.mono(size: 11, weight: .semibold))
-                .foregroundColor(AppTheme.muted)
+                .foregroundColor(AppTheme.header)
                 .tracking(1)
                 .padding(.bottom, 12)
 
@@ -73,7 +73,7 @@ public struct BatteryCardView: View {
                         .overlay(
                             // Shimmer
                             LinearGradient(
-                                colors: [.clear, .white.opacity(0.1), .clear],
+                colors: [.clear, AppTheme.text.opacity(0.08), .clear],
                                 startPoint: .leading,
                                 endPoint: .trailing
                             )

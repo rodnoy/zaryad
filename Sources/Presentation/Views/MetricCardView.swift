@@ -29,7 +29,7 @@ public struct MetricCardView: View {
         VStack(alignment: .leading, spacing: 0) {
             Text(label.uppercased())
                 .font(AppTheme.mono(size: 11, weight: .semibold))
-                .foregroundColor(AppTheme.muted)
+                .foregroundColor(AppTheme.header)
                 .tracking(1)
                 .padding(.bottom, 8)
 

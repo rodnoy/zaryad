@@ -16,7 +16,7 @@ public struct PowerChartView: View {
             HStack {
                 Text("POWER HISTORY (LAST 5 MIN)")
                     .font(AppTheme.mono(size: 11, weight: .semibold))
-                    .foregroundColor(AppTheme.muted)
+                    .foregroundColor(AppTheme.header)
                     .tracking(0.5)
 
                 Spacer()
@@ -45,7 +45,7 @@ public struct PowerChartView: View {
                 .frame(width: 8, height: 8)
             Text(label)
                 .font(AppTheme.mono(size: 11))
-                .foregroundColor(AppTheme.muted)
+                .foregroundColor(AppTheme.header)
         }
     }
 
@@ -80,7 +80,7 @@ public struct PowerChartView: View {
             var gridPath = Path()
             gridPath.move(to: CGPoint(x: pad.leading, y: yG))
             gridPath.addLine(to: CGPoint(x: pad.leading + cW, y: yG))
-            context.stroke(gridPath, with: .color(.white.opacity(0.04)), lineWidth: 1)
+            context.stroke(gridPath, with: .color(AppTheme.border.opacity(0.06)), lineWidth: 1)
         }
 
         // Dashed zero line
@@ -89,7 +89,7 @@ public struct PowerChartView: View {
         zeroPath.addLine(to: CGPoint(x: pad.leading + cW, y: zeroY))
         context.stroke(
             zeroPath,
-            with: .color(.white.opacity(0.08)),
+            with: .color(AppTheme.border.opacity(0.12)),
             style: StrokeStyle(lineWidth: 1, dash: [4, 4])
         )
 

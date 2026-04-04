@@ -76,6 +76,7 @@ public struct DashboardView: View {
                     .overlay(
                         Text("⚡")
                             .font(.system(size: 20))
+                            .foregroundColor(AppTheme.surface)
                     )
 
                 VStack(alignment: .leading, spacing: 2) {
