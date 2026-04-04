@@ -161,8 +161,7 @@ public struct DashboardView: View {
                 value: String(format: "%.1f", abs(powerW)),
                 unit: "W",
                 subtitle: powerSubtitle(sample),
-                valueColor: powerW > 0.5 ? AppTheme.green : powerW < -0.5 ? AppTheme.yellow : AppTheme.muted,
-                topAccent: powerW > 0.5 ? AppTheme.green : powerW < -0.5 ? AppTheme.yellow : nil
+                valueColor: powerW > 0.5 ? AppTheme.green : powerW < -0.5 ? AppTheme.yellow : AppTheme.muted
             )
 
             MetricCardView(

@@ -79,7 +79,6 @@ public enum AppTheme {
 // MARK: - Card modifier
 
 public struct CardModifier: ViewModifier {
-    var topAccentColor: Color?
 
     public func body(content: Content) -> some View {
         content
@@ -91,27 +90,12 @@ public struct CardModifier: ViewModifier {
                         RoundedRectangle(cornerRadius: AppTheme.cardCornerRadius)
                             .stroke(AppTheme.border, lineWidth: 1)
                     )
-                    .overlay(alignment: .top) {
-                        if let color = topAccentColor {
-                            RoundedRectangle(cornerRadius: AppTheme.cardCornerRadius)
-                                .fill(color)
-                                .frame(height: 2)
-                                .clipShape(
-                                    UnevenRoundedRectangle(
-                                        topLeadingRadius: AppTheme.cardCornerRadius,
-                                        bottomLeadingRadius: 0,
-                                        bottomTrailingRadius: 0,
-                                        topTrailingRadius: AppTheme.cardCornerRadius
-                                    )
-                                )
-                        }
-                    }
-            )
+                    )
     }
 }
 
 public extension View {
-    func cardStyle(topAccent: Color? = nil) -> some View {
-        modifier(CardModifier(topAccentColor: topAccent))
+    func cardStyle() -> some View {
+        modifier(CardModifier())
     }
 }

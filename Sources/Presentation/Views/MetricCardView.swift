@@ -7,22 +7,19 @@ public struct MetricCardView: View {
     let unit: String
     let subtitle: String
     var valueColor: Color = AppTheme.text
-    var topAccent: Color? = nil
 
     public init(
         label: String,
         value: String,
         unit: String,
         subtitle: String,
-        valueColor: Color = AppTheme.text,
-        topAccent: Color? = nil
+        valueColor: Color = AppTheme.text
     ) {
         self.label = label
         self.value = value
         self.unit = unit
         self.subtitle = subtitle
         self.valueColor = valueColor
-        self.topAccent = topAccent
     }
 
     public var body: some View {
@@ -51,6 +48,6 @@ public struct MetricCardView: View {
                 .lineLimit(1)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .cardStyle(topAccent: topAccent)
+        .cardStyle()
     }
 }
