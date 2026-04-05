@@ -29,6 +29,7 @@ public extension Color {
 
 // MARK: - App Theme Colors (matching web CSS)
 
+@MainActor
 public enum AppTheme {
     // Read current palette from the shared ThemeStore instance instead of
     // accessing UserDefaults directly. This ensures AppTheme reflects the
