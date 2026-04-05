@@ -30,9 +30,11 @@ public extension Color {
 // MARK: - App Theme Colors (matching web CSS)
 
 public enum AppTheme {
+    // Read current palette from the shared ThemeStore instance instead of
+    // accessing UserDefaults directly. This ensures AppTheme reflects the
+    // same source of truth used throughout the app (ThemeStore.shared).
     private static var palette: Theme.Palette {
-        let key = UserDefaults.standard.string(forKey: "selectedTheme") ?? Theme.dark.key
-        return Theme.forKey(key).palette
+        ThemeStore.shared.current.palette
     }
 
     // Backgrounds
