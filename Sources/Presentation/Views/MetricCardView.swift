@@ -1,3 +1,4 @@
+import Domain
 import SwiftUI
 
 /// A single big-number metric card matching the web dashboard style.

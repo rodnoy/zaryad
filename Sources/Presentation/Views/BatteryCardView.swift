@@ -1,3 +1,4 @@
+import Domain
 import SwiftUI
 
 /// Battery card with percentage, status, animated gradient bar, and capacity info.

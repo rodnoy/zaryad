@@ -1,3 +1,4 @@
+import Domain
 import SwiftUI
 
 /// Canvas-based power chart matching the web dashboard.

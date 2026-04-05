@@ -1,3 +1,4 @@
+import Domain
 import SwiftUI
 
 /// Sessions comparison table matching the web dashboard.

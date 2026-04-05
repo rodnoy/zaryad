@@ -1,3 +1,4 @@
+import Domain
 import SwiftUI
 
 /// Battery health info card with 2-column grid (matching web "Состояние батареи" section).
