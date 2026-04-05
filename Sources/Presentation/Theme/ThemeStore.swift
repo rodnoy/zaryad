@@ -2,6 +2,10 @@ import Foundation
 
 @MainActor
 public final class ThemeStore: ObservableObject {
+    // Shared singleton instance used by AppTheme and DI so there's a single
+    // source of truth for the currently selected theme across the app.
+    public static let shared = ThemeStore()
+
     public static let all: [Theme] = [.dark, .light, .forest, .marine, .martian]
 
     @Published public var current: Theme
