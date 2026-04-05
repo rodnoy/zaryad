@@ -1,3 +1,4 @@
+import Domain
 import Foundation
 
 public enum BatteryError: LocalizedError, Sendable {

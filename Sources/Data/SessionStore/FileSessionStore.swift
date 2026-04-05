@@ -1,3 +1,4 @@
+import Domain
 import Foundation
 
 public final class FileSessionStore: SessionStoreProtocol, @unchecked Sendable {

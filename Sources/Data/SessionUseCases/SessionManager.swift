@@ -1,3 +1,4 @@
+import Domain
 import Foundation
 
 public actor SessionManager: StartSessionUseCase, AppendSampleToSessionUseCase, StopSessionUseCase, GetSessionsUseCase {
