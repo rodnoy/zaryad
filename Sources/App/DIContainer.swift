@@ -29,7 +29,9 @@ final class DIContainer: ObservableObject {
         self.sessionStore = SwiftDataSessionStore(modelContainer: container)
         self.poller = BatteryPoller(repository: self.powerRepository)
         self.sessionManager = SessionManager(store: self.sessionStore)
-        self.themeStore = ThemeStore()
+        // Use the shared ThemeStore so it's the same instance used by AppTheme
+        // and any other global consumers.
+        self.themeStore = ThemeStore.shared
 
         // Presentation
         self.realtimeViewModel = RealtimeViewModel(
