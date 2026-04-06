@@ -4,6 +4,9 @@ import Data
 import Foundation
 import SwiftData
 import Combine
+import os
+
+private let logger = Logger(subsystem: "com.chargermonitor", category: "DIContainer")
 
 @MainActor
 final class DIContainer: ObservableObject {
@@ -24,7 +27,20 @@ final class DIContainer: ObservableObject {
         // SwiftData model container
         let schema = Schema([SDSession.self])
         let config = ModelConfiguration("ChargerMonitor", isStoredInMemoryOnly: false)
-        let container = try! ModelContainer(for: schema, configurations: [config])
+        let container: ModelContainer
+        do {
+            container = try ModelContainer(for: schema, configurations: [config])
+        } catch {
+            logger.error("Failed to create persistent ModelContainer: \(error.localizedDescription, privacy: .public)")
+            do {
+                let memoryConfig = ModelConfiguration("ChargerMonitorFallback", isStoredInMemoryOnly: true)
+                container = try ModelContainer(for: schema, configurations: [memoryConfig])
+                logger.warning("Using in-memory ModelContainer fallback")
+            } catch {
+                logger.fault("Failed to create in-memory ModelContainer fallback: \(error.localizedDescription, privacy: .public)")
+                fatalError("Unable to initialize SwiftData ModelContainer")
+            }
+        }
         self.modelContainer = container
 
         // Data layer
