@@ -6,10 +6,18 @@ import SwiftUI
 /// Shows last ~150 samples with green area above zero (charging) and yellow below (discharging).
 public struct PowerChartView: View {
     public let samples: [BatterySample]
+    public let showTemperatureOverlay: Bool
+    public let onToggleTemperatureOverlay: (() -> Void)?
     private let maxPoints = 150
 
-    public init(samples: [BatterySample]) {
+    public init(
+        samples: [BatterySample],
+        showTemperatureOverlay: Bool = false,
+        onToggleTemperatureOverlay: (() -> Void)? = nil
+    ) {
         self.samples = samples
+        self.showTemperatureOverlay = showTemperatureOverlay
+        self.onToggleTemperatureOverlay = onToggleTemperatureOverlay
     }
 
     public var body: some View {
@@ -24,8 +32,22 @@ public struct PowerChartView: View {
                 Spacer()
 
                 HStack(spacing: 16) {
+                    if let onToggleTemperatureOverlay {
+                        Button(action: onToggleTemperatureOverlay) {
+                            HStack(spacing: 6) {
+                                Image(systemName: showTemperatureOverlay ? "checkmark.circle.fill" : "circle")
+                                Text("chart.show_temperature")
+                            }
+                            .font(AppTheme.mono(size: 11, weight: .semibold))
+                            .foregroundColor(showTemperatureOverlay ? AppTheme.accent : AppTheme.muted)
+                        }
+                        .buttonStyle(.plain)
+                    }
                     legendItem(color: AppTheme.green, label: "power.chart.legend.charging")
                     legendItem(color: AppTheme.yellow, label: "power.chart.legend.discharge")
+                    if showTemperatureOverlay {
+                        legendItem(color: AppTheme.accent.opacity(0.8), label: "power.chart.legend.temperature")
+                    }
                 }
             }
             .padding(.bottom, 16)
@@ -57,6 +79,10 @@ public struct PowerChartView: View {
         let data = samples.suffix(maxPoints).compactMap { $0.powerW }
         guard data.count >= 2 else { return }
 
+        let tempSeries = showTemperatureOverlay
+            ? samples.suffix(maxPoints).map { $0.tempC }
+            : []
+
         let pad = EdgeInsets(top: 10, leading: 44, bottom: 30, trailing: 10)
         let cW = size.width - pad.leading - pad.trailing
         let cH = size.height - pad.top - pad.bottom
@@ -75,6 +101,14 @@ public struct PowerChartView: View {
         }
 
         let zeroY = toY(0)
+
+        let tempValues = tempSeries.compactMap { $0 }
+        let minTemp = tempValues.min() ?? 0
+        let maxTemp = tempValues.max() ?? 0
+        let tempRange = max(0.1, maxTemp - minTemp)
+        func tempToY(_ v: Double) -> CGFloat {
+            pad.top + cH - CGFloat((v - minTemp) / tempRange) * cH
+        }
 
         // Grid lines
         for g in 1...3 {
@@ -113,6 +147,41 @@ public struct PowerChartView: View {
             at: CGPoint(x: pad.leading - 6, y: size.height - pad.bottom - 4),
             anchor: .trailing
         )
+
+        if showTemperatureOverlay, !tempValues.isEmpty {
+            context.draw(
+                Text("\(Int(maxTemp))°C").font(labelFont).foregroundColor(AppTheme.accent.opacity(0.8)),
+                at: CGPoint(x: size.width - pad.trailing + 4, y: pad.top + 4),
+                anchor: .leading
+            )
+            context.draw(
+                Text("\(Int(minTemp))°C").font(labelFont).foregroundColor(AppTheme.accent.opacity(0.8)),
+                at: CGPoint(x: size.width - pad.trailing + 4, y: size.height - pad.bottom - 4),
+                anchor: .leading
+            )
+
+            var tempPath = Path()
+            var didMove = false
+            var lastPoint: CGPoint?
+            for (index, maybeTemp) in tempSeries.enumerated() {
+                guard let temp = maybeTemp else { continue }
+                let point = CGPoint(x: toX(index), y: tempToY(temp))
+                if !didMove {
+                    tempPath.move(to: point)
+                    didMove = true
+                } else {
+                    tempPath.addLine(to: point)
+                }
+                lastPoint = point
+            }
+
+            if didMove {
+                context.stroke(tempPath, with: .color(AppTheme.accent.opacity(0.8)), style: StrokeStyle(lineWidth: 1.2, dash: [3, 2]))
+                if let marker = lastPoint {
+                    context.fill(Path(ellipseIn: CGRect(x: marker.x - 2, y: marker.y - 2, width: 4, height: 4)), with: .color(AppTheme.accent.opacity(0.8)))
+                }
+            }
+        }
 
         // Fill area above zero (charging) — green gradient
         var upPath = Path()

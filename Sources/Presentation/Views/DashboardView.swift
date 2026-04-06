@@ -13,6 +13,7 @@ public struct DashboardView: View {
     @EnvironmentObject var themeStore: ThemeStore
 
     @State private var showingSettings = false
+    @State private var showTemperatureOverlay = false
 
     public init() {}
 
@@ -26,7 +27,11 @@ public struct DashboardView: View {
                 metricsRow
 
                 // Power chart (full width)
-                PowerChartView(samples: realtime.recentSamples)
+                PowerChartView(
+                    samples: realtime.recentSamples,
+                    showTemperatureOverlay: showTemperatureOverlay,
+                    onToggleTemperatureOverlay: { showTemperatureOverlay.toggle() }
+                )
 
                 // Second row: Battery + Battery Health
                 HStack(alignment: .top, spacing: 16) {
