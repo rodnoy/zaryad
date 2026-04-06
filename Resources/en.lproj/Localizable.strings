@@ -1,6 +1,7 @@
 "app.title" = "Charger Monitor";
 "settings.title" = "Settings";
 "settings.theme" = "Theme";
+"settings.poll_interval" = "Poll interval";
 "theme.dark" = "Dark";
 "theme.light" = "Light";
 "theme.forest" = "Forest";
@@ -10,3 +11,85 @@
 "btn.cancel" = "Cancel";
 "status.no_connection" = "No connection";
 "status.connecting" = "Connecting...";
+
+"common.value.unknown" = "—";
+"common.answer.yes" = "Yes";
+"common.answer.no" = "No";
+
+"dashboard.header.brand.charger" = "Charger ";
+"dashboard.header.brand.monitor" = "Monitor";
+"dashboard.header.subtitle" = "Apple M-series · macOS Battery Telemetry";
+"dashboard.status.live_stream" = "Live Stream";
+"dashboard.status.connecting" = "Connecting...";
+"dashboard.status.no_connection" = "No Connection";
+"dashboard.metrics.power.label" = "Power";
+"dashboard.metrics.voltage.label" = "Voltage";
+"dashboard.metrics.current.label" = "Current";
+"dashboard.metrics.temperature.label" = "Temperature";
+"dashboard.metrics.voltage.subtitle.power_connected" = "Power connected";
+"dashboard.metrics.voltage.subtitle.on_battery" = "On battery";
+"dashboard.metrics.current.subtitle.into_battery" = "↑ into battery";
+"dashboard.metrics.current.subtitle.from_battery" = "↓ from battery";
+"dashboard.metrics.power.subtitle.waiting_data" = "waiting for data";
+"dashboard.metrics.power.subtitle.charging_adapter_format" = "Charging · adapter %@";
+"dashboard.metrics.power.subtitle.discharge_battery" = "Discharge · on battery";
+"dashboard.metrics.power.subtitle.connected_full" = "Connected · full charge";
+"dashboard.metrics.temperature.subtitle.hot" = "Hot";
+"dashboard.metrics.temperature.subtitle.warm" = "Warm";
+"dashboard.metrics.temperature.subtitle.normal" = "Normal";
+"dashboard.footer.data_source" = "Data via ioreg AppleSmartBattery · Updates every 2s · Data from Mac only, not from charger";
+
+"battery.card.title" = "BATTERY";
+"battery.card.status.fully_charged" = "Fully Charged";
+"battery.card.status.charging" = "Charging";
+"battery.card.status.plugged_in" = "Plugged In";
+"battery.card.status.discharging" = "Discharging";
+"battery.card.capacity.format" = "%d / %d mAh";
+"battery.card.capacity.unknown" = "— mAh";
+"battery.card.time.full" = "Full";
+"battery.card.time.pending" = "...";
+"battery.card.time.hours_minutes.format" = "%dh %dm";
+"battery.card.time.minutes.format" = "%dm";
+
+"battery.health.title" = "BATTERY HEALTH";
+"battery.health.row.health" = "Health";
+"battery.health.row.cycles" = "Cycles";
+"battery.health.row.max_capacity" = "Max Capacity";
+"battery.health.row.design_capacity" = "Design Capacity";
+"battery.health.row.adapter" = "Adapter";
+"battery.health.row.plugged_in" = "Plugged In";
+
+"power.chart.title" = "POWER HISTORY (LAST 5 MIN)";
+"power.chart.legend.charging" = "Charging (W)";
+"power.chart.legend.discharge" = "Discharge (W)";
+
+"sessions.title" = "CHARGER COMPARISON";
+"sessions.subtitle" = "Plug charger → record session → switch → repeat";
+"sessions.button.stop" = "Stop";
+"sessions.button.record" = "Record Session";
+"sessions.button.clear" = "Clear";
+"sessions.alert.title" = "Session Name";
+"sessions.alert.textfield.placeholder" = "Charger name";
+"sessions.alert.button.start" = "Start";
+"sessions.alert.message" = "Enter a name for this charging session";
+"sessions.recording" = "Recording";
+"sessions.empty.title" = "No recorded sessions.";
+"sessions.empty.subtitle" = "Plug in a charger and press \"Record Session\".";
+"sessions.badge.best" = "BEST";
+"sessions.table.header.charger" = "Charger";
+"sessions.table.header.duration" = "Duration";
+"sessions.table.header.peak_w" = "Peak W";
+"sessions.table.header.avg_w" = "Avg W";
+"sessions.table.header.delta_charge" = "+% Charge";
+"sessions.table.header.avg_temp" = "Avg Temp";
+"sessions.table.header.rating" = "Rating";
+"sessions.session.fallback_name" = "Session";
+"sessions.default_name.format" = "Charger %d";
+"sessions.duration.minutes_seconds.format" = "%dm %ds";
+"sessions.duration.seconds.format" = "%ds";
+
+"session.rating.excellent" = "Excellent";
+"session.rating.good" = "Good";
+"session.rating.fair" = "Weak";
+"session.rating.poor" = "Poor";
+"session.rating.unknown" = "—";

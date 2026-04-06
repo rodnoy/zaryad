@@ -1,6 +1,7 @@
 "app.title" = "Монитор зарядки";
 "settings.title" = "Настройки";
 "settings.theme" = "Тема";
+"settings.poll_interval" = "Интервал опроса";
 "theme.dark" = "Тёмная";
 "theme.light" = "Светлая";
 "theme.forest" = "Лесная";
@@ -10,3 +11,85 @@
 "btn.cancel" = "Отмена";
 "status.no_connection" = "Нет соединения";
 "status.connecting" = "Подключение...";
+
+"common.value.unknown" = "—";
+"common.answer.yes" = "Да";
+"common.answer.no" = "Нет";
+
+"dashboard.header.brand.charger" = "Зарядка ";
+"dashboard.header.brand.monitor" = "Монитор";
+"dashboard.header.subtitle" = "Apple M-series · Телеметрия батареи macOS";
+"dashboard.status.live_stream" = "Прямой поток";
+"dashboard.status.connecting" = "Подключение...";
+"dashboard.status.no_connection" = "Нет соединения";
+"dashboard.metrics.power.label" = "Мощность";
+"dashboard.metrics.voltage.label" = "Напряжение";
+"dashboard.metrics.current.label" = "Ток";
+"dashboard.metrics.temperature.label" = "Температура";
+"dashboard.metrics.voltage.subtitle.power_connected" = "Питание подключено";
+"dashboard.metrics.voltage.subtitle.on_battery" = "От батареи";
+"dashboard.metrics.current.subtitle.into_battery" = "↑ в батарею";
+"dashboard.metrics.current.subtitle.from_battery" = "↓ из батареи";
+"dashboard.metrics.power.subtitle.waiting_data" = "ожидание данных";
+"dashboard.metrics.power.subtitle.charging_adapter_format" = "Зарядка · адаптер %@";
+"dashboard.metrics.power.subtitle.discharge_battery" = "Разряд · от батареи";
+"dashboard.metrics.power.subtitle.connected_full" = "Подключено · полный заряд";
+"dashboard.metrics.temperature.subtitle.hot" = "Горячо";
+"dashboard.metrics.temperature.subtitle.warm" = "Тепло";
+"dashboard.metrics.temperature.subtitle.normal" = "Нормально";
+"dashboard.footer.data_source" = "Данные через ioreg AppleSmartBattery · Обновление каждые 2с · Данные только с Mac, не с зарядника";
+
+"battery.card.title" = "БАТАРЕЯ";
+"battery.card.status.fully_charged" = "Полностью заряжена";
+"battery.card.status.charging" = "Заряжается";
+"battery.card.status.plugged_in" = "Подключено";
+"battery.card.status.discharging" = "Разряжается";
+"battery.card.capacity.format" = "%d / %d мА·ч";
+"battery.card.capacity.unknown" = "— мА·ч";
+"battery.card.time.full" = "Полный";
+"battery.card.time.pending" = "...";
+"battery.card.time.hours_minutes.format" = "%dч %dм";
+"battery.card.time.minutes.format" = "%dм";
+
+"battery.health.title" = "СОСТОЯНИЕ БАТАРЕИ";
+"battery.health.row.health" = "Здоровье";
+"battery.health.row.cycles" = "Циклы";
+"battery.health.row.max_capacity" = "Макс. ёмкость";
+"battery.health.row.design_capacity" = "Проектная ёмкость";
+"battery.health.row.adapter" = "Адаптер";
+"battery.health.row.plugged_in" = "Подключено";
+
+"power.chart.title" = "ИСТОРИЯ МОЩНОСТИ (ПОСЛЕДНИЕ 5 МИН)";
+"power.chart.legend.charging" = "Зарядка (Вт)";
+"power.chart.legend.discharge" = "Разряд (Вт)";
+
+"sessions.title" = "СРАВНЕНИЕ ЗАРЯДНИКОВ";
+"sessions.subtitle" = "Подключите зарядник → запишите сессию → смените → повторите";
+"sessions.button.stop" = "Стоп";
+"sessions.button.record" = "Записать сессию";
+"sessions.button.clear" = "Очистить";
+"sessions.alert.title" = "Имя сессии";
+"sessions.alert.textfield.placeholder" = "Имя зарядника";
+"sessions.alert.button.start" = "Старт";
+"sessions.alert.message" = "Введите имя для этой сессии зарядки";
+"sessions.recording" = "Идёт запись";
+"sessions.empty.title" = "Нет записанных сессий.";
+"sessions.empty.subtitle" = "Подключите зарядник и нажмите \"Записать сессию\".";
+"sessions.badge.best" = "ЛУЧШИЙ";
+"sessions.table.header.charger" = "Зарядник";
+"sessions.table.header.duration" = "Длительность";
+"sessions.table.header.peak_w" = "Пик Вт";
+"sessions.table.header.avg_w" = "Ср. Вт";
+"sessions.table.header.delta_charge" = "+% Заряда";
+"sessions.table.header.avg_temp" = "Ср. темп";
+"sessions.table.header.rating" = "Рейтинг";
+"sessions.session.fallback_name" = "Сессия";
+"sessions.default_name.format" = "Зарядник %d";
+"sessions.duration.minutes_seconds.format" = "%dм %dс";
+"sessions.duration.seconds.format" = "%dс";
+
+"session.rating.excellent" = "Отлично";
+"session.rating.good" = "Хорошо";
+"session.rating.fair" = "Слабо";
+"session.rating.poor" = "Плохо";
+"session.rating.unknown" = "—";

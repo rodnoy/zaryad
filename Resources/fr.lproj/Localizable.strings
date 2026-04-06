@@ -1,6 +1,7 @@
 "app.title" = "Moniteur de charge";
 "settings.title" = "Réglages";
 "settings.theme" = "Thème";
+"settings.poll_interval" = "Intervalle d’interrogation";
 "theme.dark" = "Sombre";
 "theme.light" = "Clair";
 "theme.forest" = "Forêt";
@@ -10,3 +11,85 @@
 "btn.cancel" = "Annuler";
 "status.no_connection" = "Pas de connexion";
 "status.connecting" = "Connexion...";
+
+"common.value.unknown" = "—";
+"common.answer.yes" = "Oui";
+"common.answer.no" = "Non";
+
+"dashboard.header.brand.charger" = "Chargeur ";
+"dashboard.header.brand.monitor" = "Monitor";
+"dashboard.header.subtitle" = "Apple M-series · Télémétrie de batterie macOS";
+"dashboard.status.live_stream" = "Flux en direct";
+"dashboard.status.connecting" = "Connexion...";
+"dashboard.status.no_connection" = "Aucune connexion";
+"dashboard.metrics.power.label" = "Puissance";
+"dashboard.metrics.voltage.label" = "Tension";
+"dashboard.metrics.current.label" = "Courant";
+"dashboard.metrics.temperature.label" = "Température";
+"dashboard.metrics.voltage.subtitle.power_connected" = "Alimentation connectée";
+"dashboard.metrics.voltage.subtitle.on_battery" = "Sur batterie";
+"dashboard.metrics.current.subtitle.into_battery" = "↑ vers la batterie";
+"dashboard.metrics.current.subtitle.from_battery" = "↓ depuis la batterie";
+"dashboard.metrics.power.subtitle.waiting_data" = "en attente de données";
+"dashboard.metrics.power.subtitle.charging_adapter_format" = "Charge · adaptateur %@";
+"dashboard.metrics.power.subtitle.discharge_battery" = "Décharge · sur batterie";
+"dashboard.metrics.power.subtitle.connected_full" = "Connecté · charge complète";
+"dashboard.metrics.temperature.subtitle.hot" = "Chaud";
+"dashboard.metrics.temperature.subtitle.warm" = "Tiède";
+"dashboard.metrics.temperature.subtitle.normal" = "Normal";
+"dashboard.footer.data_source" = "Données via ioreg AppleSmartBattery · Mise à jour toutes les 2 s · Données depuis le Mac uniquement, pas depuis le chargeur";
+
+"battery.card.title" = "BATTERIE";
+"battery.card.status.fully_charged" = "Entièrement chargée";
+"battery.card.status.charging" = "En charge";
+"battery.card.status.plugged_in" = "Branché";
+"battery.card.status.discharging" = "En décharge";
+"battery.card.capacity.format" = "%d / %d mAh";
+"battery.card.capacity.unknown" = "— mAh";
+"battery.card.time.full" = "Pleine";
+"battery.card.time.pending" = "...";
+"battery.card.time.hours_minutes.format" = "%dh %dm";
+"battery.card.time.minutes.format" = "%dm";
+
+"battery.health.title" = "SANTÉ DE LA BATTERIE";
+"battery.health.row.health" = "Santé";
+"battery.health.row.cycles" = "Cycles";
+"battery.health.row.max_capacity" = "Capacité max";
+"battery.health.row.design_capacity" = "Capacité nominale";
+"battery.health.row.adapter" = "Adaptateur";
+"battery.health.row.plugged_in" = "Branché";
+
+"power.chart.title" = "HISTORIQUE DE PUISSANCE (5 DERNIÈRES MIN)";
+"power.chart.legend.charging" = "Charge (W)";
+"power.chart.legend.discharge" = "Décharge (W)";
+
+"sessions.title" = "COMPARAISON DES CHARGEURS";
+"sessions.subtitle" = "Branchez le chargeur → enregistrez une session → changez → répétez";
+"sessions.button.stop" = "Arrêter";
+"sessions.button.record" = "Enregistrer la session";
+"sessions.button.clear" = "Effacer";
+"sessions.alert.title" = "Nom de session";
+"sessions.alert.textfield.placeholder" = "Nom du chargeur";
+"sessions.alert.button.start" = "Démarrer";
+"sessions.alert.message" = "Saisissez un nom pour cette session de charge";
+"sessions.recording" = "Enregistrement";
+"sessions.empty.title" = "Aucune session enregistrée.";
+"sessions.empty.subtitle" = "Branchez un chargeur et appuyez sur \"Enregistrer la session\".";
+"sessions.badge.best" = "MEILLEUR";
+"sessions.table.header.charger" = "Chargeur";
+"sessions.table.header.duration" = "Durée";
+"sessions.table.header.peak_w" = "Pic W";
+"sessions.table.header.avg_w" = "Moy W";
+"sessions.table.header.delta_charge" = "+% Charge";
+"sessions.table.header.avg_temp" = "Temp moy";
+"sessions.table.header.rating" = "Note";
+"sessions.session.fallback_name" = "Session";
+"sessions.default_name.format" = "Chargeur %d";
+"sessions.duration.minutes_seconds.format" = "%dmin %ds";
+"sessions.duration.seconds.format" = "%ds";
+
+"session.rating.excellent" = "Excellent";
+"session.rating.good" = "Bon";
+"session.rating.fair" = "Faible";
+"session.rating.poor" = "Mauvais";
+"session.rating.unknown" = "—";
