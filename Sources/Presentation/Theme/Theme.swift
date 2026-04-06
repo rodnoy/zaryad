@@ -147,13 +147,9 @@ public struct Theme {
         )
     )
 
+    public static let builtInThemes: [Theme] = [.dark, .light, .forest, .marine, .martian]
+
     public static func forKey(_ key: String) -> Theme {
-        switch key {
-        case light.key: return light
-        case forest.key: return forest
-        case marine.key: return marine
-        case martian.key: return martian
-        default: return dark
-        }
+        return builtInThemes.first(where: { $0.key == key }) ?? dark
     }
 }
