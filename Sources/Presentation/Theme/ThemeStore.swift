@@ -8,10 +8,14 @@ public final class ThemeStore: ObservableObject {
     // source of truth for the currently selected theme across the app.
     public static let shared = ThemeStore()
 
-    public static let all: [Theme] = [.dark, .light, .forest, .marine, .martian]
+    public static var all: [Theme] { shared.allThemes }
 
     @Published public var current: Theme
+    @Published public private(set) var allThemes: [Theme]
+
     private let userDefaults: UserDefaults
+    private let loader: ThemeLoader
+    private let selectedThemeKey = "selectedTheme"
 
     public var currentKey: String {
         current.key
@@ -22,16 +26,38 @@ public final class ThemeStore: ObservableObject {
         set { select(key: newValue) }
     }
 
-    public init(userDefaults: UserDefaults = .standard) {
+    public init(
+        userDefaults: UserDefaults = .standard,
+        loader: ThemeLoader = ThemeLoader()
+    ) {
         self.userDefaults = userDefaults
-        let key = userDefaults.string(forKey: "selectedTheme") ?? Theme.dark.key
-        self.current = Theme.forKey(key)
+        self.loader = loader
+
+        let loadedThemes = loader.loadAllThemes()
+        let resolvedThemes = loadedThemes.isEmpty ? Theme.builtInThemes : loadedThemes
+        self.allThemes = resolvedThemes
+
+        let key = userDefaults.string(forKey: selectedThemeKey) ?? Theme.dark.key
+        self.current = resolvedThemes.first(where: { $0.key == key }) ?? Theme.dark
     }
 
     public func select(key: String) {
-        let next = Theme.forKey(key)
+        let next = allThemes.first(where: { $0.key == key }) ?? Theme.dark
         guard current.key != next.key else { return }
-        userDefaults.set(next.key, forKey: "selectedTheme")
+        userDefaults.set(next.key, forKey: selectedThemeKey)
         current = next
+    }
+
+    public func reload() {
+        let loadedThemes = loader.loadAllThemes()
+        allThemes = loadedThemes.isEmpty ? Theme.builtInThemes : loadedThemes
+
+        let persistedKey = userDefaults.string(forKey: selectedThemeKey) ?? current.key
+        if let next = allThemes.first(where: { $0.key == persistedKey }) {
+            current = next
+        } else {
+            current = Theme.dark
+            userDefaults.set(Theme.dark.key, forKey: selectedThemeKey)
+        }
     }
 }
