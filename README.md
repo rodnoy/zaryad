@@ -56,3 +56,10 @@ Notes
 -----
 - For a proper App Store / distribution build you should create an Xcode project with a proper bundle identifier, signing and entitlements, or use Xcode's package-to-app flow and configure the Export options when archiving.
 - If you prefer an explicit `.xcodeproj` in the repo, I can generate a minimal project template and wire it to the package sources.
+
+Localization checks
+-------------------
+- Validate localization key parity across locales:
+  - `./scripts/check_localization.swift`
+- Detect likely hardcoded user-facing strings in Presentation views:
+  - `./scripts/check_hardcoded_strings.sh`
