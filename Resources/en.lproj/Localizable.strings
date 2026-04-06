@@ -63,12 +63,16 @@
 "power.chart.title" = "POWER HISTORY (LAST 5 MIN)";
 "power.chart.legend.charging" = "Charging (W)";
 "power.chart.legend.discharge" = "Discharge (W)";
+"power.chart.legend.temperature" = "Temperature (°C)";
+"chart.show_temperature" = "Show temperature";
 
 "sessions.title" = "CHARGER COMPARISON";
 "sessions.subtitle" = "Plug charger → record session → switch → repeat";
 "sessions.button.stop" = "Stop";
 "sessions.button.record" = "Record Session";
 "sessions.button.clear" = "Clear";
+"sessions.button.export_selected" = "Export Selected CSV";
+"sessions.button.export_all" = "Export All CSV";
 "sessions.alert.title" = "Session Name";
 "sessions.alert.textfield.placeholder" = "Charger name";
 "sessions.alert.button.start" = "Start";
@@ -88,6 +92,20 @@
 "sessions.default_name.format" = "Charger %d";
 "sessions.duration.minutes_seconds.format" = "%dm %ds";
 "sessions.duration.seconds.format" = "%ds";
+"sessions.chart.title" = "SESSION POWER COMPARISON";
+"sessions.chart.empty" = "No session data for chart";
+"sessions.chart.legend.avg" = "Avg W";
+"sessions.chart.legend.peak" = "Peak W";
+"sessions.chart.tooltip.avg" = "Avg";
+"sessions.chart.tooltip.peak" = "Peak";
+"sessions.export.panel.title" = "Export Sessions CSV";
+"sessions.export.panel.message" = "Choose where to save session metrics CSV.";
+"sessions.export.status.success.title" = "Export Completed";
+"sessions.export.status.failure.title" = "Export Failed";
+"sessions.export.status.success.selected_format" = "Exported %d selected sessions to CSV.";
+"sessions.export.status.success.all_format" = "Exported %d sessions to CSV.";
+"sessions.export.status.no_selection" = "No sessions selected.";
+"sessions.export.status.empty" = "No sessions available for export.";
 
 "session.rating.excellent" = "Excellent";
 "session.rating.good" = "Good";
