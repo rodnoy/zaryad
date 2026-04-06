@@ -13,11 +13,39 @@ settings:
     MACOSX_DEPLOYMENT_TARGET: "14.0"
 
 targets:
+  Domain:
+    type: library.static
+    platform: macOS
+    sources:
+      - path: Sources/Domain
+        type: group
+
+  Data:
+    type: library.static
+    platform: macOS
+    sources:
+      - path: Sources/Data
+        type: group
+    dependencies:
+      - target: Domain
+      - sdk: IOKit.framework
+      - sdk: SwiftData.framework
+
+  Presentation:
+    type: library.static
+    platform: macOS
+    sources:
+      - path: Sources/Presentation
+        type: group
+    dependencies:
+      - target: Domain
+      - target: Data
+
   ChargerMonitor:
     type: application
     platform: macOS
     sources:
-      - path: Sources
+      - path: Sources/App
         type: group
       - path: Resources
         type: group
@@ -34,7 +62,11 @@ targets:
         ENABLE_APP_SANDBOX: "NO"
         SWIFT_EMIT_LOC_STRINGS: "YES"
         GENERATE_INFOPLIST_FILE: "YES"
+        PRODUCT_MODULE_NAME: ChargerMonitor
     dependencies:
+      - target: Domain
+      - target: Data
+      - target: Presentation
       - sdk: IOKit.framework
       - sdk: SwiftData.framework
 
@@ -46,7 +78,21 @@ targets:
         type: group
     dependencies:
       - target: ChargerMonitor
+      - target: Domain
+      - target: Data
+      - target: Presentation
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.worldproject.chargermonitor.tests
         GENERATE_INFOPLIST_FILE: "YES"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Charger Monitor.app/Contents/MacOS/Charger Monitor"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+
+schemes:
+  ChargerMonitor:
+    build:
+      targets:
+        ChargerMonitor: all
+    test:
+      targets:
+        - ChargerMonitorTests
