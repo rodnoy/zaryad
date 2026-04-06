@@ -1,5 +1,5 @@
 import XCTest
-@testable import ChargerMonitor
+@testable import Domain
 
 final class DomainTests: XCTestCase {
     func testSessionAggregationsAndRating() throws {

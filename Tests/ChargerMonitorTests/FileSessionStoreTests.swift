@@ -1,5 +1,6 @@
 import XCTest
-@testable import ChargerMonitor
+@testable import Domain
+@testable import Data
 
 final class FileSessionStoreTests: XCTestCase {
     func testSaveFetchDeleteLifecycle() async throws {

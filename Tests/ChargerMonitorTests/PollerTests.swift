@@ -1,5 +1,6 @@
 import XCTest
-@testable import ChargerMonitor
+@testable import Domain
+@testable import Data
 
 final class PollerTests: XCTestCase {
     final class MockRepo: SystemPowerRepository, @unchecked Sendable {
