@@ -69,6 +69,36 @@ public struct SessionsComparisonView: View {
 
                     if !sessionsVM.sessions.isEmpty {
                         Button(action: {
+                            sessionsVM.exportSelectedSessions()
+                        }) {
+                            Text("sessions.button.export_selected")
+                                .font(.system(size: 12, weight: .semibold))
+                                .padding(.horizontal, 14)
+                                .padding(.vertical, 7)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .stroke(AppTheme.accent, lineWidth: 1)
+                                )
+                                .foregroundColor(AppTheme.accent)
+                        }
+                        .buttonStyle(.plain)
+
+                        Button(action: {
+                            sessionsVM.exportAllSessions()
+                        }) {
+                            Text("sessions.button.export_all")
+                                .font(.system(size: 12, weight: .semibold))
+                                .padding(.horizontal, 14)
+                                .padding(.vertical, 7)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .stroke(AppTheme.accent, lineWidth: 1)
+                                )
+                                .foregroundColor(AppTheme.accent)
+                        }
+                        .buttonStyle(.plain)
+
+                        Button(action: {
                             Task { await sessionsVM.deleteAll() }
                         }) {
                             Text("sessions.button.clear")
@@ -90,7 +120,10 @@ public struct SessionsComparisonView: View {
             if sessionsVM.sessions.isEmpty && !realtime.isSessionActive {
                 emptyState
             } else {
-                sessionsTable
+                VStack(spacing: 16) {
+                    SessionBarChartView(sessions: sessionsVM.sessions)
+                    sessionsTable
+                }
             }
         }
         .cardStyle()
@@ -102,6 +135,15 @@ public struct SessionsComparisonView: View {
             Button("btn.cancel", role: .cancel) {}
         } message: {
             Text("sessions.alert.message")
+        }
+        .alert(item: $sessionsVM.exportStatus) { status in
+            Alert(
+                title: Text(status.titleKey),
+                message: Text(status.message),
+                dismissButton: .default(Text("btn.cancel")) {
+                    sessionsVM.exportStatus = nil
+                }
+            )
         }
     }
 
@@ -148,6 +190,7 @@ public struct SessionsComparisonView: View {
         return VStack(spacing: 0) {
             // Table header
             HStack(spacing: 0) {
+                tableHeader("", flex: 0)
                 tableHeader("sessions.table.header.charger", flex: 2)
                 tableHeader("sessions.table.header.duration", flex: 1)
                 tableHeader("sessions.table.header.peak_w", flex: 1)
@@ -185,6 +228,14 @@ public struct SessionsComparisonView: View {
         let color = isBest ? AppTheme.green : AppTheme.text
 
         HStack(spacing: 0) {
+            Button(action: { sessionsVM.toggleSelection(session.id) }) {
+                Image(systemName: sessionsVM.selectedSessionIDs.contains(session.id) ? "checkmark.square.fill" : "square")
+                    .foregroundColor(sessionsVM.selectedSessionIDs.contains(session.id) ? AppTheme.accent : AppTheme.muted)
+                    .font(.system(size: 12, weight: .semibold))
+                    .frame(width: 22, alignment: .leading)
+            }
+            .buttonStyle(.plain)
+
             // Charger name + BEST tag
             HStack(spacing: 6) {
                 Text(session.name ?? String(localized: "sessions.session.fallback_name"))
@@ -224,7 +275,7 @@ public struct SessionsComparisonView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .layoutPriority(1)
 
-            Text(session.deltaPercent.map { String(format: "%+.1f%%", $0) } ?? String(localized: "common.value.unknown"))
+            Text(String(format: "%+.1f%%", session.deltaPercent))
                 .font(AppTheme.mono(size: 12))
                 .foregroundColor(color)
                 .frame(maxWidth: .infinity, alignment: .leading)
