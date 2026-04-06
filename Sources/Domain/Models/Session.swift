@@ -1,5 +1,13 @@
 import Foundation
 
+public enum SessionRating: String, Codable, Sendable {
+    case excellent
+    case good
+    case fair
+    case poor
+    case unknown
+}
+
 public struct Session: Identifiable, Codable, Sendable {
     public var id: UUID
     public var name: String?
@@ -42,12 +50,13 @@ public struct Session: Identifiable, Codable, Sendable {
         return last - first
     }
 
-    /// Rating based on avgW: >=60 excellent, >=30 good, else weak.
-    public var rating: String {
-        guard let avg = avgW else { return "—" }
-        if avg >= 60 { return "Excellent" }
-        if avg >= 30 { return "Good" }
-        return "Weak"
+    /// Rating based on avgW: >=60 excellent, >=30 good, else fair.
+    public var rating: SessionRating {
+        guard let avg = avgW else { return .unknown }
+        if avg >= 60 { return .excellent }
+        if avg >= 30 { return .good }
+        if avg > 0 { return .fair }
+        return .poor
     }
 
     /// Numeric rating for sorting (higher is better).

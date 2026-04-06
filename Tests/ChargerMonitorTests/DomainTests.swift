@@ -17,8 +17,8 @@ final class DomainTests: XCTestCase {
         XCTAssertEqual(session.avgTemp, (30.0 + 32.0 + 34.0) / 3.0)
         // deltaPercent: 85 - 80 = 5
         XCTAssertEqual(session.deltaPercent, 5.0)
-        // rating: avgW = 20 (< 30) → "Weak"
-        XCTAssertEqual(session.rating, "Weak")
+        // rating: avgW = 20 (< 30) → .fair
+        XCTAssertEqual(session.rating, .fair)
     }
 
     func testSessionWithHighPower() throws {
@@ -29,7 +29,7 @@ final class DomainTests: XCTestCase {
 
         XCTAssertEqual(session.peakW, 70.0)
         XCTAssertEqual(session.avgW, 67.5)
-        XCTAssertEqual(session.rating, "Excellent") // avgW >= 60
+        XCTAssertEqual(session.rating, .excellent) // avgW >= 60
     }
 
     func testSessionDischargingIgnoredInAvgW() throws {
@@ -41,6 +41,6 @@ final class DomainTests: XCTestCase {
         // No positive power values, so avgW should be nil
         XCTAssertNil(session.avgW)
         XCTAssertNil(session.peakW)
-        XCTAssertEqual(session.rating, "—")
+        XCTAssertEqual(session.rating, .unknown)
     }
 }
