@@ -83,14 +83,14 @@ public struct DashboardView: View {
 
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(spacing: 0) {
-                        Text("Charger ")
+                        Text("dashboard.header.brand.charger")
                             .font(.system(size: 20, weight: .bold))
                             .foregroundColor(AppTheme.text)
-                        Text("Monitor")
+                        Text("dashboard.header.brand.monitor")
                             .font(.system(size: 20, weight: .bold))
                             .foregroundColor(AppTheme.accent)
                     }
-                    Text("Apple M-series · macOS Battery Telemetry")
+                    Text("dashboard.header.subtitle")
                         .font(.system(size: 12))
                         .foregroundColor(AppTheme.muted)
                 }
@@ -145,9 +145,9 @@ public struct DashboardView: View {
 
     private var statusText: String {
         switch realtime.connectionStatus {
-        case .connected: return "Live Stream"
-        case .disconnected: return "Connecting..."
-        case .error: return "No Connection"
+        case .connected: return String(localized: "dashboard.status.live_stream")
+        case .disconnected: return String(localized: "dashboard.status.connecting")
+        case .error: return String(localized: "dashboard.status.no_connection")
         }
     }
 
@@ -159,7 +159,7 @@ public struct DashboardView: View {
 
         return HStack(spacing: 16) {
             MetricCardView(
-                label: "Power",
+                label: "dashboard.metrics.power.label",
                 value: String(format: "%.1f", abs(powerW)),
                 unit: "W",
                 subtitle: powerSubtitle(sample),
@@ -167,21 +167,25 @@ public struct DashboardView: View {
             )
 
             MetricCardView(
-                label: "Voltage",
+                label: "dashboard.metrics.voltage.label",
                 value: String(format: "%.2f", sample?.voltageV ?? 0),
                 unit: "V",
-                subtitle: (sample?.pluggedIn == true) ? "Power connected" : "On battery"
+                subtitle: (sample?.pluggedIn == true)
+                    ? String(localized: "dashboard.metrics.voltage.subtitle.power_connected")
+                    : String(localized: "dashboard.metrics.voltage.subtitle.on_battery")
             )
 
             MetricCardView(
-                label: "Current",
+                label: "dashboard.metrics.current.label",
                 value: String(format: "%.2f", abs(sample?.amperageA ?? 0)),
                 unit: "A",
-                subtitle: (sample?.amperageA ?? 0) >= 0 ? "↑ into battery" : "↓ from battery"
+                subtitle: (sample?.amperageA ?? 0) >= 0
+                    ? String(localized: "dashboard.metrics.current.subtitle.into_battery")
+                    : String(localized: "dashboard.metrics.current.subtitle.from_battery")
             )
 
             MetricCardView(
-                label: "Temperature",
+                label: "dashboard.metrics.temperature.label",
                 value: String(format: "%.1f", sample?.tempC ?? 0),
                 unit: "°C",
                 subtitle: tempSubtitle(sample?.tempC)
@@ -190,29 +194,29 @@ public struct DashboardView: View {
     }
 
     private func powerSubtitle(_ sample: BatterySample?) -> String {
-        guard let s = sample else { return "waiting for data" }
+        guard let s = sample else { return String(localized: "dashboard.metrics.power.subtitle.waiting_data") }
         let pw = s.powerW ?? 0
         if pw > 0.5 {
             let adapter = s.adapterWatts.map { "\(Int($0))W" } ?? "?"
-            return "Charging · adapter \(adapter)"
+            return String(format: String(localized: "dashboard.metrics.power.subtitle.charging_adapter_format"), adapter)
         } else if pw < -0.5 {
-            return "Discharge · on battery"
+            return String(localized: "dashboard.metrics.power.subtitle.discharge_battery")
         } else {
-            return "Connected · full charge"
+            return String(localized: "dashboard.metrics.power.subtitle.connected_full")
         }
     }
 
     private func tempSubtitle(_ temp: Double?) -> String {
-        guard let t = temp else { return "—" }
-        if t > 40 { return "Hot" }
-        if t > 35 { return "Warm" }
-        return "Normal"
+        guard let t = temp else { return String(localized: "common.value.unknown") }
+        if t > 40 { return String(localized: "dashboard.metrics.temperature.subtitle.hot") }
+        if t > 35 { return String(localized: "dashboard.metrics.temperature.subtitle.warm") }
+        return String(localized: "dashboard.metrics.temperature.subtitle.normal")
     }
 
     // MARK: - Footer
 
     private var footerView: some View {
-        Text("Data via ioreg AppleSmartBattery · Updates every 2s · Data from Mac only, not from charger")
+        Text("dashboard.footer.data_source")
             .font(AppTheme.mono(size: 12))
             .foregroundColor(AppTheme.muted)
             .frame(maxWidth: .infinity)

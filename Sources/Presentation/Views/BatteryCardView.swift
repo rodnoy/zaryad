@@ -14,31 +14,36 @@ public struct BatteryCardView: View {
 
     private var percent: Double { sample?.percent ?? 0 }
     private var statusText: String {
-        guard let s = sample else { return "—" }
-        if s.fullyCharged == true { return "Fully Charged" }
-        if s.isCharging == true { return "Charging" }
-        if s.pluggedIn == true { return "Plugged In" }
-        return "Discharging"
+        guard let s = sample else { return String(localized: "common.value.unknown") }
+        if s.fullyCharged == true { return String(localized: "battery.card.status.fully_charged") }
+        if s.isCharging == true { return String(localized: "battery.card.status.charging") }
+        if s.pluggedIn == true { return String(localized: "battery.card.status.plugged_in") }
+        return String(localized: "battery.card.status.discharging")
     }
 
     private var capacityText: String {
-        guard let cur = sample?.currentMah, let max = sample?.maxMah else { return "— mAh" }
-        return "\(Int(cur)) / \(Int(max)) mAh"
+        guard let cur = sample?.currentMah, let max = sample?.maxMah else {
+            return String(localized: "battery.card.capacity.unknown")
+        }
+        return String(format: String(localized: "battery.card.capacity.format"), Int(cur), Int(max))
     }
 
     private var timeText: String {
         guard let min = sample?.timeRemainingMin, min > 0 else {
-            if sample?.fullyCharged == true { return "Full" }
-            return "..."
+            if sample?.fullyCharged == true { return String(localized: "battery.card.time.full") }
+            return String(localized: "battery.card.time.pending")
         }
         let h = Int(min) / 60
         let m = Int(min) % 60
-        return h > 0 ? "\(h)h \(m)m" : "\(m)m"
+        if h > 0 {
+            return String(format: String(localized: "battery.card.time.hours_minutes.format"), h, m)
+        }
+        return String(format: String(localized: "battery.card.time.minutes.format"), m)
     }
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("BATTERY")
+            Text("battery.card.title")
                 .font(AppTheme.mono(size: 11, weight: .semibold))
                 .foregroundColor(AppTheme.header)
                 .tracking(1)

@@ -12,7 +12,7 @@ public struct BatteryHealthView: View {
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("BATTERY HEALTH")
+            Text("battery.health.title")
                 .font(AppTheme.mono(size: 11, weight: .semibold))
                 .foregroundColor(AppTheme.header)
                 .tracking(1)
@@ -22,12 +22,12 @@ public struct BatteryHealthView: View {
                 GridItem(.flexible(), spacing: 12),
                 GridItem(.flexible(), spacing: 12)
             ], spacing: 12) {
-                infoRow(key: "Health", value: formatHealth())
-                infoRow(key: "Cycles", value: formatCycles())
-                infoRow(key: "Max Capacity", value: formatMaxCap())
-                infoRow(key: "Design Capacity", value: formatDesignCap())
-                infoRow(key: "Adapter", value: formatAdapter())
-                infoRow(key: "Plugged In", value: formatPlugged())
+                infoRow(key: String(localized: "battery.health.row.health"), value: formatHealth())
+                infoRow(key: String(localized: "battery.health.row.cycles"), value: formatCycles())
+                infoRow(key: String(localized: "battery.health.row.max_capacity"), value: formatMaxCap())
+                infoRow(key: String(localized: "battery.health.row.design_capacity"), value: formatDesignCap())
+                infoRow(key: String(localized: "battery.health.row.adapter"), value: formatAdapter())
+                infoRow(key: String(localized: "battery.health.row.plugged_in"), value: formatPlugged())
             }
         }
         .cardStyle()
@@ -55,32 +55,32 @@ public struct BatteryHealthView: View {
     // MARK: - Formatters
 
     private func formatHealth() -> String {
-        guard let h = sample?.healthPercent else { return "—" }
+        guard let h = sample?.healthPercent else { return String(localized: "common.value.unknown") }
         return "\(Int(h))%"
     }
 
     private func formatCycles() -> String {
-        guard let c = sample?.cycleCount else { return "—" }
+        guard let c = sample?.cycleCount else { return String(localized: "common.value.unknown") }
         return "\(c)"
     }
 
     private func formatMaxCap() -> String {
-        guard let m = sample?.maxMah else { return "—" }
+        guard let m = sample?.maxMah else { return String(localized: "common.value.unknown") }
         return "\(Int(m)) mAh"
     }
 
     private func formatDesignCap() -> String {
-        guard let d = sample?.designMah else { return "—" }
+        guard let d = sample?.designMah else { return String(localized: "common.value.unknown") }
         return "\(Int(d)) mAh"
     }
 
     private func formatAdapter() -> String {
-        guard let w = sample?.adapterWatts else { return "—" }
+        guard let w = sample?.adapterWatts else { return String(localized: "common.value.unknown") }
         return "\(Int(w))W"
     }
 
     private func formatPlugged() -> String {
-        guard let p = sample?.pluggedIn else { return "—" }
-        return p ? "Yes" : "No"
+        guard let p = sample?.pluggedIn else { return String(localized: "common.value.unknown") }
+        return p ? String(localized: "common.answer.yes") : String(localized: "common.answer.no")
     }
 }

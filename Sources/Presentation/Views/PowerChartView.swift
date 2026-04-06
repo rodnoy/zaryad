@@ -16,7 +16,7 @@ public struct PowerChartView: View {
         VStack(alignment: .leading, spacing: 0) {
             // Header
             HStack {
-                Text("POWER HISTORY (LAST 5 MIN)")
+                Text("power.chart.title")
                     .font(AppTheme.mono(size: 11, weight: .semibold))
                     .foregroundColor(AppTheme.header)
                     .tracking(0.5)
@@ -24,8 +24,8 @@ public struct PowerChartView: View {
                 Spacer()
 
                 HStack(spacing: 16) {
-                    legendItem(color: AppTheme.green, label: "Charging (W)")
-                    legendItem(color: AppTheme.yellow, label: "Discharge (W)")
+                    legendItem(color: AppTheme.green, label: "power.chart.legend.charging")
+                    legendItem(color: AppTheme.yellow, label: "power.chart.legend.discharge")
                 }
             }
             .padding(.bottom, 16)

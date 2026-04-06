@@ -44,7 +44,7 @@ public struct SettingsView: View {
                 )
 
                 HStack {
-                    Text("Poll interval")
+                    Text("settings.poll_interval")
                         .font(AppTheme.mono(size: 13))
                         .foregroundColor(AppTheme.text)
                     Spacer()

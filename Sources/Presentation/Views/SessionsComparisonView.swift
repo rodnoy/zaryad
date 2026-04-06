@@ -18,11 +18,11 @@ public struct SessionsComparisonView: View {
             // Header
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("CHARGER COMPARISON")
+                    Text("sessions.title")
                         .font(AppTheme.mono(size: 11, weight: .semibold))
                         .foregroundColor(AppTheme.header)
                         .tracking(1)
-                    Text("Plug charger → record session → switch → repeat")
+                    Text("sessions.subtitle")
                         .font(.system(size: 12))
                         .foregroundColor(AppTheme.muted)
                 }
@@ -35,7 +35,7 @@ public struct SessionsComparisonView: View {
                         Button(action: {
                             Task { await realtime.stopSession() }
                         }) {
-                            Text("Stop")
+                            Text("sessions.button.stop")
                                 .font(.system(size: 12, weight: .semibold))
                                 .padding(.horizontal, 14)
                                 .padding(.vertical, 7)
@@ -48,10 +48,13 @@ public struct SessionsComparisonView: View {
                         .buttonStyle(.plain)
                     } else {
                         Button(action: {
-                            sessionName = "Charger \(sessionsVM.sessions.count + 1)"
+                            sessionName = String(
+                                format: String(localized: "sessions.default_name.format"),
+                                sessionsVM.sessions.count + 1
+                            )
                             showNameInput = true
                         }) {
-                            Text("Record Session")
+                            Text("sessions.button.record")
                                 .font(.system(size: 12, weight: .semibold))
                                 .padding(.horizontal, 14)
                                 .padding(.vertical, 7)
@@ -68,7 +71,7 @@ public struct SessionsComparisonView: View {
                         Button(action: {
                             Task { await sessionsVM.deleteAll() }
                         }) {
-                            Text("Clear")
+                            Text("sessions.button.clear")
                                 .font(.system(size: 12, weight: .semibold))
                                 .padding(.horizontal, 14)
                                 .padding(.vertical, 7)
@@ -91,14 +94,14 @@ public struct SessionsComparisonView: View {
             }
         }
         .cardStyle()
-        .alert("Session Name", isPresented: $showNameInput) {
-            TextField("Charger name", text: $sessionName)
-            Button("Start") {
+        .alert("sessions.alert.title", isPresented: $showNameInput) {
+            TextField(String(localized: "sessions.alert.textfield.placeholder"), text: $sessionName)
+            Button("sessions.alert.button.start") {
                 Task { await realtime.startSession(name: sessionName) }
             }
-            Button("Cancel", role: .cancel) {}
+            Button("btn.cancel", role: .cancel) {}
         } message: {
-            Text("Enter a name for this charging session")
+            Text("sessions.alert.message")
         }
     }
 
@@ -109,7 +112,7 @@ public struct SessionsComparisonView: View {
             Circle()
                 .fill(AppTheme.green)
                 .frame(width: 8, height: 8)
-            Text("Recording")
+            Text("sessions.recording")
                 .font(AppTheme.mono(size: 12, weight: .semibold))
                 .foregroundColor(AppTheme.green)
         }
@@ -126,10 +129,10 @@ public struct SessionsComparisonView: View {
 
     private var emptyState: some View {
         VStack(spacing: 4) {
-            Text("No recorded sessions.")
+            Text("sessions.empty.title")
                 .font(.system(size: 13))
                 .foregroundColor(AppTheme.muted)
-            Text("Plug in a charger and press \"Record Session\".")
+            Text("sessions.empty.subtitle")
                 .font(.system(size: 13))
                 .foregroundColor(AppTheme.muted)
         }
@@ -145,13 +148,13 @@ public struct SessionsComparisonView: View {
         return VStack(spacing: 0) {
             // Table header
             HStack(spacing: 0) {
-                tableHeader("Charger", flex: 2)
-                tableHeader("Duration", flex: 1)
-                tableHeader("Peak W", flex: 1)
-                tableHeader("Avg W", flex: 1)
-                tableHeader("+% Charge", flex: 1)
-                tableHeader("Avg Temp", flex: 1)
-                tableHeader("Rating", flex: 1)
+                tableHeader("sessions.table.header.charger", flex: 2)
+                tableHeader("sessions.table.header.duration", flex: 1)
+                tableHeader("sessions.table.header.peak_w", flex: 1)
+                tableHeader("sessions.table.header.avg_w", flex: 1)
+                tableHeader("sessions.table.header.delta_charge", flex: 1)
+                tableHeader("sessions.table.header.avg_temp", flex: 1)
+                tableHeader("sessions.table.header.rating", flex: 1)
             }
             .padding(.vertical, 8)
             .padding(.horizontal, 12)
@@ -169,7 +172,7 @@ public struct SessionsComparisonView: View {
 
     @ViewBuilder
     private func tableHeader(_ title: String, flex: Int) -> some View {
-        Text(title.uppercased())
+        Text(NSLocalizedString(title, comment: "").uppercased())
             .font(AppTheme.mono(size: 11, weight: .semibold))
             .foregroundColor(AppTheme.header)
             .tracking(0.8)
@@ -184,12 +187,12 @@ public struct SessionsComparisonView: View {
         HStack(spacing: 0) {
             // Charger name + BEST tag
             HStack(spacing: 6) {
-                Text(session.name ?? "Session")
+                Text(session.name ?? String(localized: "sessions.session.fallback_name"))
                     .font(AppTheme.mono(size: 12))
                     .foregroundColor(color)
                     .lineLimit(1)
                 if isBest {
-                    Text("BEST")
+                    Text("sessions.badge.best")
                         .font(AppTheme.mono(size: 10, weight: .semibold))
                         .foregroundColor(AppTheme.green)
                         .padding(.horizontal, 8)
@@ -209,25 +212,25 @@ public struct SessionsComparisonView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .layoutPriority(1)
 
-            Text(session.peakW.map { String(format: "%.1fW", $0) } ?? "—")
+            Text(session.peakW.map { String(format: "%.1fW", $0) } ?? String(localized: "common.value.unknown"))
                 .font(AppTheme.mono(size: 12))
                 .foregroundColor(color)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .layoutPriority(1)
 
-            Text(session.avgW.map { String(format: "%.1fW", $0) } ?? "—")
+            Text(session.avgW.map { String(format: "%.1fW", $0) } ?? String(localized: "common.value.unknown"))
                 .font(AppTheme.mono(size: 12))
                 .foregroundColor(color)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .layoutPriority(1)
 
-            Text(session.deltaPercent.map { String(format: "%+.1f%%", $0) } ?? "—")
+            Text(session.deltaPercent.map { String(format: "%+.1f%%", $0) } ?? String(localized: "common.value.unknown"))
                 .font(AppTheme.mono(size: 12))
                 .foregroundColor(color)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .layoutPriority(1)
 
-            Text(session.avgTemp.map { String(format: "%.1f°C", $0) } ?? "—")
+            Text(session.avgTemp.map { String(format: "%.1f°C", $0) } ?? String(localized: "common.value.unknown"))
                 .font(AppTheme.mono(size: 12))
                 .foregroundColor(color)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -245,16 +248,28 @@ public struct SessionsComparisonView: View {
     }
 
     @ViewBuilder
-    private func ratingTag(_ rating: String) -> some View {
-        let (bgColor, fgColor): (Color, Color) = {
+    private func ratingTag(_ rating: SessionRating) -> some View {
+        let titleKey: String = {
             switch rating {
-            case "Excellent": return (AppTheme.green.opacity(0.15), AppTheme.green)
-            case "Good": return (AppTheme.yellow.opacity(0.15), AppTheme.yellow)
-            default: return (AppTheme.surface2, AppTheme.muted)
+            case .excellent: return "session.rating.excellent"
+            case .good: return "session.rating.good"
+            case .fair: return "session.rating.fair"
+            case .poor: return "session.rating.poor"
+            case .unknown: return "session.rating.unknown"
             }
         }()
 
-        Text(rating)
+        let (bgColor, fgColor): (Color, Color) = {
+            switch rating {
+            case .excellent: return (AppTheme.green.opacity(0.15), AppTheme.green)
+            case .good: return (AppTheme.yellow.opacity(0.15), AppTheme.yellow)
+            case .fair: return (AppTheme.surface2, AppTheme.muted)
+            case .poor: return (AppTheme.red.opacity(0.15), AppTheme.red)
+            case .unknown: return (AppTheme.surface2, AppTheme.muted)
+            }
+        }()
+
+        Text(titleKey)
             .font(AppTheme.mono(size: 10, weight: .semibold))
             .foregroundColor(fgColor)
             .padding(.horizontal, 8)
@@ -270,8 +285,8 @@ public struct SessionsComparisonView: View {
     private func formatDuration(_ seconds: TimeInterval) -> String {
         let s = Int(seconds)
         if s >= 60 {
-            return "\(s / 60)m \(s % 60)s"
+            return String(format: String(localized: "sessions.duration.minutes_seconds.format"), s / 60, s % 60)
         }
-        return "\(s)s"
+        return String(format: String(localized: "sessions.duration.seconds.format"), s)
     }
 }
