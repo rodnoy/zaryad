@@ -1,0 +1,21 @@
+{
+  "key": "forest",
+  "displayName": {
+    "en": "Forest",
+    "ru": "Лесная",
+    "fr": "Forêt"
+  },
+  "palette": {
+    "bg": "#0b1510",
+    "surface": "#12211a",
+    "surface2": "#183025",
+    "border": "#28503e",
+    "accent": "#4ade80",
+    "accent2": "#22c55e",
+    "green": "#34d399",
+    "yellow": "#eab308",
+    "red": "#f43f5e",
+    "text": "#e8f6ec",
+    "muted": "#8aa39a"
+  }
+}

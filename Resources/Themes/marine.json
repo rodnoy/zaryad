@@ -1,0 +1,21 @@
+{
+  "key": "marine",
+  "displayName": {
+    "en": "Marine",
+    "ru": "Морская",
+    "fr": "Marin"
+  },
+  "palette": {
+    "bg": "#07131f",
+    "surface": "#0d1f31",
+    "surface2": "#12304a",
+    "border": "#1d4a72",
+    "accent": "#22d3ee",
+    "accent2": "#3b82f6",
+    "green": "#2dd4bf",
+    "yellow": "#facc15",
+    "red": "#fb7185",
+    "text": "#e6f1ff",
+    "muted": "#7da0bf"
+  }
+}

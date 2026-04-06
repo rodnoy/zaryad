@@ -1,0 +1,21 @@
+{
+  "key": "light",
+  "displayName": {
+    "en": "Light",
+    "ru": "Светлая",
+    "fr": "Clair"
+  },
+  "palette": {
+    "bg": "#f6f8fc",
+    "surface": "#ffffff",
+    "surface2": "#edf1f8",
+    "border": "#d8e0ef",
+    "accent": "#0a84ff",
+    "accent2": "#6e56cf",
+    "green": "#1fbf75",
+    "yellow": "#e7a400",
+    "red": "#e04865",
+    "text": "#111827",
+    "muted": "#6b7280"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "key": "martian",
+  "displayName": {
+    "en": "Martian",
+    "ru": "Марсианская",
+    "fr": "Martien"
+  },
+  "palette": {
+    "bg": "#190b0a",
+    "surface": "#2a1311",
+    "surface2": "#3a1b18",
+    "border": "#6a2f29",
+    "accent": "#ff6b3d",
+    "accent2": "#ff8a5b",
+    "green": "#9be564",
+    "yellow": "#ffb547",
+    "red": "#ff4d4d",
+    "text": "#ffe7df",
+    "muted": "#c29183"
+  }
+}
