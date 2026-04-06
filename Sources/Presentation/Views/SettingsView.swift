@@ -57,6 +57,29 @@ public struct SettingsView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(AppTheme.surface2)
                 )
+
+                HStack {
+                    Button("settings.theme.reload") {
+                        themeStore.reload()
+                    }
+                    .font(AppTheme.mono(size: 13, weight: .semibold))
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(AppTheme.accent2.opacity(0.2))
+                    )
+                    .foregroundColor(AppTheme.text)
+                    .buttonStyle(.plain)
+
+                    Spacer()
+                }
+                .padding(.horizontal, 14)
+                .padding(.vertical, 10)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(AppTheme.surface2)
+                )
             }
 
             Spacer()

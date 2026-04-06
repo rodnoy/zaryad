@@ -1,6 +1,7 @@
 "app.title" = "Монитор зарядки";
 "settings.title" = "Настройки";
 "settings.theme" = "Тема";
+"settings.theme.reload" = "Перезагрузить темы";
 "settings.poll_interval" = "Интервал опроса";
 "theme.dark" = "Тёмная";
 "theme.light" = "Светлая";

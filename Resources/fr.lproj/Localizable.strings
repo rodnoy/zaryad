@@ -1,6 +1,7 @@
 "app.title" = "Moniteur de charge";
 "settings.title" = "Réglages";
 "settings.theme" = "Thème";
+"settings.theme.reload" = "Recharger les thèmes";
 "settings.poll_interval" = "Intervalle d’interrogation";
 "theme.dark" = "Sombre";
 "theme.light" = "Clair";

@@ -1,6 +1,7 @@
 "app.title" = "Charger Monitor";
 "settings.title" = "Settings";
 "settings.theme" = "Theme";
+"settings.theme.reload" = "Reload themes";
 "settings.poll_interval" = "Poll interval";
 "theme.dark" = "Dark";
 "theme.light" = "Light";
