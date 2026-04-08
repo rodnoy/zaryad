@@ -99,6 +99,20 @@ final class SessionAnalyticsTests: XCTestCase {
         XCTAssertNil(noDelta.percentPerHour)
         XCTAssertEqual(noDelta.deltaMah, 0)
         XCTAssertEqual(noDelta.mahPerHour, 0)
+
+        let zeroDuration = Session(
+            start: start,
+            end: start,
+            samples: [
+                BatterySample(timestamp: start, percent: 30, maxMah: 5000),
+                BatterySample(timestamp: start, percent: 33, maxMah: 5000)
+            ]
+        )
+
+        XCTAssertEqual(zeroDuration.durationSeconds, 0, accuracy: 0.001)
+        XCTAssertEqual(zeroDuration.deltaPercent, 3, accuracy: 0.001)
+        XCTAssertNil(zeroDuration.percentPerHour)
+        XCTAssertNil(zeroDuration.mahPerHour)
     }
 
     func testDeltaMahFallsBackToDesignConstantWhenCapacityMissing() {
@@ -133,5 +147,23 @@ final class SessionAnalyticsTests: XCTestCase {
         XCTAssertEqual(session.avgChargingPowerW, 25)
         XCTAssertEqual(session.adapterWatts, 65)
         XCTAssertEqual(session.efficiencyPercent ?? 0, 38.461538, accuracy: 0.0001)
+    }
+
+    func testMissingAdapterProducesNilEfficiencyForChargingSession() {
+        let start = Date(timeIntervalSince1970: 1_700_500_000)
+        let end = start.addingTimeInterval(1200)
+
+        let session = Session(
+            start: start,
+            end: end,
+            samples: [
+                BatterySample(timestamp: start, powerW: 22, percent: 40),
+                BatterySample(timestamp: end, powerW: 28, percent: 42)
+            ]
+        )
+
+        XCTAssertEqual(session.avgChargingPowerW ?? 0, 25, accuracy: 0.001)
+        XCTAssertNil(session.adapterWatts)
+        XCTAssertNil(session.efficiencyPercent)
     }
 }

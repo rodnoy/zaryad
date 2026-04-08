@@ -43,6 +43,13 @@ public struct Session: Identifiable, Codable, Sendable {
         return capacities.reduce(0, +) / Double(capacities.count)
     }
 
+    /// Average design capacity across all samples where it is available.
+    public var averageDesignCapacityMah: Double? {
+        let capacities = samples.compactMap(\.designMah)
+        guard !capacities.isEmpty else { return nil }
+        return capacities.reduce(0, +) / Double(capacities.count)
+    }
+
     /// Adapter watts from the first sample where the value is available.
     public var adapterWatts: Double? {
         samples.compactMap(\.adapterWatts).first
@@ -65,13 +72,19 @@ public struct Session: Identifiable, Codable, Sendable {
     }
 
     /// Delta in mAh estimated from percent delta and known battery capacity.
+    ///
+    /// Capacity fallback order:
+    /// 1) Average `maxMah` across samples
+    /// 2) Capacity inferred from (`currentMah` / `percent`) when possible
+    /// 3) Average `designMah` across samples
+    /// 4) `defaultDesignCapacityMah`
     public var deltaMah: Double? {
         guard !samples.isEmpty else { return nil }
 
         let capacityMah: Double? =
             averageBatteryCapacityMah
-            ?? samples.first?.maxMah
-            ?? samples.compactMap(\.maxMah).first
+            ?? inferredCapacityFromCurrentMah
+            ?? averageDesignCapacityMah
             ?? Session.defaultDesignCapacityMah
 
         guard let capacityMah else { return nil }
@@ -111,6 +124,22 @@ public struct Session: Identifiable, Codable, Sendable {
         let values = samples.compactMap(\.tempC)
         guard !values.isEmpty else { return nil }
         return values.reduce(0, +) / Double(values.count)
+    }
+
+    private var inferredCapacityFromCurrentMah: Double? {
+        let inferred = samples.compactMap { sample -> Double? in
+            guard let current = sample.currentMah,
+                  let percent = sample.percent,
+                  percent > 0
+            else {
+                return nil
+            }
+
+            return current / (percent / 100.0)
+        }
+
+        guard !inferred.isEmpty else { return nil }
+        return inferred.reduce(0, +) / Double(inferred.count)
     }
 
     public var peakW: Double? {
