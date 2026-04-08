@@ -11,6 +11,7 @@
 		065BF0D3FF1FAC2AA7820F9C /* SessionUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A36A3C2BC8E68FFF6C2CE3 /* SessionUseCases.swift */; };
 		08AAFE4C249FECE7C5C32C73 /* SDSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 972B8F487156C382457E0E1B /* SDSession.swift */; };
 		0AD059BB65EEA4D5D73F8368 /* DashboardView.swift.bak in Resources */ = {isa = PBXBuildFile; fileRef = A8ED85FC039ADAD5FABB22A4 /* DashboardView.swift.bak */; };
+		0C3E2C710ACD62F428163A42 /* ThemeLoaderHotReloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A607007708BCF04CB0B5F771 /* ThemeLoaderHotReloadTests.swift */; };
 		1529691506D7EED2744BD1CC /* BatteryCardView.swift.bak in Resources */ = {isa = PBXBuildFile; fileRef = 61C5AC9DD357C0676466DD09 /* BatteryCardView.swift.bak */; };
 		190734368770C490AF3BF86A /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA408FE533B63693F0295FC /* IOKit.framework */; };
 		2F13ACC5FE981F3D386ED0E3 /* SystemPowerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6714BE674C456AFCEA3C9FAD /* SystemPowerRepository.swift */; };
@@ -25,6 +26,7 @@
 		521354639D909F3B62B09ECD /* martian.json in Resources */ = {isa = PBXBuildFile; fileRef = 2523C8D60F72FD62260457EB /* martian.json */; };
 		5333EFA77E7DF5D240028535 /* dark.json in Resources */ = {isa = PBXBuildFile; fileRef = 753FB4EEEDED609DE5C9E443 /* dark.json */; };
 		565165F495631BEC16AE5508 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 453203943978D0D96CD0DE34 /* Localizable.strings */; };
+		5FEF85A974105E9602C2C41C /* ThemeDirectoryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F2754FE0CFA8563E93D86F /* ThemeDirectoryWatcher.swift */; };
 		6151C128FDCC47C833838F04 /* light.json in Resources */ = {isa = PBXBuildFile; fileRef = 5749BDBEAE16A9720195668C /* light.json */; };
 		61FB2FE8F2181BEE0913F540 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3163AE8BBED0B7C730775247 /* SwiftData.framework */; };
 		6FF51C9FD4C8D64F2B8EDB63 /* libDomain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 006734F3BA152A24A0E7BD66 /* libDomain.a */; };
@@ -187,6 +189,7 @@
 		A201188FA82B71D55A01A160 /* BatteryError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryError.swift; sourceTree = "<group>"; };
 		A2A36A3C2BC8E68FFF6C2CE3 /* SessionUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionUseCases.swift; sourceTree = "<group>"; };
 		A5C404E9B01F6E92E62FEA58 /* FileSessionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSessionStoreTests.swift; sourceTree = "<group>"; };
+		A607007708BCF04CB0B5F771 /* ThemeLoaderHotReloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeLoaderHotReloadTests.swift; sourceTree = "<group>"; };
 		A8ED85FC039ADAD5FABB22A4 /* DashboardView.swift.bak */ = {isa = PBXFileReference; path = DashboardView.swift.bak; sourceTree = "<group>"; };
 		AAAC34B38ABACF2FD0D94A53 /* SessionCSVExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCSVExporter.swift; sourceTree = "<group>"; };
 		ADF9A954A5129B4AB944726A /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
@@ -196,6 +199,7 @@
 		C7DE059FA391FDC1421B356A /* IOKitBatteryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOKitBatteryRepository.swift; sourceTree = "<group>"; };
 		D4BFFD1596A337B80EC83D04 /* MetricCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricCardView.swift; sourceTree = "<group>"; };
 		D786E96DD20371540ECD0DC7 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		D8F2754FE0CFA8563E93D86F /* ThemeDirectoryWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDirectoryWatcher.swift; sourceTree = "<group>"; };
 		E2B74214709576DD782A56CB /* RealtimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeViewModel.swift; sourceTree = "<group>"; };
 		EC40AA8FE940996BFA0548E4 /* ThemeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDTO.swift; sourceTree = "<group>"; };
 		ED23C913601FE7B233AA1637 /* SettingsView.swift.bak */ = {isa = PBXFileReference; path = SettingsView.swift.bak; sourceTree = "<group>"; };
@@ -285,6 +289,7 @@
 				9EB2D1A85C4CC76661183143 /* PollerTests.swift */,
 				0A26A189A0150B5E702AC15D /* SessionAnalyticsTests.swift */,
 				2763A222D055DBCA134B7E81 /* SessionCSVExportTests.swift */,
+				A607007708BCF04CB0B5F771 /* ThemeLoaderHotReloadTests.swift */,
 			);
 			name = ChargerMonitorTests;
 			path = Tests/ChargerMonitorTests;
@@ -337,6 +342,7 @@
 			children = (
 				76BB73F529024E6F0A12FC14 /* AppTheme.swift */,
 				0E1CB3E37BD92C6188FF1096 /* Theme.swift */,
+				D8F2754FE0CFA8563E93D86F /* ThemeDirectoryWatcher.swift */,
 				EC40AA8FE940996BFA0548E4 /* ThemeDTO.swift */,
 				20D9AB0AB0B23C7C4100C3FE /* ThemeLoader.swift */,
 				BC73F2314B7E68175179CE8D /* ThemeStore.swift */,
@@ -693,6 +699,7 @@
 				C771D159A8FC7495D9E38C9C /* SettingsViewModel.swift in Sources */,
 				CF1370102740D00C4A26F88C /* Theme.swift in Sources */,
 				3F628E5CBEF9909A0988DC79 /* ThemeDTO.swift in Sources */,
+				5FEF85A974105E9602C2C41C /* ThemeDirectoryWatcher.swift in Sources */,
 				D43B76B7B81AA63246CCBE3F /* ThemeLoader.swift in Sources */,
 				FDC4B1976231ED7F0456B406 /* ThemeStore.swift in Sources */,
 			);
@@ -718,6 +725,7 @@
 				D7DABE8899F0EC243208FBCC /* PollerTests.swift in Sources */,
 				886BAB090A46DE9C206395A6 /* SessionAnalyticsTests.swift in Sources */,
 				C40F9BEB25687247217E1A84 /* SessionCSVExportTests.swift in Sources */,
+				0C3E2C710ACD62F428163A42 /* ThemeLoaderHotReloadTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

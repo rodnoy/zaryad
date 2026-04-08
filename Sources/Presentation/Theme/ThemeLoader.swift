@@ -7,10 +7,16 @@ public struct ThemeLoader {
     private let logger = Logger(subsystem: "com.chargermonitor", category: "ThemeLoader")
     private let fileManager: FileManager
     private let bundle: Bundle
+    private let customUserThemesDirectoryURL: URL?
 
-    public init(fileManager: FileManager = .default, bundle: Bundle = .main) {
+    public init(
+        fileManager: FileManager = .default,
+        bundle: Bundle = .main,
+        userThemesDirectoryURL: URL? = nil
+    ) {
         self.fileManager = fileManager
         self.bundle = bundle
+        self.customUserThemesDirectoryURL = userThemesDirectoryURL
     }
 
     public func loadBuiltInThemes() -> [Theme] {
@@ -74,7 +80,11 @@ public struct ThemeLoader {
     }
 
     public func userThemesDirectoryURL() -> URL {
-        fileManager.homeDirectoryForCurrentUser
+        if let customUserThemesDirectoryURL {
+            return customUserThemesDirectoryURL
+        }
+
+        return fileManager.homeDirectoryForCurrentUser
             .appendingPathComponent(".chargermonitor", isDirectory: true)
             .appendingPathComponent("themes", isDirectory: true)
     }

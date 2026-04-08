@@ -15,7 +15,9 @@ public final class ThemeStore: ObservableObject {
 
     private let userDefaults: UserDefaults
     private let loader: ThemeLoader
+    private let fileManager: FileManager
     private let selectedThemeKey = "selectedTheme"
+    private var directoryWatcher: ThemeDirectoryWatcher?
 
     public var currentKey: String {
         current.key
@@ -28,10 +30,12 @@ public final class ThemeStore: ObservableObject {
 
     public init(
         userDefaults: UserDefaults = .standard,
-        loader: ThemeLoader = ThemeLoader()
+        loader: ThemeLoader = ThemeLoader(),
+        fileManager: FileManager = .default
     ) {
         self.userDefaults = userDefaults
         self.loader = loader
+        self.fileManager = fileManager
 
         let loadedThemes = loader.loadAllThemes()
         let resolvedThemes = loadedThemes.isEmpty ? Theme.builtInThemes : loadedThemes
@@ -39,6 +43,12 @@ public final class ThemeStore: ObservableObject {
 
         let key = userDefaults.string(forKey: selectedThemeKey) ?? Theme.dark.key
         self.current = resolvedThemes.first(where: { $0.key == key }) ?? Theme.dark
+
+        startWatchingUserThemesDirectory()
+    }
+
+    deinit {
+        directoryWatcher?.stop()
     }
 
     public func select(key: String) {
@@ -59,5 +69,30 @@ public final class ThemeStore: ObservableObject {
             current = Theme.dark
             userDefaults.set(Theme.dark.key, forKey: selectedThemeKey)
         }
+
+        ensureDirectoryWatcherIsRunning()
+    }
+
+    private func startWatchingUserThemesDirectory() {
+        ensureUserThemesDirectoryExists()
+        ensureDirectoryWatcherIsRunning()
+    }
+
+    private func ensureDirectoryWatcherIsRunning() {
+        guard directoryWatcher == nil else { return }
+
+        let userThemesDirectory = loader.userThemesDirectoryURL()
+        let watcher = ThemeDirectoryWatcher(directoryURL: userThemesDirectory) { [weak self] in
+            DispatchQueue.main.async {
+                self?.reload()
+            }
+        }
+        watcher.start()
+        self.directoryWatcher = watcher
+    }
+
+    private func ensureUserThemesDirectoryExists() {
+        let userThemesDirectory = loader.userThemesDirectoryURL()
+        try? fileManager.createDirectory(at: userThemesDirectory, withIntermediateDirectories: true)
     }
 }
