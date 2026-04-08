@@ -33,15 +33,16 @@ public struct PowerChartView: View {
 
                 HStack(spacing: 16) {
                     if let onToggleTemperatureOverlay {
-                        Button(action: onToggleTemperatureOverlay) {
-                            HStack(spacing: 6) {
-                                Image(systemName: showTemperatureOverlay ? "checkmark.circle.fill" : "circle")
-                                Text("chart.show_temperature")
-                            }
-                            .font(AppTheme.mono(size: 11, weight: .semibold))
-                            .foregroundColor(showTemperatureOverlay ? AppTheme.accent : AppTheme.muted)
+                        Toggle(isOn: Binding(
+                            get: { showTemperatureOverlay },
+                            set: { _ in onToggleTemperatureOverlay() }
+                        )) {
+                            Text("chart.show_temperature")
+                                .font(AppTheme.mono(size: 11, weight: .semibold))
+                                .foregroundColor(showTemperatureOverlay ? AppTheme.accent : AppTheme.muted)
                         }
-                        .buttonStyle(.plain)
+                        .toggleStyle(.checkbox)
+                        .fixedSize()
                     }
                     legendItem(color: AppTheme.green, label: "power.chart.legend.charging")
                     legendItem(color: AppTheme.yellow, label: "power.chart.legend.discharge")
