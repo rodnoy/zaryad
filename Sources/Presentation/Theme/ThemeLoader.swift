@@ -7,19 +7,37 @@ public struct ThemeLoader {
     private let logger = Logger(subsystem: "com.chargermonitor", category: "ThemeLoader")
     private let fileManager: FileManager
     private let bundle: Bundle
+    private let customBuiltInThemesDirectoryURL: URL?
     private let customUserThemesDirectoryURL: URL?
 
     public init(
         fileManager: FileManager = .default,
         bundle: Bundle = .main,
+        builtInThemesDirectoryURL: URL? = nil,
         userThemesDirectoryURL: URL? = nil
     ) {
         self.fileManager = fileManager
         self.bundle = bundle
+        self.customBuiltInThemesDirectoryURL = builtInThemesDirectoryURL
         self.customUserThemesDirectoryURL = userThemesDirectoryURL
     }
 
     public func loadBuiltInThemes() -> [Theme] {
+        if let customBuiltInThemesDirectoryURL {
+            do {
+                let urls = try fileManager.contentsOfDirectory(
+                    at: customBuiltInThemesDirectoryURL,
+                    includingPropertiesForKeys: nil,
+                    options: [.skipsHiddenFiles]
+                )
+                let jsonURLs = urls.filter { $0.pathExtension.lowercased() == "json" }
+                return loadThemes(from: jsonURLs)
+            } catch {
+                logger.error("Failed to enumerate built-in themes: \(error.localizedDescription, privacy: .public)")
+                return []
+            }
+        }
+
         guard let urls = bundle.urls(forResourcesWithExtension: "json", subdirectory: "Themes") else {
             logger.info("No built-in theme JSON files found in bundle")
             return []
