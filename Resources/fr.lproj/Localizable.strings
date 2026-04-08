@@ -65,12 +65,17 @@
 "power.chart.legend.discharge" = "Décharge (W)";
 "power.chart.legend.temperature" = "Température (°C)";
 "chart.show_temperature" = "Afficher la température";
+"chart.avg_w" = "Moy W";
+"chart.peak_w" = "Pic W";
 
 "sessions.title" = "COMPARAISON DES CHARGEURS";
 "sessions.subtitle" = "Branchez le chargeur → enregistrez une session → changez → répétez";
 "sessions.button.stop" = "Arrêter";
 "sessions.button.record" = "Enregistrer la session";
 "sessions.button.clear" = "Effacer";
+"sessions.export_csv" = "Exporter CSV";
+"sessions.export_selected" = "Exporter sélection";
+"sessions.export_all" = "Exporter tout";
 "sessions.button.export_selected" = "Exporter sélection CSV";
 "sessions.button.export_all" = "Exporter tout CSV";
 "sessions.alert.title" = "Nom de session";
@@ -102,6 +107,8 @@
 "sessions.export.panel.message" = "Choisissez l’emplacement pour enregistrer le CSV des métriques.";
 "sessions.export.status.success.title" = "Export terminé";
 "sessions.export.status.failure.title" = "Échec de l’export";
+"session.csv.export.success" = "Export terminé";
+"session.csv.export.failure" = "Échec de l’export";
 "sessions.export.status.success.selected_format" = "%d sessions sélectionnées exportées en CSV.";
 "sessions.export.status.success.all_format" = "%d sessions exportées en CSV.";
 "sessions.export.status.no_selection" = "Aucune session sélectionnée.";
