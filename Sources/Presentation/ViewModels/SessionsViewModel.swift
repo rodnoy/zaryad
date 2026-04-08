@@ -25,8 +25,8 @@ public final class SessionsViewModel: ObservableObject {
 
         public var titleKey: String {
             switch self {
-            case .success: return "sessions.export.status.success.title"
-            case .failure: return "sessions.export.status.failure.title"
+            case .success: return "session.csv.export.success"
+            case .failure: return "session.csv.export.failure"
             }
         }
 
