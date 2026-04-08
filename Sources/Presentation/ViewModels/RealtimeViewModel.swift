@@ -10,6 +10,8 @@ private let logger = Logger(subsystem: "com.chargermonitor", category: "Realtime
 public final class RealtimeViewModel: ObservableObject {
     @Published public private(set) var currentSample: BatterySample?
     @Published public private(set) var recentSamples: [BatterySample] = []
+    @Published public private(set) var healthSnapshots: [SDHealthSnapshot] = []
+    @Published public private(set) var healthForecast: BatteryHealthPredictor.Forecast?
     @Published public private(set) var isSessionActive: Bool = false
     @Published public private(set) var connectionStatus: ConnectionStatus = .disconnected
 
@@ -19,13 +21,17 @@ public final class RealtimeViewModel: ObservableObject {
 
     private let poller: BatteryPoller
     private let sessionManager: SessionManager
+    private let healthSnapshotStore: HealthSnapshotStore
+    private let healthPredictor = BatteryHealthPredictor()
 
     private var pollingTask: Task<Void, Never>? = nil
     private let maxSamples = 150
+    private var lastSavedCycleCount: Int?
 
-    public init(poller: BatteryPoller, sessionManager: SessionManager) {
+    public init(poller: BatteryPoller, sessionManager: SessionManager, healthSnapshotStore: HealthSnapshotStore) {
         self.poller = poller
         self.sessionManager = sessionManager
+        self.healthSnapshotStore = healthSnapshotStore
     }
 
     public func startPolling(pollIntervalSeconds: UInt64 = 2) async {
@@ -48,6 +54,7 @@ public final class RealtimeViewModel: ObservableObject {
         }
 
         await poller.start(pollIntervalSeconds: pollIntervalSeconds)
+        await refreshHealthSnapshots()
     }
 
     public func stopPolling() async {
@@ -69,6 +76,48 @@ public final class RealtimeViewModel: ObservableObject {
         if isSessionActive {
             try? await sessionManager.append(sample: sample)
         }
+
+        await maybeSaveHealthSnapshot(sample)
+    }
+
+    private func maybeSaveHealthSnapshot(_ sample: BatterySample) async {
+        guard let cycleCount = sample.cycleCount,
+              let healthPercent = sample.healthPercent
+        else {
+            return
+        }
+
+        if lastSavedCycleCount == cycleCount {
+            return
+        }
+
+        do {
+            try await healthSnapshotStore.saveSnapshot(
+                cycleCount: cycleCount,
+                healthPercent: healthPercent,
+                maxMah: sample.maxMah.map { Int($0.rounded()) },
+                designMah: sample.designMah.map { Int($0.rounded()) }
+            )
+            lastSavedCycleCount = cycleCount
+            await refreshHealthSnapshots()
+        } catch {
+            logger.error("Failed to save health snapshot: \(error.localizedDescription, privacy: .public)")
+        }
+    }
+
+    private func refreshHealthSnapshots(limit: Int = 120) async {
+        let snapshots = await healthSnapshotStore.fetchSnapshots(limit: limit)
+        self.healthSnapshots = snapshots.sorted { $0.cycleCount < $1.cycleCount }
+        self.lastSavedCycleCount = self.healthSnapshots.last?.cycleCount
+
+        let observations = self.healthSnapshots.map {
+            BatteryHealthPredictor.Observation(
+                timestamp: $0.timestamp,
+                cycleCount: $0.cycleCount,
+                healthPercent: $0.healthPercent
+            )
+        }
+        self.healthForecast = healthPredictor.forecast(from: observations)
     }
 
     public func startSession(name: String?) async {

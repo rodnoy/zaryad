@@ -14,6 +14,7 @@ struct ChargerMonitorApp: App {
                 .environmentObject(di.realtimeViewModel)
                 .environmentObject(di.sessionsViewModel)
                 .environmentObject(di.settingsViewModel)
+                .environmentObject(di.recommendationsViewModel)
                 .environmentObject(di.themeStore)
                 .modelContainer(di.modelContainer)
         }

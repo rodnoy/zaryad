@@ -10,6 +10,7 @@ public struct DashboardView: View {
     @EnvironmentObject var realtime: RealtimeViewModel
     @EnvironmentObject var sessionsVM: SessionsViewModel
     @EnvironmentObject var settingsVM: SettingsViewModel
+    @EnvironmentObject var recommendationsVM: RecommendationsViewModel
     @EnvironmentObject var themeStore: ThemeStore
 
     @State private var showingSettings = false
@@ -36,8 +37,14 @@ public struct DashboardView: View {
                 // Second row: Battery + Battery Health
                 HStack(alignment: .top, spacing: 16) {
                     BatteryCardView(sample: realtime.currentSample)
-                    BatteryHealthView(sample: realtime.currentSample)
+                    BatteryHealthView(
+                        sample: realtime.currentSample,
+                        snapshots: realtime.healthSnapshots,
+                        forecast: realtime.healthForecast
+                    )
                 }
+
+                RecommendationsView()
 
                 // Sessions comparison table
                 SessionsComparisonView()

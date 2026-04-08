@@ -53,12 +53,38 @@
 "battery.card.time.minutes.format" = "%dm";
 
 "battery.health.title" = "SANTÉ DE LA BATTERIE";
+"battery.health.current" = "Santé actuelle";
 "battery.health.row.health" = "Santé";
 "battery.health.row.cycles" = "Cycles";
 "battery.health.row.max_capacity" = "Capacité max";
 "battery.health.row.design_capacity" = "Capacité nominale";
 "battery.health.row.adapter" = "Adaptateur";
 "battery.health.row.plugged_in" = "Branché";
+"battery.health.cycles_to_80" = "Cycles jusqu’à 80 %";
+"battery.health.cycles_to_70" = "Cycles jusqu’à 70 %";
+"battery.health.insufficient_data" = "Données insuffisantes";
+"battery.health.confidence" = "Confiance (R²)";
+
+"recommendations.title" = "RECOMMANDATIONS";
+"recommendations.empty" = "Aucune recommandation active";
+"recommendation.weak_adapter.title" = "Adaptateur sous-performant";
+"recommendation.weak_adapter.message" = "La puissance moyenne de charge est inférieure à 50 % de la puissance nominale.";
+"recommendation.high_temp.title" = "Température élevée en charge";
+"recommendation.high_temp.message" = "La température moyenne de la batterie est élevée pendant la charge.";
+"recommendation.low_health_warning.title" = "Santé batterie sous 80 %";
+"recommendation.low_health_warning.message" = "L’usure de la batterie est notable. Réduisez le stress thermique.";
+"recommendation.low_health_critical.title" = "Santé batterie sous 70 %";
+"recommendation.low_health_critical.message" = "L’usure de la batterie est sévère. Planifiez un remplacement.";
+"recommendation.cycles_warning.title" = "Nombre de cycles élevé";
+"recommendation.cycles_warning.message" = "Le nombre de cycles dépasse 700 et le risque d’usure augmente.";
+"recommendation.cycles_critical.title" = "Nombre de cycles très élevé";
+"recommendation.cycles_critical.message" = "Le nombre de cycles dépasse 1000 et un remplacement peut être nécessaire.";
+"recommendation.long_100.title" = "Longtemps à 100 %";
+"recommendation.long_100.message" = "La batterie est restée proche de 100 % tout en étant branchée.";
+"recommendation.near_rated.title" = "Adaptateur performant";
+"recommendation.near_rated.message" = "La puissance de charge est proche de la valeur nominale de l’adaptateur.";
+"recommendation.rapid_temp.title" = "Hausse rapide de température";
+"recommendation.rapid_temp.message" = "La température de la batterie augmente rapidement pendant la charge.";
 
 "power.chart.title" = "HISTORIQUE DE PUISSANCE (5 DERNIÈRES MIN)";
 "power.chart.legend.charging" = "Charge (W)";

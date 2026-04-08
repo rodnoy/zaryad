@@ -53,12 +53,38 @@
 "battery.card.time.minutes.format" = "%dм";
 
 "battery.health.title" = "СОСТОЯНИЕ БАТАРЕИ";
+"battery.health.current" = "Текущее здоровье";
 "battery.health.row.health" = "Здоровье";
 "battery.health.row.cycles" = "Циклы";
 "battery.health.row.max_capacity" = "Макс. ёмкость";
 "battery.health.row.design_capacity" = "Проектная ёмкость";
 "battery.health.row.adapter" = "Адаптер";
 "battery.health.row.plugged_in" = "Подключено";
+"battery.health.cycles_to_80" = "Циклов до 80%";
+"battery.health.cycles_to_70" = "Циклов до 70%";
+"battery.health.insufficient_data" = "Недостаточно данных";
+"battery.health.confidence" = "Доверие (R²)";
+
+"recommendations.title" = "РЕКОМЕНДАЦИИ";
+"recommendations.empty" = "Нет активных рекомендаций";
+"recommendation.weak_adapter.title" = "Слабая отдача адаптера";
+"recommendation.weak_adapter.message" = "Средняя мощность зарядки ниже 50% от номинала адаптера.";
+"recommendation.high_temp.title" = "Высокая температура при зарядке";
+"recommendation.high_temp.message" = "Средняя температура батареи повышена во время зарядки.";
+"recommendation.low_health_warning.title" = "Здоровье батареи ниже 80%";
+"recommendation.low_health_warning.message" = "Износ заметен. Рекомендуется снизить тепловую нагрузку.";
+"recommendation.low_health_critical.title" = "Здоровье батареи ниже 70%";
+"recommendation.low_health_critical.message" = "Сильный износ батареи. Запланируйте сервисную замену.";
+"recommendation.cycles_warning.title" = "Высокий счётчик циклов";
+"recommendation.cycles_warning.message" = "Количество циклов выше 700, риск износа растёт.";
+"recommendation.cycles_critical.title" = "Очень высокий счётчик циклов";
+"recommendation.cycles_critical.message" = "Количество циклов выше 1000, может потребоваться замена.";
+"recommendation.long_100.title" = "Долго на 100%";
+"recommendation.long_100.message" = "Батарея долго оставалась около 100% при подключённом питании.";
+"recommendation.near_rated.title" = "Адаптер работает эффективно";
+"recommendation.near_rated.message" = "Мощность зарядки близка к номиналу адаптера.";
+"recommendation.rapid_temp.title" = "Быстрый рост температуры";
+"recommendation.rapid_temp.message" = "Температура батареи быстро растёт во время зарядки.";
 
 "power.chart.title" = "ИСТОРИЯ МОЩНОСТИ (ПОСЛЕДНИЕ 5 МИН)";
 "power.chart.legend.charging" = "Зарядка (Вт)";

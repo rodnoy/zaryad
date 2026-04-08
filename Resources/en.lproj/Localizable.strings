@@ -53,12 +53,38 @@
 "battery.card.time.minutes.format" = "%dm";
 
 "battery.health.title" = "BATTERY HEALTH";
+"battery.health.current" = "Current Health";
 "battery.health.row.health" = "Health";
 "battery.health.row.cycles" = "Cycles";
 "battery.health.row.max_capacity" = "Max Capacity";
 "battery.health.row.design_capacity" = "Design Capacity";
 "battery.health.row.adapter" = "Adapter";
 "battery.health.row.plugged_in" = "Plugged In";
+"battery.health.cycles_to_80" = "Cycles to 80%";
+"battery.health.cycles_to_70" = "Cycles to 70%";
+"battery.health.insufficient_data" = "Insufficient data";
+"battery.health.confidence" = "Confidence (R²)";
+
+"recommendations.title" = "RECOMMENDATIONS";
+"recommendations.empty" = "No active recommendations";
+"recommendation.weak_adapter.title" = "Weak adapter output";
+"recommendation.weak_adapter.message" = "Average charging power is below 50% of adapter rating.";
+"recommendation.high_temp.title" = "High temperature while charging";
+"recommendation.high_temp.message" = "Average battery temperature is elevated during charging.";
+"recommendation.low_health_warning.title" = "Battery health below 80%";
+"recommendation.low_health_warning.message" = "Battery wear is noticeable. Consider reducing thermal stress.";
+"recommendation.low_health_critical.title" = "Battery health below 70%";
+"recommendation.low_health_critical.message" = "Battery wear is severe. Plan battery service soon.";
+"recommendation.cycles_warning.title" = "High cycle count";
+"recommendation.cycles_warning.message" = "Battery cycle count is above 700 and wear risk is increasing.";
+"recommendation.cycles_critical.title" = "Very high cycle count";
+"recommendation.cycles_critical.message" = "Battery cycle count is above 1000 and replacement may be needed.";
+"recommendation.long_100.title" = "Long time at 100%";
+"recommendation.long_100.message" = "Battery stayed near 100% while plugged in for a long period.";
+"recommendation.near_rated.title" = "Adapter performs well";
+"recommendation.near_rated.message" = "Charging power is close to adapter rated output.";
+"recommendation.rapid_temp.title" = "Rapid temperature rise";
+"recommendation.rapid_temp.message" = "Battery temperature is rising quickly during charging.";
 
 "power.chart.title" = "POWER HISTORY (LAST 5 MIN)";
 "power.chart.legend.charging" = "Charging (W)";

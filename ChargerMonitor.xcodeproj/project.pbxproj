@@ -14,6 +14,8 @@
 		0C3E2C710ACD62F428163A42 /* ThemeLoaderHotReloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A607007708BCF04CB0B5F771 /* ThemeLoaderHotReloadTests.swift */; };
 		1529691506D7EED2744BD1CC /* BatteryCardView.swift.bak in Resources */ = {isa = PBXBuildFile; fileRef = 61C5AC9DD357C0676466DD09 /* BatteryCardView.swift.bak */; };
 		190734368770C490AF3BF86A /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA408FE533B63693F0295FC /* IOKit.framework */; };
+		1CFD2E9BF27400C8D47C1B01 /* BatteryHealthPredictorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CA377BA78AD6914B429B169 /* BatteryHealthPredictorTests.swift */; };
+		28E96A7F4E815E28125F1E9A /* BatteryHealthPredictor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D558778C4D82BFF6BD89FBD /* BatteryHealthPredictor.swift */; };
 		2F13ACC5FE981F3D386ED0E3 /* SystemPowerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6714BE674C456AFCEA3C9FAD /* SystemPowerRepository.swift */; };
 		39526558B64FF244254E9715 /* SessionBarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF2FCA79000A709E37BF4FB /* SessionBarChartView.swift */; };
 		3997826E0019BA98090E9288 /* SessionCSVExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC34B38ABACF2FD0D94A53 /* SessionCSVExporter.swift */; };
@@ -29,12 +31,14 @@
 		5FEF85A974105E9602C2C41C /* ThemeDirectoryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F2754FE0CFA8563E93D86F /* ThemeDirectoryWatcher.swift */; };
 		6151C128FDCC47C833838F04 /* light.json in Resources */ = {isa = PBXBuildFile; fileRef = 5749BDBEAE16A9720195668C /* light.json */; };
 		61FB2FE8F2181BEE0913F540 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3163AE8BBED0B7C730775247 /* SwiftData.framework */; };
+		6B38195AB09E742078CE8B0E /* RecommendationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CD001C1A345A48A56418A0 /* RecommendationEngine.swift */; };
 		6FF51C9FD4C8D64F2B8EDB63 /* libDomain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 006734F3BA152A24A0E7BD66 /* libDomain.a */; };
 		709DFE43501FFA7C08333437 /* libPresentation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 371E9F54A030CE5A5D467FC8 /* libPresentation.a */; };
 		738A89DB20CF6E80AD21CDB2 /* SwiftDataSessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1CDEF7839B9EDDDEEC3F7F /* SwiftDataSessionStore.swift */; };
 		74D679DBAFD6F2D87C708151 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3163AE8BBED0B7C730775247 /* SwiftData.framework */; };
 		7758740BBF02759BD3FE9068 /* BatteryHealthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429459308BD3353E3DBCD9C0 /* BatteryHealthView.swift */; };
 		797E07260A141AC47F5ECD31 /* SettingsView.swift.bak in Resources */ = {isa = PBXBuildFile; fileRef = ED23C913601FE7B233AA1637 /* SettingsView.swift.bak */; };
+		80C7A41861457578FC72AF2F /* SDHealthSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FA96779C8CD1A0A839B2BF /* SDHealthSnapshot.swift */; };
 		886BAB090A46DE9C206395A6 /* SessionAnalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A26A189A0150B5E702AC15D /* SessionAnalyticsTests.swift */; };
 		8D68DA3E1415CC9B948A7E2C /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9B2DC94D030A67953CF669 /* App.swift */; };
 		8EED0B1CBB8FF04E2EE55AC1 /* RealtimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B74214709576DD782A56CB /* RealtimeViewModel.swift */; };
@@ -46,14 +50,18 @@
 		B2ADAFDBFB19FDC78B792781 /* FileSessionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C404E9B01F6E92E62FEA58 /* FileSessionStoreTests.swift */; };
 		B6DA7900AD86982AA793051B /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF9A954A5129B4AB944726A /* DashboardView.swift */; };
 		B9D4F71F81F567AE44E42B2F /* Poller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B99D6F4375676C114E63334 /* Poller.swift */; };
+		C0170ADB84EA16B6F98DCD79 /* RecommendationEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7089F983319D2D6139752237 /* RecommendationEngineTests.swift */; };
+		C3950CF8C7FF6E460A5D8411 /* RecommendationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8BFC0B5C274FCD12188834 /* RecommendationsViewModel.swift */; };
 		C40F9BEB25687247217E1A84 /* SessionCSVExportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2763A222D055DBCA134B7E81 /* SessionCSVExportTests.swift */; };
 		C771D159A8FC7495D9E38C9C /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEB8332739AC64B320472D7 /* SettingsViewModel.swift */; };
+		C89CA1B75FFD156E9BDA8F9D /* HealthSnapshotStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3920695B455388D5F6D4F1 /* HealthSnapshotStore.swift */; };
 		CDE72037D9CEAECD132E26BE /* FileSessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BF3CDC0DA0E11E2D2065E1 /* FileSessionStore.swift */; };
 		CF1370102740D00C4A26F88C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1CB3E37BD92C6188FF1096 /* Theme.swift */; };
 		D0FC62495B6D41FB1A73FDEA /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB4E7A56541FE6539AB4AED /* DIContainer.swift */; };
 		D17F662E01DAF777AF3827BB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE160A4C34D3FB76F20FB8E /* SettingsView.swift */; };
 		D43B76B7B81AA63246CCBE3F /* ThemeLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D9AB0AB0B23C7C4100C3FE /* ThemeLoader.swift */; };
 		D51C03BDF32185F5BA03198A /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = D786E96DD20371540ECD0DC7 /* Session.swift */; };
+		D569EB52C2842533DC6E03BE /* RecommendationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDCC5FFA0BA818CACCE0067 /* RecommendationsView.swift */; };
 		D5D2F68A80021E1155636248 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA408FE533B63693F0295FC /* IOKit.framework */; };
 		D7DABE8899F0EC243208FBCC /* PollerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB2D1A85C4CC76661183143 /* PollerTests.swift */; };
 		D80A16DC5AE2F0C8C588DBD3 /* marine.json in Resources */ = {isa = PBXBuildFile; fileRef = AE717C843368C188785CBD25 /* marine.json */; };
@@ -154,12 +162,14 @@
 		0EF2FCA79000A709E37BF4FB /* SessionBarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionBarChartView.swift; sourceTree = "<group>"; };
 		0F82B7713704A25D73733DD5 /* SessionsComparisonView.swift.bak */ = {isa = PBXFileReference; path = SessionsComparisonView.swift.bak; sourceTree = "<group>"; };
 		1DB4E7A56541FE6539AB4AED /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		1EDCC5FFA0BA818CACCE0067 /* RecommendationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsView.swift; sourceTree = "<group>"; };
 		20D9AB0AB0B23C7C4100C3FE /* ThemeLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeLoader.swift; sourceTree = "<group>"; };
 		2523C8D60F72FD62260457EB /* martian.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = martian.json; sourceTree = "<group>"; };
 		2763A222D055DBCA134B7E81 /* SessionCSVExportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCSVExportTests.swift; sourceTree = "<group>"; };
 		3163AE8BBED0B7C730775247 /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
 		371E9F54A030CE5A5D467FC8 /* libPresentation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPresentation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B99D6F4375676C114E63334 /* Poller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poller.swift; sourceTree = "<group>"; };
+		3D558778C4D82BFF6BD89FBD /* BatteryHealthPredictor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryHealthPredictor.swift; sourceTree = "<group>"; };
 		3FD09B826B8CAE51BFEEAEA7 /* SessionsComparisonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionsComparisonView.swift; sourceTree = "<group>"; };
 		41E0EECFAC07C5809C8325D6 /* libData.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libData.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		429459308BD3353E3DBCD9C0 /* BatteryHealthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryHealthView.swift; sourceTree = "<group>"; };
@@ -173,6 +183,8 @@
 		6684AF3BE641673ED4C839F5 /* DomainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainTests.swift; sourceTree = "<group>"; };
 		6714BE674C456AFCEA3C9FAD /* SystemPowerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemPowerRepository.swift; sourceTree = "<group>"; };
 		6DEB8332739AC64B320472D7 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		6F8BFC0B5C274FCD12188834 /* RecommendationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsViewModel.swift; sourceTree = "<group>"; };
+		7089F983319D2D6139752237 /* RecommendationEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationEngineTests.swift; sourceTree = "<group>"; };
 		753FB4EEEDED609DE5C9E443 /* dark.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = dark.json; sourceTree = "<group>"; };
 		76BB73F529024E6F0A12FC14 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		7EE6AB586A3916A2B24EB317 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -180,6 +192,8 @@
 		8003B7671EE719B27F6CF1E0 /* ChargerMonitorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargerMonitorTests.swift; sourceTree = "<group>"; };
 		80978B882395879045005E67 /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
 		8A691C2597E5A8852AE01E9D /* BatteryCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryCardView.swift; sourceTree = "<group>"; };
+		8CA377BA78AD6914B429B169 /* BatteryHealthPredictorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryHealthPredictorTests.swift; sourceTree = "<group>"; };
+		90FA96779C8CD1A0A839B2BF /* SDHealthSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDHealthSnapshot.swift; sourceTree = "<group>"; };
 		972B8F487156C382457E0E1B /* SDSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDSession.swift; sourceTree = "<group>"; };
 		9B1CDEF7839B9EDDDEEC3F7F /* SwiftDataSessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataSessionStore.swift; sourceTree = "<group>"; };
 		9B81893F60163B097829264E /* ChargerMonitorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChargerMonitorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -197,10 +211,12 @@
 		BC73F2314B7E68175179CE8D /* ThemeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeStore.swift; sourceTree = "<group>"; };
 		C68EE0B3C121ACABD08CF955 /* PowerChartView.swift.bak */ = {isa = PBXFileReference; path = PowerChartView.swift.bak; sourceTree = "<group>"; };
 		C7DE059FA391FDC1421B356A /* IOKitBatteryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOKitBatteryRepository.swift; sourceTree = "<group>"; };
+		CD3920695B455388D5F6D4F1 /* HealthSnapshotStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthSnapshotStore.swift; sourceTree = "<group>"; };
 		D4BFFD1596A337B80EC83D04 /* MetricCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricCardView.swift; sourceTree = "<group>"; };
 		D786E96DD20371540ECD0DC7 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		D8F2754FE0CFA8563E93D86F /* ThemeDirectoryWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDirectoryWatcher.swift; sourceTree = "<group>"; };
 		E2B74214709576DD782A56CB /* RealtimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeViewModel.swift; sourceTree = "<group>"; };
+		E8CD001C1A345A48A56418A0 /* RecommendationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationEngine.swift; sourceTree = "<group>"; };
 		EC40AA8FE940996BFA0548E4 /* ThemeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDTO.swift; sourceTree = "<group>"; };
 		ED23C913601FE7B233AA1637 /* SettingsView.swift.bak */ = {isa = PBXFileReference; path = SettingsView.swift.bak; sourceTree = "<group>"; };
 		EDE160A4C34D3FB76F20FB8E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -273,6 +289,8 @@
 		29CE6D81F9EA5DDEE2413A8F /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				3D558778C4D82BFF6BD89FBD /* BatteryHealthPredictor.swift */,
+				E8CD001C1A345A48A56418A0 /* RecommendationEngine.swift */,
 				B402F4916A631B7107BB5BAA /* Models */,
 				015445DC9BC3E897CF35C8CB /* UseCases */,
 			);
@@ -283,10 +301,12 @@
 		2BAEEF7F3BDFE9B775BB1A24 /* ChargerMonitorTests */ = {
 			isa = PBXGroup;
 			children = (
+				8CA377BA78AD6914B429B169 /* BatteryHealthPredictorTests.swift */,
 				8003B7671EE719B27F6CF1E0 /* ChargerMonitorTests.swift */,
 				6684AF3BE641673ED4C839F5 /* DomainTests.swift */,
 				A5C404E9B01F6E92E62FEA58 /* FileSessionStoreTests.swift */,
 				9EB2D1A85C4CC76661183143 /* PollerTests.swift */,
+				7089F983319D2D6139752237 /* RecommendationEngineTests.swift */,
 				0A26A189A0150B5E702AC15D /* SessionAnalyticsTests.swift */,
 				2763A222D055DBCA134B7E81 /* SessionCSVExportTests.swift */,
 				A607007708BCF04CB0B5F771 /* ThemeLoaderHotReloadTests.swift */,
@@ -298,7 +318,9 @@
 		2F0C8B2EDC7D7688BC198768 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				CD3920695B455388D5F6D4F1 /* HealthSnapshotStore.swift */,
 				52C62692F4174F34C37CAE70 /* Namespace.swift */,
+				90FA96779C8CD1A0A839B2BF /* SDHealthSnapshot.swift */,
 				5267E79F04C91394CF377494 /* Persistence */,
 				52FCB0FC104311F97790DC60 /* SessionStore */,
 				22986508B97F95E5AB4EE9BB /* SessionUseCases */,
@@ -361,6 +383,7 @@
 				D4BFFD1596A337B80EC83D04 /* MetricCardView.swift */,
 				EF86B7AD7CD01A988D5470E1 /* PowerChartView.swift */,
 				C68EE0B3C121ACABD08CF955 /* PowerChartView.swift.bak */,
+				1EDCC5FFA0BA818CACCE0067 /* RecommendationsView.swift */,
 				0EF2FCA79000A709E37BF4FB /* SessionBarChartView.swift */,
 				3FD09B826B8CAE51BFEEAEA7 /* SessionsComparisonView.swift */,
 				0F82B7713704A25D73733DD5 /* SessionsComparisonView.swift.bak */,
@@ -387,6 +410,7 @@
 			isa = PBXGroup;
 			children = (
 				E2B74214709576DD782A56CB /* RealtimeViewModel.swift */,
+				6F8BFC0B5C274FCD12188834 /* RecommendationsViewModel.swift */,
 				062BFFE1E47C433F2681F31E /* SessionsViewModel.swift */,
 				6DEB8332739AC64B320472D7 /* SettingsViewModel.swift */,
 			);
@@ -691,6 +715,8 @@
 				9F4726E80ADBE78E635DA7C5 /* MetricCardView.swift in Sources */,
 				B02E4B611AF06A6C278D48C8 /* PowerChartView.swift in Sources */,
 				8EED0B1CBB8FF04E2EE55AC1 /* RealtimeViewModel.swift in Sources */,
+				D569EB52C2842533DC6E03BE /* RecommendationsView.swift in Sources */,
+				C3950CF8C7FF6E460A5D8411 /* RecommendationsViewModel.swift in Sources */,
 				39526558B64FF244254E9715 /* SessionBarChartView.swift in Sources */,
 				3997826E0019BA98090E9288 /* SessionCSVExporter.swift in Sources */,
 				F4C57D0EF082122A42ABC42C /* SessionsComparisonView.swift in Sources */,
@@ -719,10 +745,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CFD2E9BF27400C8D47C1B01 /* BatteryHealthPredictorTests.swift in Sources */,
 				F9CF475137B263E195187B2B /* ChargerMonitorTests.swift in Sources */,
 				DB5DD119BB88F54A246AF3FA /* DomainTests.swift in Sources */,
 				B2ADAFDBFB19FDC78B792781 /* FileSessionStoreTests.swift in Sources */,
 				D7DABE8899F0EC243208FBCC /* PollerTests.swift in Sources */,
+				C0170ADB84EA16B6F98DCD79 /* RecommendationEngineTests.swift in Sources */,
 				886BAB090A46DE9C206395A6 /* SessionAnalyticsTests.swift in Sources */,
 				C40F9BEB25687247217E1A84 /* SessionCSVExportTests.swift in Sources */,
 				0C3E2C710ACD62F428163A42 /* ThemeLoaderHotReloadTests.swift in Sources */,
@@ -735,9 +763,11 @@
 			files = (
 				42E17962D95135C265851444 /* BatteryError.swift in Sources */,
 				CDE72037D9CEAECD132E26BE /* FileSessionStore.swift in Sources */,
+				C89CA1B75FFD156E9BDA8F9D /* HealthSnapshotStore.swift in Sources */,
 				03532132BE95AC0FDEDCE20E /* IOKitBatteryRepository.swift in Sources */,
 				4ADE174D1C178BE4B1E54D43 /* Namespace.swift in Sources */,
 				B9D4F71F81F567AE44E42B2F /* Poller.swift in Sources */,
+				80C7A41861457578FC72AF2F /* SDHealthSnapshot.swift in Sources */,
 				08AAFE4C249FECE7C5C32C73 /* SDSession.swift in Sources */,
 				43AE1F3AD3F345BD7430AB35 /* SessionManager.swift in Sources */,
 				B01855605B501DC6FDF86528 /* SessionStore.swift in Sources */,
@@ -750,7 +780,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28E96A7F4E815E28125F1E9A /* BatteryHealthPredictor.swift in Sources */,
 				8F7D5A20E40E63BC0EB4DFA8 /* BatterySample.swift in Sources */,
+				6B38195AB09E742078CE8B0E /* RecommendationEngine.swift in Sources */,
 				D51C03BDF32185F5BA03198A /* Session.swift in Sources */,
 				065BF0D3FF1FAC2AA7820F9C /* SessionUseCases.swift in Sources */,
 			);
