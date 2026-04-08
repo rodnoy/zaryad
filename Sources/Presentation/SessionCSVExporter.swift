@@ -15,7 +15,7 @@ public struct SessionCSVExporter {
         try csv.write(to: url, atomically: true, encoding: .utf8)
     }
 
-    public func exportSingleSession(session: Session, url: URL) throws {
+    public func exportSession(_ session: Session, to url: URL) throws {
         let csv = makeCSV(for: [session])
         try csv.write(to: url, atomically: true, encoding: .utf8)
     }

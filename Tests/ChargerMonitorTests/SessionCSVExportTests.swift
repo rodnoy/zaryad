@@ -39,7 +39,7 @@ final class SessionCSVExportTests: XCTestCase {
         let fileURL = FileManager.default.temporaryDirectory
             .appendingPathComponent("session-single-\(UUID().uuidString).csv")
 
-        try exporter.exportSingleSession(session: session, url: fileURL)
+        try exporter.exportSession(session, to: fileURL)
         defer { try? FileManager.default.removeItem(at: fileURL) }
 
         let output = try String(contentsOf: fileURL, encoding: .utf8)
