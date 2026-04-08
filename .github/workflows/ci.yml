@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache DerivedData
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Developer/Xcode/DerivedData
+          key: ${{ runner.os }}-deriveddata-${{ hashFiles('project.yml') }}-${{ hashFiles('Sources/**/*.swift', 'Tests/**/*.swift', 'Resources/**') }}
+          restore-keys: |
+            ${{ runner.os }}-deriveddata-${{ hashFiles('project.yml') }}-
+            ${{ runner.os }}-deriveddata-
+
+      - name: Generate Xcode project
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -f project.yml ]]; then
+            if ! command -v xcodegen >/dev/null 2>&1; then
+              brew install xcodegen
+            fi
+            xcodegen generate
+          fi
+
+      - name: Build
+        run: xcodebuild -project ChargerMonitor.xcodeproj -scheme ChargerMonitor -configuration Debug build
+
+      - name: Test
+        run: xcodebuild test -project ChargerMonitor.xcodeproj -scheme ChargerMonitor -configuration Debug
+
+      - name: Check localization
+        run: ./scripts/check_localization.swift
+
+      - name: Check hardcoded strings
+        run: ./scripts/check_hardcoded_strings.sh
