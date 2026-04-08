@@ -65,7 +65,7 @@ public struct SessionBarChartView: View {
                         y: .value("Power", avgW),
                         width: 10
                     )
-                    .position(by: .value("Metric", "avg"))
+                    .position(by: .value("Metric", String(localized: "chart.avg_w")))
                     .foregroundStyle(AppTheme.accent)
                     .annotation(position: .overlay, alignment: .top) {
                         EmptyView()
@@ -79,7 +79,7 @@ public struct SessionBarChartView: View {
                         y: .value("Power", peakW),
                         width: 10
                     )
-                    .position(by: .value("Metric", "peak"))
+                    .position(by: .value("Metric", String(localized: "chart.peak_w")))
                     .foregroundStyle(AppTheme.accent.opacity(0.35))
                     .annotation(position: .overlay, alignment: .top) {
                         EmptyView()
@@ -90,8 +90,8 @@ public struct SessionBarChartView: View {
         }
         .chartLegend(position: .top, alignment: .trailing) {
             HStack(spacing: 12) {
-                legendDot(color: AppTheme.accent, text: "sessions.chart.legend.avg")
-                legendDot(color: AppTheme.accent.opacity(0.35), text: "sessions.chart.legend.peak")
+                legendDot(color: AppTheme.accent, text: "chart.avg_w")
+                legendDot(color: AppTheme.accent.opacity(0.35), text: "chart.peak_w")
             }
         }
         .chartYAxis {
@@ -132,7 +132,7 @@ public struct SessionBarChartView: View {
     private func tooltip(for row: ChartRow) -> String {
         let avg = row.avgW.map { String(format: "%.1fW", $0) } ?? String(localized: "common.value.unknown")
         let peak = row.peakW.map { String(format: "%.1fW", $0) } ?? String(localized: "common.value.unknown")
-        return "\(row.fullName)\n\(String(localized: "sessions.chart.tooltip.avg")): \(avg)\n\(String(localized: "sessions.chart.tooltip.peak")): \(peak)"
+        return "\(row.fullName)\n\(String(localized: "chart.avg_w")): \(avg)\n\(String(localized: "chart.peak_w")): \(peak)"
     }
 
     @ViewBuilder
