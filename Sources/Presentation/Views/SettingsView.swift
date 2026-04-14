@@ -10,16 +10,18 @@ public struct SettingsView: View {
     public init() {}
 
     public var body: some View {
+        let p = themeStore.current.palette
+
         VStack(alignment: .leading, spacing: 16) {
             Text("settings.title")
                 .font(.system(size: 18, weight: .bold))
-                .foregroundColor(AppTheme.text)
+                .foregroundColor(p.text)
 
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
                     Text("settings.theme")
-                        .font(AppTheme.mono(size: 13))
-                        .foregroundColor(AppTheme.text)
+                        .font(.system(size: 13, weight: .regular, design: .monospaced))
+                        .foregroundColor(p.text)
                     Spacer()
                     Picker("settings.theme", selection: Binding(
                         get: { themeStore.currentKey },
@@ -27,50 +29,54 @@ public struct SettingsView: View {
                     )) {
                         ForEach(ThemeStore.all, id: \.key) { theme in
                             Text(theme.displayNameKey)
-                                .foregroundColor(AppTheme.text)
+                                .foregroundColor(p.text)
                                 .tag(theme.key)
                         }
                     }
                     .labelsHidden()
                     .pickerStyle(.menu)
-                    .foregroundColor(AppTheme.text)
-                    .font(AppTheme.mono(size: 13))
+                    .foregroundColor(p.text)
+                    .font(.system(size: 13, weight: .regular, design: .monospaced))
+                    .accessibilityLabel("settings.theme")
+                    .help(Text("settings.theme"))
                 }
                 .padding(.horizontal, 14)
                 .padding(.vertical, 10)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
-                        .fill(AppTheme.surface2)
+                        .fill(p.surface2)
                 )
 
                 HStack {
                     Text("settings.poll_interval")
-                        .font(AppTheme.mono(size: 13))
-                        .foregroundColor(AppTheme.text)
+                        .font(.system(size: 13, weight: .regular, design: .monospaced))
+                        .foregroundColor(p.text)
                     Spacer()
                     Stepper("\(vm.pollIntervalSeconds)s", value: $vm.pollIntervalSeconds, in: 1...60)
-                        .font(AppTheme.mono(size: 13))
+                        .font(.system(size: 13, weight: .regular, design: .monospaced))
+                        .accessibilityLabel("settings.poll_interval")
                 }
                 .padding(.horizontal, 14)
                 .padding(.vertical, 10)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
-                        .fill(AppTheme.surface2)
+                        .fill(p.surface2)
                 )
 
                 HStack {
                     Button("settings.theme.reload") {
                         themeStore.reload()
                     }
-                    .font(AppTheme.mono(size: 13, weight: .semibold))
+                    .font(.system(size: 13, weight: .semibold, design: .monospaced))
                     .padding(.horizontal, 12)
                     .padding(.vertical, 8)
                     .background(
                         RoundedRectangle(cornerRadius: 8)
-                            .fill(AppTheme.accent2.opacity(0.2))
+                            .fill(p.accent2.opacity(0.2))
                     )
-                    .foregroundColor(AppTheme.text)
+                    .foregroundColor(p.text)
                     .buttonStyle(.plain)
+                    .accessibilityLabel("settings.theme.reload")
 
                     Spacer()
                 }
@@ -78,7 +84,7 @@ public struct SettingsView: View {
                 .padding(.vertical, 10)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
-                        .fill(AppTheme.surface2)
+                        .fill(p.surface2)
                 )
             }
 
@@ -92,14 +98,15 @@ public struct SettingsView: View {
                     .padding(.vertical, 8)
                     .background(
                         RoundedRectangle(cornerRadius: 8)
-                            .fill(AppTheme.accent)
+                            .fill(p.accent)
                     )
-                    .foregroundColor(AppTheme.text)
+                    .foregroundColor(p.text)
                     .buttonStyle(.plain)
+                    .accessibilityLabel("btn.save")
             }
         }
         .padding(24)
         .frame(minWidth: 360, minHeight: 200)
-        .background(AppTheme.surface)
+        .background(p.surface)
     }
 }

@@ -4,6 +4,8 @@ import SwiftUI
 
 /// Battery card with percentage, status, animated gradient bar, and capacity info.
 public struct BatteryCardView: View {
+    @EnvironmentObject private var themeStore: ThemeStore
+
     public let sample: BatterySample?
 
     public init(sample: BatterySample?) {
@@ -41,11 +43,25 @@ public struct BatteryCardView: View {
         return String(format: String(localized: "battery.card.time.minutes.format"), m)
     }
 
+    private var batteryGradient: LinearGradient {
+        let p = themeStore.current.palette
+        if percent <= 20 {
+            return LinearGradient(colors: [p.red, p.yellow], startPoint: .leading, endPoint: .trailing)
+        }
+        if percent <= 40 {
+            return LinearGradient(colors: [p.yellow, p.accent], startPoint: .leading, endPoint: .trailing)
+        }
+        return LinearGradient(colors: [p.green, p.accent], startPoint: .leading, endPoint: .trailing)
+    }
+
     public var body: some View {
+        let p = themeStore.current.palette
+        let headerColor = p.muted.opacity(0.88)
+
         VStack(alignment: .leading, spacing: 0) {
             Text("battery.card.title")
-                .font(AppTheme.mono(size: 11, weight: .semibold))
-                .foregroundColor(AppTheme.header)
+                .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                .foregroundColor(headerColor)
                 .tracking(1)
                 .padding(.bottom, 12)
 
@@ -53,34 +69,34 @@ public struct BatteryCardView: View {
             HStack(alignment: .firstTextBaseline) {
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
                     Text("\(Int(percent))")
-                        .font(AppTheme.mono(size: 42, weight: .bold))
-                        .foregroundColor(AppTheme.text)
+                        .font(.system(size: 42, weight: .bold, design: .monospaced))
+                        .foregroundColor(p.text)
                         .contentTransition(.numericText())
                     Text("%")
-                        .font(AppTheme.mono(size: 14))
-                        .foregroundColor(AppTheme.muted)
+                        .font(.system(size: 14, weight: .regular, design: .monospaced))
+                        .foregroundColor(p.muted)
                 }
                 Spacer()
                 Text(statusText)
-                    .font(AppTheme.mono(size: 13))
-                    .foregroundColor(AppTheme.muted)
+                    .font(.system(size: 13, weight: .regular, design: .monospaced))
+                    .foregroundColor(p.muted)
             }
 
             // Battery bar
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 8)
-                    .fill(AppTheme.surface2)
+                    .fill(p.surface2)
                     .frame(height: 28)
 
                 GeometryReader { geo in
                     let fillWidth = geo.size.width * CGFloat(min(max(percent, 0), 100)) / 100.0
                     RoundedRectangle(cornerRadius: 8)
-                        .fill(AppTheme.batteryGradient(percent: percent))
+                        .fill(batteryGradient)
                         .frame(width: max(fillWidth, 0), height: 28)
                         .overlay(
                             // Shimmer
                             LinearGradient(
-                colors: [.clear, AppTheme.text.opacity(0.08), .clear],
+                                colors: [.clear, p.text.opacity(0.08), .clear],
                                 startPoint: .leading,
                                 endPoint: .trailing
                             )
@@ -98,15 +114,17 @@ public struct BatteryCardView: View {
             // Bottom stats
             HStack {
                 Text(capacityText)
-                    .font(AppTheme.mono(size: 12))
-                    .foregroundColor(AppTheme.muted)
+                    .font(.system(size: 12, weight: .regular, design: .monospaced))
+                    .foregroundColor(p.muted)
                 Spacer()
                 Text(timeText)
-                    .font(AppTheme.mono(size: 12))
-                    .foregroundColor(AppTheme.muted)
+                    .font(.system(size: 12, weight: .regular, design: .monospaced))
+                    .foregroundColor(p.muted)
             }
         }
         .cardStyle()
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("battery.card.title")
         .onAppear {
             withAnimation(.linear(duration: 2).repeatForever(autoreverses: false)) {
                 shimmerOffset = 1.0

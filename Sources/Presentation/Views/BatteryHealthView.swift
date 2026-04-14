@@ -3,6 +3,8 @@ import Domain
 import SwiftUI
 
 public struct BatteryHealthView: View {
+    @EnvironmentObject private var themeStore: ThemeStore
+
     public let sample: BatterySample?
     public let snapshots: [SDHealthSnapshot]
     public let forecast: BatteryHealthPredictor.Forecast?
@@ -18,17 +20,20 @@ public struct BatteryHealthView: View {
     }
 
     public var body: some View {
+        let palette = themeStore.current.palette
+        let headerColor = palette.muted.opacity(0.88)
+
         VStack(alignment: .leading, spacing: 12) {
             Text("battery.health.title")
-                .font(AppTheme.mono(size: 11, weight: .semibold))
-                .foregroundColor(AppTheme.header)
+                .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                .foregroundColor(headerColor)
                 .tracking(1)
 
             infoRow(key: String(localized: "battery.health.current"), value: formatHealth())
             infoRow(key: String(localized: "battery.health.row.cycles"), value: formatCurrentCycles())
 
             if snapshots.count >= 2 {
-                chartView
+                chartView()
                     .frame(height: 90)
             }
 
@@ -39,7 +44,7 @@ public struct BatteryHealthView: View {
             } else {
                 Text("battery.health.insufficient_data")
                     .font(.system(size: 12))
-                    .foregroundColor(AppTheme.muted)
+                    .foregroundColor(palette.muted)
                     .padding(.top, 4)
             }
         }
@@ -48,24 +53,29 @@ public struct BatteryHealthView: View {
 
     @ViewBuilder
     private func infoRow(key: String, value: String) -> some View {
+        let palette = themeStore.current.palette
+
         HStack {
             Text(key)
-                .font(AppTheme.mono(size: 12))
-                .foregroundColor(AppTheme.muted)
+                .font(.system(size: 12, weight: .regular, design: .monospaced))
+                .foregroundColor(palette.muted)
             Spacer()
             Text(value)
-                .font(AppTheme.mono(size: 13, weight: .medium))
-                .foregroundColor(AppTheme.text)
+                .font(.system(size: 13, weight: .medium, design: .monospaced))
+                .foregroundColor(palette.text)
         }
         .padding(.horizontal, 14)
         .padding(.vertical, 10)
         .background(
             RoundedRectangle(cornerRadius: 10)
-                .fill(AppTheme.surface2)
+                .fill(palette.surface2)
         )
     }
 
-    private var chartView: some View {
+    @ViewBuilder
+    private func chartView() -> some View {
+        let palette = themeStore.current.palette
+
         GeometryReader { geo in
             let sorted = snapshots.sorted { $0.cycleCount < $1.cycleCount }
             let points = sorted.map { (x: Double($0.cycleCount), y: $0.healthPercent) }
@@ -76,11 +86,11 @@ public struct BatteryHealthView: View {
 
             ZStack {
                 RoundedRectangle(cornerRadius: 8)
-                    .fill(AppTheme.surface2)
+                    .fill(palette.surface2)
 
                 Path { path in
                     for point in points {
-                        let p = chartPoint(
+                        let pointPosition = chartPoint(
                             x: point.x,
                             y: point.y,
                             in: geo.size,
@@ -89,10 +99,10 @@ public struct BatteryHealthView: View {
                             minY: minY,
                             maxY: maxY
                         )
-                        path.addEllipse(in: CGRect(x: p.x - 2, y: p.y - 2, width: 4, height: 4))
+                        path.addEllipse(in: CGRect(x: pointPosition.x - 2, y: pointPosition.y - 2, width: 4, height: 4))
                     }
                 }
-                .fill(AppTheme.accent)
+                .fill(palette.accent)
 
                 if let forecast {
                     Path { path in
@@ -106,7 +116,7 @@ public struct BatteryHealthView: View {
                         path.move(to: p1)
                         path.addLine(to: p2)
                     }
-                    .stroke(AppTheme.green, style: StrokeStyle(lineWidth: 1.5, dash: [4, 3]))
+                    .stroke(palette.green, style: StrokeStyle(lineWidth: 1.5, dash: [4, 3]))
                 }
             }
         }

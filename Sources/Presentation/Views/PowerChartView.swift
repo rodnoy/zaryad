@@ -5,6 +5,8 @@ import SwiftUI
 /// Canvas-based power chart matching the web dashboard.
 /// Shows last ~150 samples with green area above zero (charging) and yellow below (discharging).
 public struct PowerChartView: View {
+    @EnvironmentObject private var themeStore: ThemeStore
+
     public let samples: [BatterySample]
     public let showTemperatureOverlay: Bool
     public let onToggleTemperatureOverlay: (() -> Void)?
@@ -21,12 +23,15 @@ public struct PowerChartView: View {
     }
 
     public var body: some View {
+        let p = themeStore.current.palette
+        let headerColor = p.muted.opacity(0.88)
+
         VStack(alignment: .leading, spacing: 0) {
             // Header
             HStack {
                 Text("power.chart.title")
-                    .font(AppTheme.mono(size: 11, weight: .semibold))
-                    .foregroundColor(AppTheme.header)
+                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                    .foregroundColor(headerColor)
                     .tracking(0.5)
 
                 Spacer()
@@ -38,16 +43,18 @@ public struct PowerChartView: View {
                             set: { _ in onToggleTemperatureOverlay() }
                         )) {
                             Text("chart.show_temperature")
-                                .font(AppTheme.mono(size: 11, weight: .semibold))
-                                .foregroundColor(showTemperatureOverlay ? AppTheme.accent : AppTheme.muted)
+                                .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                                .foregroundColor(showTemperatureOverlay ? p.accent : p.muted)
                         }
                         .toggleStyle(.checkbox)
                         .fixedSize()
+                        .accessibilityLabel("chart.show_temperature")
+                        .help(Text("chart.show_temperature"))
                     }
-                    legendItem(color: AppTheme.green, label: "power.chart.legend.charging")
-                    legendItem(color: AppTheme.yellow, label: "power.chart.legend.discharge")
+                    legendItem(color: p.green, label: "power.chart.legend.charging")
+                    legendItem(color: p.yellow, label: "power.chart.legend.discharge")
                     if showTemperatureOverlay {
-                        legendItem(color: AppTheme.accent.opacity(0.8), label: "power.chart.legend.temperature")
+                        legendItem(color: p.accent.opacity(0.8), label: "power.chart.legend.temperature")
                     }
                 }
             }
@@ -55,9 +62,10 @@ public struct PowerChartView: View {
 
             // Chart canvas
             Canvas { context, size in
-                drawChart(context: context, size: size)
+                drawChart(context: context, size: size, palette: p)
             }
             .frame(height: 180)
+            .help(chartTooltipText)
         }
         .cardStyle()
     }
@@ -69,14 +77,24 @@ public struct PowerChartView: View {
                 .fill(color)
                 .frame(width: 8, height: 8)
             Text(label)
-                .font(AppTheme.mono(size: 11))
-                .foregroundColor(AppTheme.header)
+                .font(.system(size: 11, weight: .regular, design: .monospaced))
+                .foregroundColor(themeStore.current.palette.muted.opacity(0.88))
         }
+    }
+
+    private var chartTooltipText: String {
+        guard let last = samples.last else {
+            return String(localized: "dashboard.metrics.power.subtitle.waiting_data")
+        }
+
+        let power = String(format: "%.1fW", last.powerW ?? 0)
+        let temp = last.tempC.map { String(format: "%.1f°C", $0) } ?? String(localized: "common.value.unknown")
+        return "\(String(localized: "power.chart.title"))\n\(String(localized: "dashboard.metrics.power.label")): \(power)\n\(String(localized: "dashboard.metrics.temperature.label")): \(temp)"
     }
 
     // MARK: - Chart Drawing
 
-    private func drawChart(context: GraphicsContext, size: CGSize) {
+    private func drawChart(context: GraphicsContext, size: CGSize, palette: Theme.Palette) {
         let data = samples.suffix(maxPoints).compactMap { $0.powerW }
         guard data.count >= 2 else { return }
 
@@ -117,7 +135,7 @@ public struct PowerChartView: View {
             var gridPath = Path()
             gridPath.move(to: CGPoint(x: pad.leading, y: yG))
             gridPath.addLine(to: CGPoint(x: pad.leading + cW, y: yG))
-            context.stroke(gridPath, with: .color(AppTheme.border.opacity(0.06)), lineWidth: 1)
+            context.stroke(gridPath, with: .color(palette.border.opacity(0.06)), lineWidth: 1)
         }
 
         // Dashed zero line
@@ -126,7 +144,7 @@ public struct PowerChartView: View {
         zeroPath.addLine(to: CGPoint(x: pad.leading + cW, y: zeroY))
         context.stroke(
             zeroPath,
-            with: .color(AppTheme.border.opacity(0.12)),
+            with: .color(palette.border.opacity(0.12)),
             style: StrokeStyle(lineWidth: 1, dash: [4, 4])
         )
 
@@ -134,29 +152,29 @@ public struct PowerChartView: View {
         let labelFont = Font.system(size: 10, weight: .regular, design: .monospaced)
 
         context.draw(
-            Text("\(Int(maxP))W").font(labelFont).foregroundColor(AppTheme.muted),
+            Text("\(Int(maxP))W").font(labelFont).foregroundColor(palette.muted),
             at: CGPoint(x: pad.leading - 6, y: pad.top + 4),
             anchor: .trailing
         )
         context.draw(
-            Text("0").font(labelFont).foregroundColor(AppTheme.muted),
+            Text("0").font(labelFont).foregroundColor(palette.muted),
             at: CGPoint(x: pad.leading - 6, y: zeroY + 4),
             anchor: .trailing
         )
         context.draw(
-            Text("-\(Int(maxP))W").font(labelFont).foregroundColor(AppTheme.muted),
+            Text("-\(Int(maxP))W").font(labelFont).foregroundColor(palette.muted),
             at: CGPoint(x: pad.leading - 6, y: size.height - pad.bottom - 4),
             anchor: .trailing
         )
 
         if showTemperatureOverlay, !tempValues.isEmpty {
             context.draw(
-                Text("\(Int(maxTemp))°C").font(labelFont).foregroundColor(AppTheme.accent.opacity(0.8)),
+                Text("\(Int(maxTemp))°C").font(labelFont).foregroundColor(palette.accent.opacity(0.8)),
                 at: CGPoint(x: size.width - pad.trailing + 4, y: pad.top + 4),
                 anchor: .leading
             )
             context.draw(
-                Text("\(Int(minTemp))°C").font(labelFont).foregroundColor(AppTheme.accent.opacity(0.8)),
+                Text("\(Int(minTemp))°C").font(labelFont).foregroundColor(palette.accent.opacity(0.8)),
                 at: CGPoint(x: size.width - pad.trailing + 4, y: size.height - pad.bottom - 4),
                 anchor: .leading
             )
@@ -177,9 +195,9 @@ public struct PowerChartView: View {
             }
 
             if didMove {
-                context.stroke(tempPath, with: .color(AppTheme.accent.opacity(0.8)), style: StrokeStyle(lineWidth: 1.2, dash: [3, 2]))
+                context.stroke(tempPath, with: .color(palette.accent.opacity(0.8)), style: StrokeStyle(lineWidth: 1.2, dash: [3, 2]))
                 if let marker = lastPoint {
-                    context.fill(Path(ellipseIn: CGRect(x: marker.x - 2, y: marker.y - 2, width: 4, height: 4)), with: .color(AppTheme.accent.opacity(0.8)))
+                    context.fill(Path(ellipseIn: CGRect(x: marker.x - 2, y: marker.y - 2, width: 4, height: 4)), with: .color(palette.accent.opacity(0.8)))
                 }
             }
         }
@@ -194,8 +212,8 @@ public struct PowerChartView: View {
         upPath.closeSubpath()
 
         let greenGradient = Gradient(colors: [
-            AppTheme.green.opacity(0.3),
-            AppTheme.green.opacity(0.02)
+            palette.green.opacity(0.3),
+            palette.green.opacity(0.02)
         ])
         context.fill(upPath, with: .linearGradient(
             greenGradient,
@@ -213,8 +231,8 @@ public struct PowerChartView: View {
         downPath.closeSubpath()
 
         let yellowGradient = Gradient(colors: [
-            AppTheme.yellow.opacity(0.02),
-            AppTheme.yellow.opacity(0.25)
+            palette.yellow.opacity(0.02),
+            palette.yellow.opacity(0.25)
         ])
         context.fill(downPath, with: .linearGradient(
             yellowGradient,
@@ -229,7 +247,7 @@ public struct PowerChartView: View {
             if i == 0 { linePath.move(to: pt) }
             else { linePath.addLine(to: pt) }
         }
-        let lineColor = (data.last ?? 0) >= 0 ? AppTheme.green : AppTheme.yellow
+        let lineColor = (data.last ?? 0) >= 0 ? palette.green : palette.yellow
         context.stroke(linePath, with: .color(lineColor), lineWidth: 1.5)
     }
 }
