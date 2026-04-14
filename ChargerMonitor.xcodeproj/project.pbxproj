@@ -62,6 +62,7 @@
 		CF1370102740D00C4A26F88C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1CB3E37BD92C6188FF1096 /* Theme.swift */; };
 		D0FC62495B6D41FB1A73FDEA /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB4E7A56541FE6539AB4AED /* DIContainer.swift */; };
 		D17F662E01DAF777AF3827BB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE160A4C34D3FB76F20FB8E /* SettingsView.swift */; };
+		D2E080F02FB88FB80E7D3709 /* SessionImportExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9D40AF4A511C2D6FD59E2 /* SessionImportExportService.swift */; };
 		D43B76B7B81AA63246CCBE3F /* ThemeLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D9AB0AB0B23C7C4100C3FE /* ThemeLoader.swift */; };
 		D51C03BDF32185F5BA03198A /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = D786E96DD20371540ECD0DC7 /* Session.swift */; };
 		D569EB52C2842533DC6E03BE /* RecommendationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDCC5FFA0BA818CACCE0067 /* RecommendationsView.swift */; };
@@ -73,6 +74,7 @@
 		DDB4068017809B1A6DB7DC6F /* libData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41E0EECFAC07C5809C8325D6 /* libData.a */; };
 		DFBC7D68802B9D31159239CB /* SessionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062BFFE1E47C433F2681F31E /* SessionsViewModel.swift */; };
 		E52F0E8A8B8D3019A395D7CE /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BB73F529024E6F0A12FC14 /* AppTheme.swift */; };
+		E99E98D92F8DF739008D833E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E99E98D82F8DF739008D833E /* Assets.xcassets */; };
 		EAD2621EB9C835E59548D50E /* ThemeCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E0A642913047739EEA6B1FD /* ThemeCommands.swift */; };
 		F418759E060EEB22E6F18BAE /* SessionsComparisonView.swift.bak in Resources */ = {isa = PBXBuildFile; fileRef = 0F82B7713704A25D73733DD5 /* SessionsComparisonView.swift.bak */; };
 		F4C57D0EF082122A42ABC42C /* SessionsComparisonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD09B826B8CAE51BFEEAEA7 /* SessionsComparisonView.swift */; };
@@ -163,7 +165,7 @@
 		0E0A642913047739EEA6B1FD /* ThemeCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeCommands.swift; sourceTree = "<group>"; };
 		0E1CB3E37BD92C6188FF1096 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		0EF2FCA79000A709E37BF4FB /* SessionBarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionBarChartView.swift; sourceTree = "<group>"; };
-		0F82B7713704A25D73733DD5 /* SessionsComparisonView.swift.bak */ = {isa = PBXFileReference; path = SessionsComparisonView.swift.bak; sourceTree = "<group>"; };
+		0F82B7713704A25D73733DD5 /* SessionsComparisonView.swift.bak */ = {isa = PBXFileReference; lastKnownFileType = text; path = SessionsComparisonView.swift.bak; sourceTree = "<group>"; };
 		14DBA4E339F3A28DB8363DC2 /* ThemeStoreJSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeStoreJSONTests.swift; sourceTree = "<group>"; };
 		1DB4E7A56541FE6539AB4AED /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		1EDCC5FFA0BA818CACCE0067 /* RecommendationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsView.swift; sourceTree = "<group>"; };
@@ -183,7 +185,7 @@
 		5749BDBEAE16A9720195668C /* light.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = light.json; sourceTree = "<group>"; };
 		57BF3CDC0DA0E11E2D2065E1 /* FileSessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSessionStore.swift; sourceTree = "<group>"; };
 		59723BC05353CA3AA459CCBC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
-		61C5AC9DD357C0676466DD09 /* BatteryCardView.swift.bak */ = {isa = PBXFileReference; path = BatteryCardView.swift.bak; sourceTree = "<group>"; };
+		61C5AC9DD357C0676466DD09 /* BatteryCardView.swift.bak */ = {isa = PBXFileReference; lastKnownFileType = text; path = BatteryCardView.swift.bak; sourceTree = "<group>"; };
 		62B9D9F04995243B27200C19 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6684AF3BE641673ED4C839F5 /* DomainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainTests.swift; sourceTree = "<group>"; };
 		6714BE674C456AFCEA3C9FAD /* SystemPowerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemPowerRepository.swift; sourceTree = "<group>"; };
@@ -204,18 +206,18 @@
 		9B81893F60163B097829264E /* ChargerMonitorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChargerMonitorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C9B2DC94D030A67953CF669 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		9EB2D1A85C4CC76661183143 /* PollerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollerTests.swift; sourceTree = "<group>"; };
-		A08E852FD0C504BEED209447 /* ChargerMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChargerMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A08E852FD0C504BEED209447 /* Charger Monitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Charger Monitor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A201188FA82B71D55A01A160 /* BatteryError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryError.swift; sourceTree = "<group>"; };
 		A2A36A3C2BC8E68FFF6C2CE3 /* SessionUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionUseCases.swift; sourceTree = "<group>"; };
 		A5C404E9B01F6E92E62FEA58 /* FileSessionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSessionStoreTests.swift; sourceTree = "<group>"; };
 		A607007708BCF04CB0B5F771 /* ThemeLoaderHotReloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeLoaderHotReloadTests.swift; sourceTree = "<group>"; };
-		A8ED85FC039ADAD5FABB22A4 /* DashboardView.swift.bak */ = {isa = PBXFileReference; path = DashboardView.swift.bak; sourceTree = "<group>"; };
+		A8ED85FC039ADAD5FABB22A4 /* DashboardView.swift.bak */ = {isa = PBXFileReference; lastKnownFileType = text; path = DashboardView.swift.bak; sourceTree = "<group>"; };
 		AAAC34B38ABACF2FD0D94A53 /* SessionCSVExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCSVExporter.swift; sourceTree = "<group>"; };
 		ACFDBBA93B7833869A205759 /* LocalizationParityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationParityTests.swift; sourceTree = "<group>"; };
 		ADF9A954A5129B4AB944726A /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		AE717C843368C188785CBD25 /* marine.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = marine.json; sourceTree = "<group>"; };
 		BC73F2314B7E68175179CE8D /* ThemeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeStore.swift; sourceTree = "<group>"; };
-		C68EE0B3C121ACABD08CF955 /* PowerChartView.swift.bak */ = {isa = PBXFileReference; path = PowerChartView.swift.bak; sourceTree = "<group>"; };
+		C68EE0B3C121ACABD08CF955 /* PowerChartView.swift.bak */ = {isa = PBXFileReference; lastKnownFileType = text; path = PowerChartView.swift.bak; sourceTree = "<group>"; };
 		C7DE059FA391FDC1421B356A /* IOKitBatteryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOKitBatteryRepository.swift; sourceTree = "<group>"; };
 		CD3920695B455388D5F6D4F1 /* HealthSnapshotStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthSnapshotStore.swift; sourceTree = "<group>"; };
 		D4BFFD1596A337B80EC83D04 /* MetricCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricCardView.swift; sourceTree = "<group>"; };
@@ -223,8 +225,10 @@
 		D8F2754FE0CFA8563E93D86F /* ThemeDirectoryWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDirectoryWatcher.swift; sourceTree = "<group>"; };
 		E2B74214709576DD782A56CB /* RealtimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeViewModel.swift; sourceTree = "<group>"; };
 		E8CD001C1A345A48A56418A0 /* RecommendationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationEngine.swift; sourceTree = "<group>"; };
+		E99E98D82F8DF739008D833E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EAF9D40AF4A511C2D6FD59E2 /* SessionImportExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionImportExportService.swift; sourceTree = "<group>"; };
 		EC40AA8FE940996BFA0548E4 /* ThemeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeDTO.swift; sourceTree = "<group>"; };
-		ED23C913601FE7B233AA1637 /* SettingsView.swift.bak */ = {isa = PBXFileReference; path = SettingsView.swift.bak; sourceTree = "<group>"; };
+		ED23C913601FE7B233AA1637 /* SettingsView.swift.bak */ = {isa = PBXFileReference; lastKnownFileType = text; path = SettingsView.swift.bak; sourceTree = "<group>"; };
 		EDE160A4C34D3FB76F20FB8E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		EF86B7AD7CD01A988D5470E1 /* PowerChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerChartView.swift; sourceTree = "<group>"; };
 		FAA408FE533B63693F0295FC /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
@@ -438,6 +442,7 @@
 		CD5E1F461314C9C26ECC33C8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E99E98D82F8DF739008D833E /* Assets.xcassets */,
 				453203943978D0D96CD0DE34 /* Localizable.strings */,
 			);
 			path = Resources;
@@ -447,6 +452,7 @@
 			isa = PBXGroup;
 			children = (
 				AAAC34B38ABACF2FD0D94A53 /* SessionCSVExporter.swift */,
+				EAF9D40AF4A511C2D6FD59E2 /* SessionImportExportService.swift */,
 				5ED2AC55BE1A39FC6EDEF7B2 /* Theme */,
 				A292245FC767687BA4D031F0 /* ViewModels */,
 				5ED7ED6C0EDCB46B0CAD0FD7 /* Views */,
@@ -482,7 +488,7 @@
 		F78B0DDB3D5E3F6B0A16D33F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A08E852FD0C504BEED209447 /* ChargerMonitor.app */,
+				A08E852FD0C504BEED209447 /* Charger Monitor.app */,
 				9B81893F60163B097829264E /* ChargerMonitorTests.xctest */,
 				41E0EECFAC07C5809C8325D6 /* libData.a */,
 				006734F3BA152A24A0E7BD66 /* libDomain.a */,
@@ -513,7 +519,7 @@
 			packageProductDependencies = (
 			);
 			productName = ChargerMonitor;
-			productReference = A08E852FD0C504BEED209447 /* ChargerMonitor.app */;
+			productReference = A08E852FD0C504BEED209447 /* Charger Monitor.app */;
 			productType = "com.apple.product-type.application";
 		};
 		5E7B6FEAC42234B8F191DE02 /* Domain */ = {
@@ -605,8 +611,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1500;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = F0B1B2EBE0CC32D562EF9A92 /* Build configuration list for PBXProject "ChargerMonitor" */;
 			developmentRegion = en;
@@ -654,6 +658,7 @@
 				5333EFA77E7DF5D240028535 /* dark.json in Resources */,
 				50BEE98A16A6EF3855954731 /* forest.json in Resources */,
 				6151C128FDCC47C833838F04 /* light.json in Resources */,
+				E99E98D92F8DF739008D833E /* Assets.xcassets in Resources */,
 				D80A16DC5AE2F0C8C588DBD3 /* marine.json in Resources */,
 				521354639D909F3B62B09ECD /* martian.json in Resources */,
 			);
@@ -728,6 +733,7 @@
 				C3950CF8C7FF6E460A5D8411 /* RecommendationsViewModel.swift in Sources */,
 				39526558B64FF244254E9715 /* SessionBarChartView.swift in Sources */,
 				3997826E0019BA98090E9288 /* SessionCSVExporter.swift in Sources */,
+				D2E080F02FB88FB80E7D3709 /* SessionImportExportService.swift in Sources */,
 				F4C57D0EF082122A42ABC42C /* SessionsComparisonView.swift in Sources */,
 				DFBC7D68802B9D31159239CB /* SessionsViewModel.swift in Sources */,
 				D17F662E01DAF777AF3827BB /* SettingsView.swift in Sources */,
@@ -936,6 +942,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = ChargerMonitor.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_APP_SANDBOX = NO;
@@ -1132,6 +1139,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = ChargerMonitor.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_APP_SANDBOX = NO;
