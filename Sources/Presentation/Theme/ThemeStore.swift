@@ -1,6 +1,7 @@
 import Data
 import Domain
 import Foundation
+import SwiftUI
 
 @MainActor
 public final class ThemeStore: ObservableObject {
@@ -52,10 +53,10 @@ public final class ThemeStore: ObservableObject {
     }
 
     public func select(key: String) {
-        let next = allThemes.first(where: { $0.key == key }) ?? Theme.dark
-        guard current.key != next.key else { return }
-        userDefaults.set(next.key, forKey: selectedThemeKey)
-        current = next
+        let theme = allThemes.first(where: { $0.key == key }) ?? Theme.dark
+        guard current.key != theme.key else { return }
+        UserDefaults.standard.set(key, forKey: "selectedTheme")
+        setCurrent(theme, animated: true)
     }
 
     public func reload() {
@@ -64,9 +65,11 @@ public final class ThemeStore: ObservableObject {
 
         let persistedKey = userDefaults.string(forKey: selectedThemeKey) ?? current.key
         if let next = allThemes.first(where: { $0.key == persistedKey }) {
-            current = next
+            if current.key != next.key {
+                setCurrent(next, animated: true)
+            }
         } else {
-            current = Theme.dark
+            setCurrent(Theme.dark, animated: true)
             userDefaults.set(Theme.dark.key, forKey: selectedThemeKey)
         }
 
@@ -94,5 +97,15 @@ public final class ThemeStore: ObservableObject {
     private func ensureUserThemesDirectoryExists() {
         let userThemesDirectory = loader.userThemesDirectoryURL()
         try? fileManager.createDirectory(at: userThemesDirectory, withIntermediateDirectories: true)
+    }
+
+    private func setCurrent(_ theme: Theme, animated: Bool = true) {
+        if animated {
+            withAnimation(.easeInOut(duration: 0.35)) {
+                self.current = theme
+            }
+        } else {
+            self.current = theme
+        }
     }
 }
