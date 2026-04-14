@@ -19,6 +19,8 @@ public struct DashboardView: View {
     public init() {}
 
     public var body: some View {
+        let p = themeStore.current.palette
+
         ScrollView {
             VStack(spacing: 20) {
                 // Header
@@ -54,7 +56,7 @@ public struct DashboardView: View {
             }
             .padding(24)
         }
-        .background(AppTheme.bg)
+        .background(p.bg)
         .onAppear {
             logger.info("Dashboard appeared, starting polling")
             Task {
@@ -75,13 +77,15 @@ public struct DashboardView: View {
     // MARK: - Header
 
     private var headerView: some View {
-        HStack {
+        let p = themeStore.current.palette
+
+        return HStack {
             HStack(spacing: 12) {
                 // Logo icon
                 RoundedRectangle(cornerRadius: 10)
                     .fill(
                         LinearGradient(
-                            colors: [AppTheme.accent, AppTheme.accent2],
+                            colors: [p.accent, p.accent2],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
@@ -90,21 +94,21 @@ public struct DashboardView: View {
                     .overlay(
                         Text("⚡")
                             .font(.system(size: 20))
-                            .foregroundColor(AppTheme.surface)
+                            .foregroundColor(p.surface)
                     )
 
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(spacing: 0) {
                         Text("dashboard.header.brand.charger")
                             .font(.system(size: 20, weight: .bold))
-                            .foregroundColor(AppTheme.text)
+                            .foregroundColor(p.text)
                         Text("dashboard.header.brand.monitor")
                             .font(.system(size: 20, weight: .bold))
-                            .foregroundColor(AppTheme.accent)
+                            .foregroundColor(p.accent)
                     }
                     Text("dashboard.header.subtitle")
                         .font(.system(size: 12))
-                        .foregroundColor(AppTheme.muted)
+                        .foregroundColor(p.muted)
                 }
             }
 
@@ -115,43 +119,48 @@ public struct DashboardView: View {
                 Button(action: { showingSettings = true }) {
                     Image(systemName: "gearshape")
                         .font(.system(size: 14))
-                        .foregroundColor(AppTheme.muted)
+                        .foregroundColor(p.muted)
                 }
                 .buttonStyle(.plain)
+                .accessibilityLabel("settings.title")
+                .help(Text("settings.title"))
 
                 statusPill
             }
         }
         .padding(.bottom, 12)
         .overlay(alignment: .bottom) {
-            Rectangle().fill(AppTheme.border).frame(height: 1)
+            Rectangle().fill(p.border).frame(height: 1)
         }
     }
 
     private var statusPill: some View {
-        HStack(spacing: 8) {
+        let p = themeStore.current.palette
+
+        return HStack(spacing: 8) {
             Circle()
                 .fill(statusDotColor)
                 .frame(width: 8, height: 8)
 
             Text(statusText)
-                .font(AppTheme.mono(size: 12))
-                .foregroundColor(AppTheme.text)
+                .font(.system(size: 12, weight: .regular, design: .monospaced))
+                .foregroundColor(p.text)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
         .background(
             Capsule()
-                .fill(AppTheme.surface)
-                .overlay(Capsule().stroke(AppTheme.border, lineWidth: 1))
+                .fill(p.surface)
+                .overlay(Capsule().stroke(p.border, lineWidth: 1))
         )
     }
 
     private var statusDotColor: Color {
+        let p = themeStore.current.palette
         switch realtime.connectionStatus {
-        case .connected: return AppTheme.green
-        case .disconnected: return AppTheme.muted
-        case .error: return AppTheme.red
+        case .connected: return p.green
+        case .disconnected: return p.muted
+        case .error: return p.red
         }
     }
 
@@ -168,6 +177,7 @@ public struct DashboardView: View {
     private var metricsRow: some View {
         let sample = realtime.currentSample
         let powerW = sample?.powerW ?? 0
+        let p = themeStore.current.palette
 
         return HStack(spacing: 16) {
             MetricCardView(
@@ -175,7 +185,7 @@ public struct DashboardView: View {
                 value: String(format: "%.1f", abs(powerW)),
                 unit: "W",
                 subtitle: powerSubtitle(sample),
-                valueColor: powerW > 0.5 ? AppTheme.green : powerW < -0.5 ? AppTheme.yellow : AppTheme.muted
+                valueColor: powerW > 0.5 ? p.green : powerW < -0.5 ? p.yellow : p.muted
             )
 
             MetricCardView(
@@ -228,13 +238,15 @@ public struct DashboardView: View {
     // MARK: - Footer
 
     private var footerView: some View {
-        Text("dashboard.footer.data_source")
-            .font(AppTheme.mono(size: 12))
-            .foregroundColor(AppTheme.muted)
+        let p = themeStore.current.palette
+
+        return Text("dashboard.footer.data_source")
+            .font(.system(size: 12, weight: .regular, design: .monospaced))
+            .foregroundColor(p.muted)
             .frame(maxWidth: .infinity)
             .padding(.top, 8)
             .overlay(alignment: .top) {
-                Rectangle().fill(AppTheme.border).frame(height: 1)
+                Rectangle().fill(p.border).frame(height: 1)
             }
     }
 }
