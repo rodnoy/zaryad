@@ -46,6 +46,10 @@ public actor SessionManager: StartSessionUseCase, AppendSampleToSessionUseCase, 
         return try await store.fetchAll()
     }
 
+    public func save(session: Session) async throws {
+        try await store.save(session: session)
+    }
+
     public func deleteAll() async throws {
         try await store.deleteAll()
     }

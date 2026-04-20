@@ -2,6 +2,7 @@ import Data
 import Domain
 import AppKit
 import Foundation
+import UniformTypeIdentifiers
 import os
 
 private let logger = Logger(subsystem: "com.chargermonitor", category: "SessionsViewModel")
@@ -25,8 +26,8 @@ public final class SessionsViewModel: ObservableObject {
 
         public var titleKey: String {
             switch self {
-            case .success: return "session.csv.export.success"
-            case .failure: return "session.csv.export.failure"
+            case .success: return "sessions.export.status.success.title"
+            case .failure: return "sessions.export.status.failure.title"
             }
         }
 
@@ -38,11 +39,14 @@ public final class SessionsViewModel: ObservableObject {
     }
 
     private let sessionManager: SessionManager
-    private let csvExporter: SessionCSVExporter
+    private let importExportService: SessionImportExportService
 
-    public init(sessionManager: SessionManager, csvExporter: SessionCSVExporter = SessionCSVExporter()) {
+    public init(
+        sessionManager: SessionManager,
+        importExportService: SessionImportExportService = SessionImportExportService()
+    ) {
         self.sessionManager = sessionManager
-        self.csvExporter = csvExporter
+        self.importExportService = importExportService
     }
 
     public var latestSession: Session? { sessions.first }
@@ -95,52 +99,149 @@ public final class SessionsViewModel: ObservableObject {
     }
 
     public func exportSelectedSessions() {
-        let selected = sessions.filter { selectedSessionIDs.contains($0.id) }
-        guard !selected.isEmpty else {
-            exportStatus = .failure(message: String(localized: "sessions.export.status.no_selection"))
-            return
-        }
-
-        guard let url = makeSaveURL(defaultName: "selected_sessions.csv") else {
-            return
-        }
-
-        do {
-            try csvExporter.exportSessions(selected, to: url)
-            exportStatus = .success(message: String(format: String(localized: "sessions.export.status.success.selected_format"), selected.count))
-        } catch {
-            logger.error("Failed to export selected sessions: \(error.localizedDescription, privacy: .public)")
-            exportStatus = .failure(message: error.localizedDescription)
-        }
+        exportSelectedSessionsCSV()
     }
 
     public func exportAllSessions() {
-        guard !sessions.isEmpty else {
-            exportStatus = .failure(message: String(localized: "sessions.export.status.empty"))
+        exportAllSessionsCSV()
+    }
+
+    public func exportSelectedSessionsCSV() {
+        let selected = sessions.filter { selectedSessionIDs.contains($0.id) }
+        exportSessions(
+            selected,
+            format: .csv,
+            defaultName: "selected_sessions.csv",
+            emptyMessageKey: "sessions.export.status.no_selection",
+            successMessageKey: "sessions.export.status.success.selected_csv_format"
+        )
+    }
+
+    public func exportSelectedSessionsJSON() {
+        let selected = sessions.filter { selectedSessionIDs.contains($0.id) }
+        exportSessions(
+            selected,
+            format: .json,
+            defaultName: "selected_sessions.json",
+            emptyMessageKey: "sessions.export.status.no_selection",
+            successMessageKey: "sessions.export.status.success.selected_json_format"
+        )
+    }
+
+    public func exportAllSessionsCSV() {
+        exportSessions(
+            sessions,
+            format: .csv,
+            defaultName: "all_sessions.csv",
+            emptyMessageKey: "sessions.export.status.empty",
+            successMessageKey: "sessions.export.status.success.all_csv_format"
+        )
+    }
+
+    public func exportAllSessionsJSON() {
+        exportSessions(
+            sessions,
+            format: .json,
+            defaultName: "all_sessions.json",
+            emptyMessageKey: "sessions.export.status.empty",
+            successMessageKey: "sessions.export.status.success.all_json_format"
+        )
+    }
+
+    public func importSessionsJSON() {
+        guard let url = makeOpenURL() else {
             return
         }
 
-        guard let url = makeSaveURL(defaultName: "all_sessions.csv") else {
+        Task {
+            do {
+                let importedSessions = try importExportService.importSessionsJSON(from: url)
+                let existingIDs = Set(try await sessionManager.fetchAll().map(\.id))
+                let uniqueSessions = importedSessions.filter { !existingIDs.contains($0.id) }
+
+                for session in uniqueSessions {
+                    try await sessionManager.save(session: session)
+                }
+
+                await reload()
+                exportStatus = .success(message: String(format: String(localized: "sessions.import.status.success.format"), uniqueSessions.count))
+            } catch {
+                logger.error("Failed to import sessions JSON: \(error.localizedDescription, privacy: .public)")
+                exportStatus = .failure(message: error.localizedDescription)
+            }
+        }
+    }
+
+    private enum ExportFormat {
+        case csv
+        case json
+    }
+
+    private func exportSessions(
+        _ sessionsToExport: [Session],
+        format: ExportFormat,
+        defaultName: String,
+        emptyMessageKey: String,
+        successMessageKey: String
+    ) {
+        guard !sessionsToExport.isEmpty else {
+            exportStatus = .failure(message: NSLocalizedString(emptyMessageKey, comment: ""))
+            return
+        }
+
+        let panelTitleKey = format == .csv ? "sessions.export.panel.csv.title" : "sessions.export.panel.json.title"
+        let panelMessageKey = format == .csv ? "sessions.export.panel.csv.message" : "sessions.export.panel.json.message"
+        let allowedType: UTType = format == .csv ? .commaSeparatedText : .json
+
+        guard let url = makeSaveURL(
+            defaultName: defaultName,
+            allowedContentTypes: [allowedType],
+            title: NSLocalizedString(panelTitleKey, comment: ""),
+            message: NSLocalizedString(panelMessageKey, comment: "")
+        ) else {
             return
         }
 
         do {
-            try csvExporter.exportSessions(sessions, to: url)
-            exportStatus = .success(message: String(format: String(localized: "sessions.export.status.success.all_format"), sessions.count))
+            switch format {
+            case .csv:
+                try importExportService.exportSessionsCSV(sessionsToExport, to: url)
+            case .json:
+                try importExportService.exportSessionsJSON(sessionsToExport, to: url)
+            }
+
+            exportStatus = .success(message: String(format: NSLocalizedString(successMessageKey, comment: ""), sessionsToExport.count))
         } catch {
-            logger.error("Failed to export all sessions: \(error.localizedDescription, privacy: .public)")
+            logger.error("Failed to export sessions: \(error.localizedDescription, privacy: .public)")
             exportStatus = .failure(message: error.localizedDescription)
         }
     }
 
-    private func makeSaveURL(defaultName: String) -> URL? {
+    private func makeSaveURL(
+        defaultName: String,
+        allowedContentTypes: [UTType],
+        title: String,
+        message: String
+    ) -> URL? {
         let panel = NSSavePanel()
-        panel.allowedContentTypes = [.commaSeparatedText]
+        panel.allowedContentTypes = allowedContentTypes
         panel.canCreateDirectories = true
         panel.isExtensionHidden = false
         panel.nameFieldStringValue = defaultName
-        panel.title = String(localized: "sessions.export.panel.title")
-        panel.message = String(localized: "sessions.export.panel.message")
+        panel.title = title
+        panel.message = message
+
+        return panel.runModal() == .OK ? panel.url : nil
+    }
+
+    private func makeOpenURL() -> URL? {
+        let panel = NSOpenPanel()
+        panel.allowedContentTypes = [.json]
+        panel.allowsMultipleSelection = false
+        panel.canChooseDirectories = false
+        panel.canChooseFiles = true
+        panel.title = String(localized: "sessions.import.panel.title")
+        panel.message = String(localized: "sessions.import.panel.message")
 
         return panel.runModal() == .OK ? panel.url : nil
     }

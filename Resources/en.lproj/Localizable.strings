@@ -104,6 +104,12 @@
 "sessions.export_all" = "Export All";
 "sessions.button.export_selected" = "Export Selected CSV";
 "sessions.button.export_all" = "Export All CSV";
+"sessions.button.export_selected_csv" = "Export Selected CSV";
+"sessions.button.export_selected_json" = "Export Selected JSON";
+"sessions.button.export_all_csv" = "Export All CSV";
+"sessions.button.export_all_json" = "Export All JSON";
+"sessions.button.import" = "Import Sessions";
+"sessions.select_row" = "Select session";
 "sessions.alert.title" = "Session Name";
 "sessions.alert.textfield.placeholder" = "Charger name";
 "sessions.alert.button.start" = "Start";
@@ -131,12 +137,23 @@
 "sessions.chart.tooltip.peak" = "Peak";
 "sessions.export.panel.title" = "Export Sessions CSV";
 "sessions.export.panel.message" = "Choose where to save session metrics CSV.";
+"sessions.export.panel.csv.title" = "Export Sessions CSV";
+"sessions.export.panel.csv.message" = "Choose where to save session metrics CSV.";
+"sessions.export.panel.json.title" = "Export Sessions JSON";
+"sessions.export.panel.json.message" = "Choose where to save full session data JSON.";
+"sessions.import.panel.title" = "Import Sessions JSON";
+"sessions.import.panel.message" = "Select an exported sessions JSON file to import.";
 "sessions.export.status.success.title" = "Export Completed";
 "sessions.export.status.failure.title" = "Export Failed";
 "session.csv.export.success" = "Export Completed";
 "session.csv.export.failure" = "Export Failed";
 "sessions.export.status.success.selected_format" = "Exported %d selected sessions to CSV.";
 "sessions.export.status.success.all_format" = "Exported %d sessions to CSV.";
+"sessions.export.status.success.selected_csv_format" = "Exported %d selected sessions to CSV.";
+"sessions.export.status.success.selected_json_format" = "Exported %d selected sessions to JSON.";
+"sessions.export.status.success.all_csv_format" = "Exported %d sessions to CSV.";
+"sessions.export.status.success.all_json_format" = "Exported %d sessions to JSON.";
+"sessions.import.status.success.format" = "Imported %d sessions from JSON.";
 "sessions.export.status.no_selection" = "No sessions selected.";
 "sessions.export.status.empty" = "No sessions available for export.";
 

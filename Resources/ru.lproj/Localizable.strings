@@ -104,6 +104,12 @@
 "sessions.export_all" = "Экспорт всех";
 "sessions.button.export_selected" = "Экспорт выбранных CSV";
 "sessions.button.export_all" = "Экспорт всех CSV";
+"sessions.button.export_selected_csv" = "Экспорт выбранных CSV";
+"sessions.button.export_selected_json" = "Экспорт выбранных JSON";
+"sessions.button.export_all_csv" = "Экспорт всех CSV";
+"sessions.button.export_all_json" = "Экспорт всех JSON";
+"sessions.button.import" = "Импорт сессий";
+"sessions.select_row" = "Выбрать сессию";
 "sessions.alert.title" = "Имя сессии";
 "sessions.alert.textfield.placeholder" = "Имя зарядника";
 "sessions.alert.button.start" = "Старт";
@@ -131,12 +137,23 @@
 "sessions.chart.tooltip.peak" = "Пик";
 "sessions.export.panel.title" = "Экспорт CSV сессий";
 "sessions.export.panel.message" = "Выберите путь для сохранения CSV метрик сессий.";
+"sessions.export.panel.csv.title" = "Экспорт CSV сессий";
+"sessions.export.panel.csv.message" = "Выберите путь для сохранения CSV метрик сессий.";
+"sessions.export.panel.json.title" = "Экспорт JSON сессий";
+"sessions.export.panel.json.message" = "Выберите путь для сохранения полного JSON сессий.";
+"sessions.import.panel.title" = "Импорт JSON сессий";
+"sessions.import.panel.message" = "Выберите экспортированный JSON файл сессий для импорта.";
 "sessions.export.status.success.title" = "Экспорт завершён";
 "sessions.export.status.failure.title" = "Ошибка экспорта";
 "session.csv.export.success" = "Экспорт завершён";
 "session.csv.export.failure" = "Ошибка экспорта";
 "sessions.export.status.success.selected_format" = "Экспортировано %d выбранных сессий в CSV.";
 "sessions.export.status.success.all_format" = "Экспортировано %d сессий в CSV.";
+"sessions.export.status.success.selected_csv_format" = "Экспортировано %d выбранных сессий в CSV.";
+"sessions.export.status.success.selected_json_format" = "Экспортировано %d выбранных сессий в JSON.";
+"sessions.export.status.success.all_csv_format" = "Экспортировано %d сессий в CSV.";
+"sessions.export.status.success.all_json_format" = "Экспортировано %d сессий в JSON.";
+"sessions.import.status.success.format" = "Импортировано %d сессий из JSON.";
 "sessions.export.status.no_selection" = "Сессии не выбраны.";
 "sessions.export.status.empty" = "Нет доступных сессий для экспорта.";
 

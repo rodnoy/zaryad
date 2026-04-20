@@ -104,6 +104,12 @@
 "sessions.export_all" = "Exporter tout";
 "sessions.button.export_selected" = "Exporter sélection CSV";
 "sessions.button.export_all" = "Exporter tout CSV";
+"sessions.button.export_selected_csv" = "Exporter sélection CSV";
+"sessions.button.export_selected_json" = "Exporter sélection JSON";
+"sessions.button.export_all_csv" = "Exporter tout CSV";
+"sessions.button.export_all_json" = "Exporter tout JSON";
+"sessions.button.import" = "Importer des sessions";
+"sessions.select_row" = "Sélectionner la session";
 "sessions.alert.title" = "Nom de session";
 "sessions.alert.textfield.placeholder" = "Nom du chargeur";
 "sessions.alert.button.start" = "Démarrer";
@@ -131,12 +137,23 @@
 "sessions.chart.tooltip.peak" = "Pic";
 "sessions.export.panel.title" = "Exporter CSV des sessions";
 "sessions.export.panel.message" = "Choisissez l’emplacement pour enregistrer le CSV des métriques.";
+"sessions.export.panel.csv.title" = "Exporter CSV des sessions";
+"sessions.export.panel.csv.message" = "Choisissez l’emplacement pour enregistrer le CSV des métriques.";
+"sessions.export.panel.json.title" = "Exporter JSON des sessions";
+"sessions.export.panel.json.message" = "Choisissez l’emplacement pour enregistrer le JSON complet des sessions.";
+"sessions.import.panel.title" = "Importer JSON des sessions";
+"sessions.import.panel.message" = "Sélectionnez un fichier JSON de sessions exporté à importer.";
 "sessions.export.status.success.title" = "Export terminé";
 "sessions.export.status.failure.title" = "Échec de l’export";
 "session.csv.export.success" = "Export terminé";
 "session.csv.export.failure" = "Échec de l’export";
 "sessions.export.status.success.selected_format" = "%d sessions sélectionnées exportées en CSV.";
 "sessions.export.status.success.all_format" = "%d sessions exportées en CSV.";
+"sessions.export.status.success.selected_csv_format" = "%d sessions sélectionnées exportées en CSV.";
+"sessions.export.status.success.selected_json_format" = "%d sessions sélectionnées exportées en JSON.";
+"sessions.export.status.success.all_csv_format" = "%d sessions exportées en CSV.";
+"sessions.export.status.success.all_json_format" = "%d sessions exportées en JSON.";
+"sessions.import.status.success.format" = "%d sessions importées depuis JSON.";
 "sessions.export.status.no_selection" = "Aucune session sélectionnée.";
 "sessions.export.status.empty" = "Aucune session disponible à exporter.";
 
