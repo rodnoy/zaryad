@@ -50,7 +50,7 @@ backups/
 
 # Other
 .kilo/
-
+.ai/
 # Ignore build-output files
 build-output.txt
 build-log.md
