@@ -167,7 +167,7 @@ public struct SessionsComparisonView: View {
         }
         .alert(item: $sessionsVM.exportStatus) { status in
             Alert(
-                title: Text(status.titleKey),
+                title: Text(LocalizedStringKey(status.titleKey)),
                 message: Text(status.message),
                 dismissButton: .default(Text("btn.cancel")) {
                     sessionsVM.exportStatus = nil
@@ -360,7 +360,7 @@ public struct SessionsComparisonView: View {
             }
         }()
 
-        Text(titleKey)
+        Text(LocalizedStringKey(titleKey))
             .font(.system(size: 10, weight: .semibold, design: .monospaced))
             .foregroundColor(fgColor)
             .padding(.horizontal, 8)

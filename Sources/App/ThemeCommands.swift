@@ -13,7 +13,7 @@ struct ThemeCommands: Commands {
                 set: { themeStore.select(key: $0) }
             )) {
                 ForEach(ThemeStore.all, id: \.key) { theme in
-                    Text(theme.displayNameKey)
+                    Text(theme.displayNameKey) // localization-ok — displayNameKey is LocalizedStringKey
                         .tag(theme.key)
                 }
             }

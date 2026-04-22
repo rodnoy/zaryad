@@ -51,10 +51,10 @@ public struct PowerChartView: View {
                         .accessibilityLabel("chart.show_temperature")
                         .help(Text("chart.show_temperature"))
                     }
-                    legendItem(color: p.green, label: "power.chart.legend.charging")
-                    legendItem(color: p.yellow, label: "power.chart.legend.discharge")
+                    legendItem(color: p.green, label: String(localized:"power.chart.legend.charging"))
+                    legendItem(color: p.yellow, label: String(localized:"power.chart.legend.discharge"))
                     if showTemperatureOverlay {
-                        legendItem(color: p.accent.opacity(0.8), label: "power.chart.legend.temperature")
+                        legendItem(color: p.accent.opacity(0.8), label: String(localized:"power.chart.legend.temperature"))
                     }
                 }
             }

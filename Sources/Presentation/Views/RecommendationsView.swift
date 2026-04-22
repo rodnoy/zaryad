@@ -40,12 +40,12 @@ public struct RecommendationsView: View {
                     .fill(color(for: recommendation.severity))
                     .frame(width: 8, height: 8)
 
-                Text(recommendation.titleKey)
+                Text(LocalizedStringKey(recommendation.titleKey))
                     .font(.system(size: 12, weight: .semibold, design: .monospaced))
                     .foregroundColor(p.text)
             }
 
-            Text(recommendation.messageKey)
+            Text(LocalizedStringKey(recommendation.messageKey))
                 .font(.system(size: 12))
                 .foregroundColor(p.muted)
                 .padding(.leading, 16)

@@ -181,7 +181,7 @@ public struct DashboardView: View {
 
         return HStack(spacing: 16) {
             MetricCardView(
-                label: "dashboard.metrics.power.label",
+                label: String(localized:"dashboard.metrics.power.label"),
                 value: String(format: "%.1f", abs(powerW)),
                 unit: "W",
                 subtitle: powerSubtitle(sample),
@@ -189,7 +189,7 @@ public struct DashboardView: View {
             )
 
             MetricCardView(
-                label: "dashboard.metrics.voltage.label",
+                label: String(localized:"dashboard.metrics.voltage.label"),
                 value: String(format: "%.2f", sample?.voltageV ?? 0),
                 unit: "V",
                 subtitle: (sample?.pluggedIn == true)
@@ -198,7 +198,7 @@ public struct DashboardView: View {
             )
 
             MetricCardView(
-                label: "dashboard.metrics.current.label",
+                label: String(localized:"dashboard.metrics.current.label"),
                 value: String(format: "%.2f", abs(sample?.amperageA ?? 0)),
                 unit: "A",
                 subtitle: (sample?.amperageA ?? 0) >= 0
@@ -207,7 +207,7 @@ public struct DashboardView: View {
             )
 
             MetricCardView(
-                label: "dashboard.metrics.temperature.label",
+                label: String(localized:"dashboard.metrics.temperature.label"),
                 value: String(format: "%.1f", sample?.tempC ?? 0),
                 unit: "°C",
                 subtitle: tempSubtitle(sample?.tempC)

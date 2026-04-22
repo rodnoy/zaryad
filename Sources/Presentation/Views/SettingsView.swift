@@ -28,7 +28,7 @@ public struct SettingsView: View {
                         set: { themeStore.select(key: $0) }
                     )) {
                         ForEach(ThemeStore.all, id: \.key) { theme in
-                            Text(theme.displayNameKey)
+                            Text(theme.displayNameKey) // localization-ok — displayNameKey is LocalizedStringKey
                                 .foregroundColor(p.text)
                                 .tag(theme.key)
                         }
