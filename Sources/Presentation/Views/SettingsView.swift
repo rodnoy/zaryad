@@ -1,11 +1,15 @@
 import Data
 import Domain
 import SwiftUI
+import UniformTypeIdentifiers
 
 public struct SettingsView: View {
     @EnvironmentObject var vm: SettingsViewModel
     @EnvironmentObject var themeStore: ThemeStore
     @Environment(\.dismiss) var dismiss
+
+    @State private var importStatusMessage: String?
+    @State private var importStatusIsError: Bool = false
 
     public init() {}
 
@@ -78,6 +82,20 @@ public struct SettingsView: View {
                     .buttonStyle(.plain)
                     .accessibilityLabel("settings.theme.reload")
 
+                    Button("settings.theme.import") {
+                        importThemeFromFile()
+                    }
+                    .font(.system(size: 13, weight: .semibold, design: .monospaced))
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(p.accent2.opacity(0.2))
+                    )
+                    .foregroundColor(p.text)
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("settings.theme.import")
+
                     Spacer()
                 }
                 .padding(.horizontal, 14)
@@ -86,6 +104,20 @@ public struct SettingsView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(p.surface2)
                 )
+
+                if let message = importStatusMessage {
+                    HStack(spacing: 6) {
+                        Image(systemName: importStatusIsError ? "xmark.circle.fill" : "checkmark.circle.fill")
+                            .foregroundColor(importStatusIsError ? p.red : p.green)
+                        Text(message)
+                            .font(.system(size: 12, weight: .medium, design: .monospaced))
+                            .foregroundColor(importStatusIsError ? p.red : p.green)
+                        Spacer()
+                    }
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 8)
+                    .transition(.opacity)
+                }
             }
 
             Spacer()
@@ -108,5 +140,38 @@ public struct SettingsView: View {
         .padding(24)
         .frame(minWidth: 360, minHeight: 200)
         .background(p.surface)
+    }
+
+    // MARK: - Theme Import
+
+    private func importThemeFromFile() {
+        let panel = NSOpenPanel()
+        panel.allowedContentTypes = [UTType.json]
+        panel.allowsMultipleSelection = false
+        panel.canChooseDirectories = false
+        panel.canChooseFiles = true
+        panel.title = String(localized: "settings.theme.import")
+
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+
+        do {
+            try themeStore.importTheme(from: url)
+            withAnimation {
+                importStatusMessage = String(localized: "settings.theme.import.success")
+                importStatusIsError = false
+            }
+        } catch {
+            withAnimation {
+                importStatusMessage = error.localizedDescription
+                importStatusIsError = true
+            }
+        }
+
+        // Auto-dismiss status after 4 seconds
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            withAnimation {
+                importStatusMessage = nil
+            }
+        }
     }
 }

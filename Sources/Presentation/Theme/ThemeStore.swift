@@ -1,6 +1,7 @@
 import Data
 import Domain
 import Foundation
+import os
 import SwiftUI
 
 @MainActor
@@ -18,6 +19,7 @@ public final class ThemeStore: ObservableObject {
     private let loader: ThemeLoader
     private let fileManager: FileManager
     private let selectedThemeKey = "selectedTheme"
+    private let logger = Logger(subsystem: "com.chargermonitor", category: "ThemeStore")
     private var directoryWatcher: ThemeDirectoryWatcher?
 
     public var currentKey: String {
@@ -50,6 +52,75 @@ public final class ThemeStore: ObservableObject {
 
     deinit {
         directoryWatcher?.stop()
+    }
+
+    // MARK: - Theme Import
+
+    public enum ImportError: LocalizedError {
+        case readFailed(URL)
+        case invalidTheme
+        case alreadyExists(String)
+
+        public var errorDescription: String? {
+            switch self {
+            case .readFailed(let url):
+                return "Failed to read file: \(url.lastPathComponent)"
+            case .invalidTheme:
+                return String(localized: "settings.theme.import.error.invalid")
+            case .alreadyExists(let key):
+                return String(localized: "settings.theme.import.error.exists") + " (\(key))"
+            }
+        }
+    }
+
+    @discardableResult
+    public func importTheme(from sourceURL: URL) throws -> Theme {
+        // 1. Read JSON data
+        let data: Foundation.Data
+        do {
+            data = try Foundation.Data(contentsOf: sourceURL)
+        } catch {
+            logger.error("Failed to read theme file: \(sourceURL.lastPathComponent, privacy: .public)")
+            throw ImportError.readFailed(sourceURL)
+        }
+
+        // 2. Decode & validate
+        let decoder = JSONDecoder()
+        let dto: ThemeDTO
+        do {
+            dto = try decoder.decode(ThemeDTO.self, from: data)
+        } catch {
+            logger.error("Failed to decode theme file: \(error.localizedDescription, privacy: .public)")
+            throw ImportError.invalidTheme
+        }
+
+        guard dto.validate() else {
+            logger.error("Theme validation failed for key: \(dto.key, privacy: .public)")
+            throw ImportError.invalidTheme
+        }
+
+        guard let theme = dto.toTheme() else {
+            throw ImportError.invalidTheme
+        }
+
+        // 3. Check for duplicates
+        let destination = loader.userThemesDirectoryURL()
+            .appendingPathComponent("\(dto.key).json")
+
+        if fileManager.fileExists(atPath: destination.path) {
+            throw ImportError.alreadyExists(dto.key)
+        }
+
+        // 4. Ensure directory exists & copy
+        ensureUserThemesDirectoryExists()
+        try data.write(to: destination, options: .atomic)
+
+        // 5. Reload and select the new theme
+        reload()
+        select(key: theme.key)
+
+        logger.info("Theme imported successfully: \(theme.key, privacy: .public)")
+        return theme
     }
 
     public func select(key: String) {

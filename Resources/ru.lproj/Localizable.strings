@@ -162,3 +162,8 @@
 "session.rating.fair" = "Слабо";
 "session.rating.poor" = "Плохо";
 "session.rating.unknown" = "—";
+
+"settings.theme.import" = "Импортировать тему";
+"settings.theme.import.success" = "Тема успешно импортирована";
+"settings.theme.import.error.invalid" = "Некорректный файл темы";
+"settings.theme.import.error.exists" = "Тема с таким ключом уже существует";

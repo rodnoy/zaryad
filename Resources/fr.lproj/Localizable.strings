@@ -162,3 +162,8 @@
 "session.rating.fair" = "Faible";
 "session.rating.poor" = "Mauvais";
 "session.rating.unknown" = "—";
+
+"settings.theme.import" = "Importer un thème";
+"settings.theme.import.success" = "Thème importé avec succès";
+"settings.theme.import.error.invalid" = "Fichier de thème invalide";
+"settings.theme.import.error.exists" = "Un thème avec cette clé existe déjà";
