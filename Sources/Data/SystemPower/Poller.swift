@@ -2,7 +2,7 @@ import Domain
 import Foundation
 import os
 
-private let logger = Logger(subsystem: "com.chargermonitor", category: "BatteryPoller")
+private let logger = Logger(subsystem: "com.zaryad", category: "BatteryPoller")
 
 public actor BatteryPoller {
     public typealias Sample = BatterySample

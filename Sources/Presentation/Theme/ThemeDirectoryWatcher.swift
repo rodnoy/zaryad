@@ -11,7 +11,7 @@ final class ThemeDirectoryWatcher {
 
     init(
         directoryURL: URL,
-        queue: DispatchQueue = DispatchQueue(label: "com.chargermonitor.themewatcher", qos: .utility),
+        queue: DispatchQueue = DispatchQueue(label: "com.zaryad.themewatcher", qos: .utility),
         onChange: @escaping @Sendable () -> Void
     ) {
         self.directoryURL = directoryURL

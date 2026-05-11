@@ -4,7 +4,7 @@ import Foundation
 import os
 
 public struct ThemeLoader {
-    private let logger = Logger(subsystem: "com.chargermonitor", category: "ThemeLoader")
+    private let logger = Logger(subsystem: "com.zaryad", category: "ThemeLoader")
     private let fileManager: FileManager
     private let bundle: Bundle
     private let customBuiltInThemesDirectoryURL: URL?
@@ -103,7 +103,7 @@ public struct ThemeLoader {
         }
 
         return fileManager.homeDirectoryForCurrentUser
-            .appendingPathComponent(".chargermonitor", isDirectory: true)
+            .appendingPathComponent(".zaryad", isDirectory: true)
             .appendingPathComponent("themes", isDirectory: true)
     }
 

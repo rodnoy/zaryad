@@ -5,7 +5,7 @@ import Foundation
 import UniformTypeIdentifiers
 import os
 
-private let logger = Logger(subsystem: "com.chargermonitor", category: "SessionsViewModel")
+private let logger = Logger(subsystem: "com.zaryad", category: "SessionsViewModel")
 
 @MainActor
 public final class SessionsViewModel: ObservableObject {

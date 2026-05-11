@@ -3,7 +3,7 @@ import Foundation
 import IOKit
 import os
 
-private let logger = Logger(subsystem: "com.chargermonitor", category: "IOKitBattery")
+private let logger = Logger(subsystem: "com.zaryad", category: "IOKitBattery")
 
 /// Reads battery data directly from IOKit's AppleSmartBattery service.
 /// Requires no sandbox (IOKit access) and no shell processes.

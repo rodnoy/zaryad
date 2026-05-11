@@ -19,7 +19,7 @@ public final class ThemeStore: ObservableObject {
     private let loader: ThemeLoader
     private let fileManager: FileManager
     private let selectedThemeKey = "selectedTheme"
-    private let logger = Logger(subsystem: "com.chargermonitor", category: "ThemeStore")
+    private let logger = Logger(subsystem: "com.zaryad", category: "ThemeStore")
     private var directoryWatcher: ThemeDirectoryWatcher?
 
     public var currentKey: String {

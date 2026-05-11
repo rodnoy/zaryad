@@ -7,7 +7,7 @@ public final class FileSessionStore: SessionStoreProtocol, @unchecked Sendable {
     public init(fileURL: URL? = nil) {
         let fm = FileManager.default
         let base = try? fm.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        let appFolder = base?.appendingPathComponent("ChargerMonitor")
+        let appFolder = base?.appendingPathComponent("Zaryad")
         if let appFolder = appFolder {
             try? fm.createDirectory(at: appFolder, withIntermediateDirectories: true)
         }

@@ -3,7 +3,7 @@ import Domain
 import SwiftUI
 import os
 
-private let logger = Logger(subsystem: "com.chargermonitor", category: "DashboardView")
+private let logger = Logger(subsystem: "com.zaryad", category: "DashboardView")
 
 /// Main dashboard view matching the web charger_dashboard.html layout.
 public struct DashboardView: View {

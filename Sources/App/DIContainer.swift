@@ -6,7 +6,7 @@ import SwiftData
 import Combine
 import os
 
-private let logger = Logger(subsystem: "com.chargermonitor", category: "DIContainer")
+private let logger = Logger(subsystem: "com.zaryad", category: "DIContainer")
 
 @MainActor
 final class DIContainer: ObservableObject {

@@ -4,7 +4,7 @@ import Combine
 import SwiftUI
 import os
 
-private let logger = Logger(subsystem: "com.chargermonitor", category: "RealtimeViewModel")
+private let logger = Logger(subsystem: "com.zaryad", category: "RealtimeViewModel")
 
 @MainActor
 public final class RealtimeViewModel: ObservableObject {
