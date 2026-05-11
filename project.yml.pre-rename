@@ -1,4 +1,4 @@
-name: Zaryad
+name: ChargerMonitor
 options:
   bundleIdPrefix: com.worldproject
   deploymentTarget:
@@ -41,7 +41,7 @@ targets:
       - target: Domain
       - target: Data
 
-  Zaryad:
+  ChargerMonitor:
     type: application
     platform: macOS
     sources:
@@ -57,17 +57,17 @@ targets:
         buildPhase: resources
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.worldproject.zaryad
-        PRODUCT_NAME: "Zaryad"
+        PRODUCT_BUNDLE_IDENTIFIER: com.worldproject.chargermonitor
+        PRODUCT_NAME: "Charger Monitor"
         INFOPLIST_GENERATION_MODE: GeneratedFile
-        INFOPLIST_KEY_CFBundleDisplayName: "Zaryad"
+        INFOPLIST_KEY_CFBundleDisplayName: "Charger Monitor"
         INFOPLIST_KEY_LSApplicationCategoryType: "public.app-category.utilities"
         INFOPLIST_KEY_NSMainNibFile: ""
-        CODE_SIGN_ENTITLEMENTS: Zaryad.entitlements
+        CODE_SIGN_ENTITLEMENTS: ChargerMonitor.entitlements
         ENABLE_APP_SANDBOX: "NO"
         SWIFT_EMIT_LOC_STRINGS: "YES"
         GENERATE_INFOPLIST_FILE: "YES"
-        PRODUCT_MODULE_NAME: Zaryad
+        PRODUCT_MODULE_NAME: ChargerMonitor
     dependencies:
       - target: Domain
       - target: Data
@@ -75,29 +75,29 @@ targets:
       - sdk: IOKit.framework
       - sdk: SwiftData.framework
 
-  ZaryadTests:
+  ChargerMonitorTests:
     type: bundle.unit-test
     platform: macOS
     sources:
-      - path: Tests/ZaryadTests
+      - path: Tests/ChargerMonitorTests
         type: group
     dependencies:
-      - target: Zaryad
+      - target: ChargerMonitor
       - target: Domain
       - target: Data
       - target: Presentation
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.worldproject.zaryad.tests
+        PRODUCT_BUNDLE_IDENTIFIER: com.worldproject.chargermonitor.tests
         GENERATE_INFOPLIST_FILE: "YES"
-        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Zaryad.app/Contents/MacOS/Zaryad"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Charger Monitor.app/Contents/MacOS/Charger Monitor"
         BUNDLE_LOADER: "$(TEST_HOST)"
 
 schemes:
-  Zaryad:
+  ChargerMonitor:
     build:
       targets:
-        Zaryad: all
+        ChargerMonitor: all
     test:
       targets:
-        - ZaryadTests
+        - ChargerMonitorTests
