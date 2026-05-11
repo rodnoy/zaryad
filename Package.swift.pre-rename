@@ -2,12 +2,12 @@
 import PackageDescription
 
 let package = Package(
-name: "Zaryad",
+    name: "ChargerMonitor",
     platforms: [
         .macOS(.v14)
     ],
     products: [
-        .executable(name: "Zaryad", targets: ["App"]),
+        .executable(name: "ChargerMonitor", targets: ["App"]),
         .library(name: "Domain", targets: ["Domain"]),
         .library(name: "Data", targets: ["Data"]),
         .library(name: "Presentation", targets: ["Presentation"]),
@@ -36,9 +36,9 @@ name: "Zaryad",
             path: "Sources/Presentation"
         ),
         .testTarget(
-name: "ZaryadTests",
+            name: "ChargerMonitorTests",
             dependencies: ["Domain", "Data", "Presentation"],
-            path: "Tests/ZaryadTests"
+            path: "Tests/ChargerMonitorTests"
         )
     ]
 )
