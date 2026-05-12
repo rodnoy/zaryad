@@ -6,7 +6,12 @@ import SwiftData
 
 @main
 struct ChargerMonitorApp: App {
-    @StateObject private var di = DIContainer()
+    @StateObject private var di: DIContainer
+
+    init() {
+        DataMigration.migrateIfNeeded()
+        _di = StateObject(wrappedValue: DIContainer())
+    }
 
     var body: some Scene {
         WindowGroup("app.title") {
