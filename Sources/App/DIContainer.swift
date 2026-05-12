@@ -29,14 +29,14 @@ final class DIContainer: ObservableObject {
     init() {
         // SwiftData model container
         let schema = Schema([SDSession.self, SDHealthSnapshot.self])
-        let config = ModelConfiguration("ChargerMonitor", isStoredInMemoryOnly: false)
+        let config = ModelConfiguration("Zaryad", isStoredInMemoryOnly: false)
         let container: ModelContainer
         do {
             container = try ModelContainer(for: schema, configurations: [config])
         } catch {
             logger.error("Failed to create persistent ModelContainer: \(error.localizedDescription, privacy: .public)")
             do {
-                let memoryConfig = ModelConfiguration("ChargerMonitorFallback", isStoredInMemoryOnly: true)
+                let memoryConfig = ModelConfiguration("ZaryadFallback", isStoredInMemoryOnly: true)
                 container = try ModelContainer(for: schema, configurations: [memoryConfig])
                 logger.warning("Using in-memory ModelContainer fallback")
             } catch {
