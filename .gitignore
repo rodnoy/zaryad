@@ -54,3 +54,7 @@ backups/
 build-output.txt
 build-log.md
 
+*.pre-rename*
+Package.swift.bak*
+package-output*.tar.gz
+package-output.txt
