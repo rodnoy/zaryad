@@ -32,10 +32,10 @@ jobs:
           fi
 
       - name: Build
-        run: xcodebuild -project ChargerMonitor.xcodeproj -scheme ChargerMonitor -configuration Debug build
+        run: xcodebuild -project Zaryad.xcodeproj -scheme Zaryad -configuration Debug build
 
       - name: Test
-        run: xcodebuild test -project ChargerMonitor.xcodeproj -scheme ChargerMonitor -configuration Debug
+        run: xcodebuild test -project Zaryad.xcodeproj -scheme Zaryad -configuration Debug
 
       - name: Check localization
         run: ./scripts/check_localization.swift

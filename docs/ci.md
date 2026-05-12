@@ -14,13 +14,13 @@ On every `push` and `pull_request`:
 4. Build app:
 
 ```bash
-xcodebuild -project ChargerMonitor.xcodeproj -scheme ChargerMonitor -configuration Debug build
+xcodebuild -project Zaryad.xcodeproj -scheme Zaryad -configuration Debug build
 ```
 
 5. Run tests:
 
 ```bash
-xcodebuild test -project ChargerMonitor.xcodeproj -scheme ChargerMonitor -configuration Debug
+xcodebuild test -project Zaryad.xcodeproj -scheme Zaryad -configuration Debug
 ```
 
 6. Run repository checks:
@@ -36,8 +36,8 @@ Any non-zero exit code fails CI.
 
 ```bash
 if [ -f project.yml ]; then xcodegen generate; fi
-xcodebuild -project ChargerMonitor.xcodeproj -scheme ChargerMonitor -configuration Debug build
-xcodebuild test -project ChargerMonitor.xcodeproj -scheme ChargerMonitor -configuration Debug
+xcodebuild -project Zaryad.xcodeproj -scheme Zaryad -configuration Debug build
+xcodebuild test -project Zaryad.xcodeproj -scheme Zaryad -configuration Debug
 ./scripts/check_localization.swift
 ./scripts/check_hardcoded_strings.sh
 ```

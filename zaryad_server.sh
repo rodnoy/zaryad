@@ -1,13 +1,13 @@
 #!/bin/bash
-# ⚡ Charger Monitor
-# Запуск: chmod +x charger_server.sh && ./charger_server.sh
+# ⚡ Zaryad
+# Запуск: chmod +x zaryad_server.sh && ./zaryad_server.sh
 # Браузер: http://localhost:7823
 
 PORT=7823
 DATA_FILE="/tmp/charger_data.json"
 HTML_FILE="$(cd "$(dirname "$0")" && pwd)/charger_dashboard.html"
 
-echo "⚡ Charger Monitor"
+echo "⚡ Zaryad"
 echo "   Открой в браузере: http://localhost:$PORT"
 echo "   Ctrl+C для остановки"
 echo ""

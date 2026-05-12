@@ -8,7 +8,7 @@ echo "Building Swift package (release)..."
 swift build -c release
 
 TS=$(date +%Y%m%d%H%M%S)
-OUT=charger-monitor-release-${TS}.tar.gz
+OUT=zaryad-release-${TS}.tar.gz
 if [ -d .build/release ]; then
   tar -czf "$OUT" .build/release
   echo "Packaged: $OUT"

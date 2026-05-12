@@ -1,4 +1,4 @@
-# Charger Monitor
+# Zaryad
 
 macOS SwiftUI app for charger/session monitoring, battery health trends, and recommendations.
 
@@ -6,8 +6,8 @@ macOS SwiftUI app for charger/session monitoring, battery health trends, and rec
 
 ```bash
 if [ -f project.yml ]; then xcodegen generate; fi
-xcodebuild -project ChargerMonitor.xcodeproj -scheme ChargerMonitor -configuration Debug build
-xcodebuild test -project ChargerMonitor.xcodeproj -scheme ChargerMonitor -configuration Debug
+xcodebuild -project Zaryad.xcodeproj -scheme Zaryad -configuration Debug build
+xcodebuild test -project Zaryad.xcodeproj -scheme Zaryad -configuration Debug
 ```
 
 ## Local repository checks

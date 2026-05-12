@@ -29,16 +29,16 @@ jobs:
           set -e
           TS=$(date +%Y%m%d%H%M%S)
           if [ -d .build/release ]; then
-            tar -czf charger-monitor-release-${TS}.tar.gz .build/release
-            ls -lh charger-monitor-release-${TS}.tar.gz
+            tar -czf zaryad-release-${TS}.tar.gz .build/release
+            ls -lh zaryad-release-${TS}.tar.gz
           else
             echo "No .build/release folder found; listing .build"
             ls -la .build || true
-            tar -czf charger-monitor-release-${TS}.tar.gz . || true
+            tar -czf zaryad-release-${TS}.tar.gz . || true
           fi
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: charger-monitor-release
-          path: charger-monitor-release-*.tar.gz
+          name: zaryad-release
+          path: zaryad-release-*.tar.gz
