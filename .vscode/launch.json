@@ -5,20 +5,20 @@
             "request": "launch",
             "args": [],
             "cwd": "${workspaceFolder:zaryad}",
-            "name": "Debug ChargerMonitor",
-            "target": "ChargerMonitor",
+            "name": "Debug Zaryad",
+            "target": "Zaryad",
             "configuration": "debug",
-            "preLaunchTask": "swift: Build Debug ChargerMonitor"
+            "preLaunchTask": "swift: Build Debug Zaryad"
         },
         {
             "type": "swift",
             "request": "launch",
             "args": [],
             "cwd": "${workspaceFolder:zaryad}",
-            "name": "Release ChargerMonitor",
-            "target": "ChargerMonitor",
+            "name": "Release Zaryad",
+            "target": "Zaryad",
             "configuration": "release",
-            "preLaunchTask": "swift: Build Release ChargerMonitor"
+            "preLaunchTask": "swift: Build Release Zaryad"
         }
     ]
 }
