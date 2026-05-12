@@ -1,6 +1,0 @@
-Building Swift package (release)...
-[0/1] Planning build
-Building for production...
-[0/2] Write swift-version--58304C5D6DBC2206.txt
-Build complete! (0.41s)
-Packaged: charger-monitor-release-20260403142925.tar.gz
