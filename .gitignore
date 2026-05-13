@@ -10,6 +10,7 @@ DerivedData/
 *.xcscmblueprint
 *.xcodeproj/*/xcuserdata/
 !*.xcodeproj/project.pbxproj
+Zaryad.xcodeproj/project.xcworkspace/xcuserdata/
 
 # Swift Package Manager
 .build/
