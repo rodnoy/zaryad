@@ -38,6 +38,6 @@ swift scripts/theme_export.swift
 
 Runtime user themes are loaded from:
 
-- `~/.chargermonitor/themes`
+- `~/.zaryad/themes`
 
 JSON files in that directory override built-in themes by key.
