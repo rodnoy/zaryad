@@ -50,6 +50,8 @@ backups/
 
 # Other
 .kilo/
+.ai/
+CLAUDE.md
 # Ignore build-output files
 build-output.txt
 build-log.md
