@@ -1,4 +1,4 @@
-# Plan: macOS SwiftUI приложение — Charger Monitor
+# Plan: macOS SwiftUI приложение — Zaryad
 
 Дата: 2026-04-03
 
@@ -76,7 +76,7 @@ Files to Modify
 
 New Files (предлагаемые)
 -------------------------
-- /ChargerMonitor.xcodeproj/  (Xcode project)
+- /Zaryad.xcodeproj/  (Xcode project)
 - /Sources/App/App.swift (App entry point)
 - /Sources/App/DIContainer.swift
 - /Sources/Domain/Models/BatterySample.swift
