@@ -1,0 +1,145 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Build Universal macOS App and Release
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: false
+
+      - name: Install XcodeGen
+        run: brew install xcodegen || true
+
+      - name: Generate Xcode project (if project.yml present)
+        run: |
+          if [ -f project.yml ]; then
+            xcodegen generate || true
+          else
+            echo "project.yml not found, skipping xcodegen"
+          fi
+
+      - name: Get version from tag
+        id: version
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          VERSION=${TAG#v}
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: Build macOS App (Release, universal)
+        run: |
+          set -e
+          xcodebuild -project Zaryad.xcodeproj \
+            -scheme Zaryad \
+            -configuration Release \
+            -derivedDataPath build/DerivedData \
+            ARCHS="arm64 x86_64" \
+            ONLY_ACTIVE_ARCH=NO \
+            CODE_SIGN_IDENTITY="-" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+
+      - name: Create DMG
+        run: |
+          set -e
+          APP_PATH="build/DerivedData/Build/Products/Release/Zaryad.app"
+          if [ ! -d "${APP_PATH}" ]; then
+            echo "App not found at ${APP_PATH}" && exit 1
+          fi
+          DMG_NAME="Zaryad-${{ steps.version.outputs.version }}-universal.dmg"
+
+          rm -rf dmg_contents
+          mkdir -p dmg_contents
+          cp -R "${APP_PATH}" dmg_contents/
+          ln -s /Applications dmg_contents/Applications || true
+
+          hdiutil create -volname "Zaryad" \
+            -srcfolder dmg_contents \
+            -ov -format UDZO \
+            "build/${DMG_NAME}"
+
+          echo "DMG_PATH=build/${DMG_NAME}" >> "$GITHUB_ENV"
+          echo "DMG_NAME=${DMG_NAME}" >> "$GITHUB_ENV"
+
+      - name: Compute DMG SHA256
+        id: sha
+        run: |
+          set -e
+          SHA=$(shasum -a 256 "${{ env.DMG_PATH }}" | awk '{print $1}')
+          echo "sha256=${SHA}" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "Zaryad ${{ steps.version.outputs.version }}"
+          body: |
+            Zaryad ${{ steps.version.outputs.version }}
+
+            macOS battery and charger monitor.
+
+            Installation:
+            1. Download the DMG attached to this release
+            2. Open the DMG and drag Zaryad to Applications
+
+            Note: unsigned build (not notarized).
+          files: ${{ env.DMG_PATH }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update Homebrew Cask (optional)
+        env:
+          TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+          VERSION: ${{ steps.version.outputs.version }}
+          SHA256: ${{ steps.sha.outputs.sha256 }}
+          OWNER: ${{ github.repository_owner }}
+        run: |
+          if [ -z "$TAP_TOKEN" ]; then
+            echo "HOMEBREW_TAP_TOKEN not set, skipping cask update"
+            exit 0
+          fi
+
+          CLONE_URL="https://x-access-token:${TAP_TOKEN}@github.com/${OWNER}/homebrew-zaryad.git"
+
+          if ! git clone "$CLONE_URL" /tmp/homebrew-zaryad; then
+            echo "Could not clone homebrew tap repo, skipping cask update"
+            exit 0
+          fi
+
+          cd /tmp/homebrew-zaryad
+
+          if [ -f scripts/update-cask.sh ]; then
+            bash scripts/update-cask.sh "$VERSION" "$SHA256" "$OWNER" || true
+          else
+            # Fallback: naive sed replace
+            if [ -f Casks/zaryad.rb ]; then
+              python3 - <<PY
+import re, pathlib, sys
+p=pathlib.Path('Casks/zaryad.rb')
+t=p.read_text()
+t=re.sub(r'version ".*?"', f'version "{sys.argv[1]}"', t)
+t=re.sub(r'sha256 ".*?"', f'sha256 "{sys.argv[2]}"', t)
+t=re.sub(r'url ".*?"', f'url "https://github.com/{sys.argv[3]}/zaryad/releases/download/v{sys.argv[1]}/Zaryad-{sys.argv[1]}-universal.dmg"', t)
+p.write_text(t)
+PY
+            fi
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git commit -m "Update zaryad to ${VERSION}"; then
+            git push
+          else
+            echo "No changes to commit"
+          fi
