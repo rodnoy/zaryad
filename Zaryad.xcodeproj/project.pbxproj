@@ -18,6 +18,7 @@
 		2EB958859C974BF70F4F0E21 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691BACC315C30D779F649A16 /* DIContainer.swift */; };
 		33C112303A44BC67DF4E2140 /* PollerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D42006FA6EA991E2F3418F /* PollerTests.swift */; };
 		35BB2B8E1F5805A3DFFA77DA /* BatteryCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A103FED77958E8D030AFD6 /* BatteryCardView.swift */; };
+		36C7374908A056009A844C64 /* DataMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB34A94BC75D2FD39F84EB9 /* DataMigration.swift */; };
 		37273ADF419D2338B23EF6D1 /* BatteryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D04865D9D5E9BB35E092859 /* BatteryError.swift */; };
 		3E376CF61049441608418CCE /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3E73539CC404FB0EA5D8783 /* SwiftData.framework */; };
 		40D147AAD42DF669C5B0853E /* PowerChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E9BA6026FF31067A1DA3D3 /* PowerChartView.swift */; };
@@ -172,6 +173,7 @@
 		1FD213B86F4386D6062A8F47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		26047DF8F9462194F5696237 /* LocalizationCompletenessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationCompletenessTests.swift; sourceTree = "<group>"; };
 		2624003EB066624E06A9385F /* ThemeCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeCommands.swift; sourceTree = "<group>"; };
+		2FB34A94BC75D2FD39F84EB9 /* DataMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataMigration.swift; sourceTree = "<group>"; };
 		30D42006FA6EA991E2F3418F /* PollerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollerTests.swift; sourceTree = "<group>"; };
 		338F2A4F8ACA45928DCE6F14 /* ThemeMigrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeMigrationTests.swift; sourceTree = "<group>"; };
 		36920985E27C4FEB137DD687 /* SessionCSVExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCSVExporter.swift; sourceTree = "<group>"; };
@@ -399,6 +401,7 @@
 			isa = PBXGroup;
 			children = (
 				9B21B782BB3B3321F193BAB2 /* App.swift */,
+				2FB34A94BC75D2FD39F84EB9 /* DataMigration.swift */,
 				691BACC315C30D779F649A16 /* DIContainer.swift */,
 				2624003EB066624E06A9385F /* ThemeCommands.swift */,
 			);
@@ -732,6 +735,7 @@
 			files = (
 				B0B6ED53655F055220101625 /* App.swift in Sources */,
 				2EB958859C974BF70F4F0E21 /* DIContainer.swift in Sources */,
+				36C7374908A056009A844C64 /* DataMigration.swift in Sources */,
 				88CE17B37CFECF1C5A243CAB /* ThemeCommands.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
