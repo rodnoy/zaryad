@@ -41,4 +41,10 @@ jobs:
         run: ./scripts/check_localization.swift
 
       - name: Check hardcoded strings
-        run: ./scripts/check_hardcoded_strings.sh
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! command -v rg >/dev/null 2>&1; then
+            brew install ripgrep
+          fi
+          ./scripts/check_hardcoded_strings.sh
