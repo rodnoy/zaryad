@@ -122,17 +122,11 @@ jobs:
           if [ -f scripts/update-cask.sh ]; then
             bash scripts/update-cask.sh "$VERSION" "$SHA256" "$OWNER" || true
           else
-            # Fallback: naive sed replace
+            # Fallback: macOS sed in-place replace
             if [ -f Casks/zaryad.rb ]; then
-              python3 - <<PY
-import re, pathlib, sys
-p=pathlib.Path('Casks/zaryad.rb')
-t=p.read_text()
-t=re.sub(r'version ".*?"', f'version "{sys.argv[1]}"', t)
-t=re.sub(r'sha256 ".*?"', f'sha256 "{sys.argv[2]}"', t)
-t=re.sub(r'url ".*?"', f'url "https://github.com/{sys.argv[3]}/zaryad/releases/download/v{sys.argv[1]}/Zaryad-{sys.argv[1]}-universal.dmg"', t)
-p.write_text(t)
-PY
+              sed -i '' "s|version \".*\"|version \"${VERSION}\"|" Casks/zaryad.rb
+              sed -i '' "s|sha256 \".*\"|sha256 \"${SHA256}\"|" Casks/zaryad.rb
+              sed -i '' "s|url \".*\"|url \"https://github.com/${OWNER}/zaryad/releases/download/v${VERSION}/Zaryad-${VERSION}-universal.dmg\"|" Casks/zaryad.rb
             fi
           fi
 
