@@ -24,7 +24,8 @@ jobs:
       - name: Generate Xcode project (if project.yml present)
         run: |
           if [ -f project.yml ]; then
-            xcodegen generate || true
+            # xcodegen generate || true
+            xcodegen generate
           else
             echo "project.yml not found, skipping xcodegen"
           fi
