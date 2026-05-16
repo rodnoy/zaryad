@@ -37,6 +37,27 @@ jobs:
           VERSION=${TAG#v}
           echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
 
+      - name: Setup Xcode
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -d "/Applications/Xcode_16.4.app" ]; then
+            sudo xcode-select -s /Applications/Xcode_16.4.app
+          elif [ -d "/Applications/Xcode_16.3.app" ]; then
+            sudo xcode-select -s /Applications/Xcode_16.3.app
+          elif [ -d "/Applications/Xcode_16.2.app" ]; then
+            sudo xcode-select -s /Applications/Xcode_16.2.app
+          else
+            sudo xcode-select -s /Applications/Xcode.app
+          fi
+          xcodebuild -version
+
+      - name: xcodebuild clean
+        shell: bash
+        run: |
+          set -euo pipefail
+          xcodebuild -project Zaryad.xcodeproj -scheme Zaryad -configuration Release -derivedDataPath build/DerivedData clean
+
       - name: Build macOS App (Release, universal)
         run: |
           set -e
