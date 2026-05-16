@@ -152,29 +152,34 @@ jobs:
           SHA256: ${{ steps.sha.outputs.sha256 }}
           OWNER: ${{ github.repository_owner }}
         run: |
+          set -euo pipefail
           if [ -z "$TAP_TOKEN" ]; then
             echo "HOMEBREW_TAP_TOKEN not set, skipping cask update"
             exit 0
           fi
 
-          CLONE_URL="https://x-access-token:${TAP_TOKEN}@github.com/${OWNER}/homebrew-zaryad.git"
+          # sanitize token (remove CR/LF)
+          TAP_TOKEN_CLEAN=$(printf '%s' "$TAP_TOKEN" | tr -d '\r\n')
 
-          if ! git clone "$CLONE_URL" /tmp/homebrew-zaryad; then
-            echo "Could not clone homebrew tap repo, skipping cask update"
+          CLONE_DIR=/tmp/homebrew-zaryad
+
+          echo "Cloning homebrew tap repo https://github.com/${OWNER}/homebrew-zaryad.git"
+          if ! git -c http.extraheader="AUTHORIZATION: bearer ${TAP_TOKEN_CLEAN}" clone "https://github.com/${OWNER}/homebrew-zaryad.git" "$CLONE_DIR"; then
+            echo "Could not clone homebrew tap repo, skipping cask update" >&2
             exit 0
           fi
 
-          cd /tmp/homebrew-zaryad
+          cd "$CLONE_DIR"
 
           if [ -f scripts/update-cask.sh ]; then
             bash scripts/update-cask.sh "$VERSION" "$SHA256" "$OWNER" || true
+          elif [ -f Casks/zaryad.rb ]; then
+            sed -i '' "s|version \".*\"|version \"${VERSION}\"|" Casks/zaryad.rb
+            sed -i '' "s|sha256 \".*\"|sha256 \"${SHA256}\"|" Casks/zaryad.rb
+            sed -i '' "s|url \".*\"|url \"https://github.com/${OWNER}/zaryad/releases/download/v${VERSION}/Zaryad-${VERSION}-universal.dmg\"|" Casks/zaryad.rb
           else
-            # Fallback: macOS sed in-place replace
-            if [ -f Casks/zaryad.rb ]; then
-              sed -i '' "s|version \".*\"|version \"${VERSION}\"|" Casks/zaryad.rb
-              sed -i '' "s|sha256 \".*\"|sha256 \"${SHA256}\"|" Casks/zaryad.rb
-              sed -i '' "s|url \".*\"|url \"https://github.com/${OWNER}/zaryad/releases/download/v${VERSION}/Zaryad-${VERSION}-universal.dmg\"|" Casks/zaryad.rb
-            fi
+            echo "No Casks/zaryad.rb found, skipping" >&2
+            exit 0
           fi
 
           git config user.name "github-actions[bot]"
