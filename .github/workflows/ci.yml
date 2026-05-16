@@ -31,6 +31,16 @@ jobs:
             xcodegen generate
           fi
 
+      - name: Clear Xcode DerivedData and ModuleCache
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf ~/Library/Developer/Xcode/DerivedData || true
+          rm -rf ~/Library/Developer/Xcode/DerivedData/ModuleCache.noindex || true
+          rm -rf /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex || true
+          rm -rf ~/Library/Developer/Xcode/Archives || true
+          rm -rf ~/Library/Developer/Xcode/DerivedData/*/ModuleCache.noindex || true
+
       - name: Build
         run: xcodebuild -project Zaryad.xcodeproj -scheme Zaryad -configuration Debug build
 
