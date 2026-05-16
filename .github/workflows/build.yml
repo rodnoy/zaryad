@@ -2,9 +2,7 @@ name: Build macOS Swift Package
 
 on:
   push:
-    branches: ["main", "master"]
-  pull_request:
-    branches: ["main", "master"]
+    tags: ["ci-cd"]
 
 jobs:
   build:
