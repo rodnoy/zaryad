@@ -66,6 +66,18 @@ jobs:
           fi
           xcodebuild -version
 
+      - name: Validate Xcode version
+        shell: bash
+        run: |
+          set -euo pipefail
+          XCODE_VER=$(xcodebuild -version | awk '/Xcode/ {print $2}')
+          echo "Selected Xcode: ${XCODE_VER}"
+          XCODE_MAJOR=${XCODE_VER%%.*}
+          if [ "${XCODE_MAJOR}" -lt 16 ]; then
+            echo "Error: Xcode ${XCODE_VER} is selected but Xcode 16+ is required to open project format. Please use a runner with Xcode 16+ (e.g. macos-15) or adjust your project to an older Xcode format." >&2
+            exit 1
+          fi
+
       - name: xcodebuild clean
         shell: bash
         run: |
