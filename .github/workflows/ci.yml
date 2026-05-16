@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-  pull_request:
+    tags: ["ci-cd"]
 
 jobs:
   build-and-test:
@@ -40,6 +40,12 @@ jobs:
           rm -rf /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex || true
           rm -rf ~/Library/Developer/Xcode/Archives || true
           rm -rf ~/Library/Developer/Xcode/DerivedData/*/ModuleCache.noindex || true
+
+      - name: xcodebuild clean
+        shell: bash
+        run: |
+          set -euo pipefail
+          xcodebuild -project Zaryad.xcodeproj -scheme Zaryad -configuration Debug clean
 
       - name: Build
         run: xcodebuild -project Zaryad.xcodeproj -scheme Zaryad -configuration Debug build
